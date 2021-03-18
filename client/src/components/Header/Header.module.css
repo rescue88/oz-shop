@@ -1,0 +1,47 @@
+.header {
+    padding: 1rem 1.5rem;
+    font-size: 1.4rem;
+    background: #2B3253;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* imga block */
+.header__logoBlock {
+    display: flex;
+    align-items: center;
+}
+
+.header__logoBlock .img {
+    width: 60px;
+    height: 60px;
+    margin-right: 1rem;
+}
+
+.header__logoBlock .img img {
+    width: 100%;
+    height: 100%;
+}
+
+.header__logoBlock .name {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+}
+
+/* search block */
+/* .select {
+    background: #0F1642;
+} */
+
+.ant-select {
+    background: red;
+}
+
+.select__dropdown {
+    background: #0F1642;
+}
+
+.select__dropdown > :hover {
+    background: red;
+}

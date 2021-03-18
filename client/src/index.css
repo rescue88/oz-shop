@@ -1,0 +1,87 @@
+@import 'antd/dist/antd.css';
+/* variables */
+:root {
+  --primary-color: #33F681;
+}
+/* fonts(Roboto) */
+@font-face {
+  font-family: 'Roboto';
+  src: url(./assets/fonts/Roboto-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./assets/fonts/Roboto-Italic.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./assets/fonts/Roboto-Medium.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(./assets/fonts/Roboto-Light.ttf) format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* better calculatings with rem */
+html {
+  font-size: 10px;
+}
+
+/* same styles for all the tags(i think normalize.css isnt needed) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #FFF;
+  font-family: 'Roboto', Sans-Serif;
+}
+
+/* subject background with a blured forefront */
+body {
+  position: relative;
+  background-image: url(./assets/top-background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+
+  z-index: -1;
+}
+
+/* same global styles */
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* blured forefront */
+body::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(214, 207, 199, .8);
+
+  z-index: -2;
+}
+
+/* App container */
+/* TODO: get rid of background */
+.main-container {
+  width: 70%;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, .75); 
+}
