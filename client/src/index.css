@@ -1,7 +1,11 @@
-@import 'antd/dist/antd.css';
 /* variables */
 :root {
-  --primary-color: #33F681;
+  --primary-color: rgb(51, 246, 129);
+  --secondary-color: rgb(255, 168, 76);
+  --linear-primary: #6AC676;
+  --linear-secondary: #499E63;
+  --def-back: rgb(43, 50, 83);
+  --foreground-back: rgb(15, 22, 66);
 }
 /* fonts(Roboto) */
 @font-face {
@@ -51,6 +55,7 @@ body {
   position: relative;
   background-image: url(./assets/top-background.jpg);
   background-size: cover;
+  background-position: f;
   background-attachment: fixed;
 
   z-index: -1;
@@ -59,10 +64,15 @@ body {
 /* same global styles */
 ul {
   list-style: none;
+  display: flex;
 }
 
 a {
   text-decoration: none;
+}
+
+svg {
+  fill: #FFFFFF;
 }
 
 /* blured forefront */
@@ -73,7 +83,9 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(214, 207, 199, .8);
+  /* background: rgba(214, 207, 199, .8); */
+  background: var(--def-back);
+  opacity: .85;
 
   z-index: -2;
 }
@@ -82,6 +94,17 @@ body::before {
 /* TODO: get rid of background */
 .main-container {
   width: 70%;
+  height: 100vh;
+  background: gray;
   margin: 0 auto;
-  background: rgba(0, 0, 0, .75); 
+}
+
+.content {
+  padding: 2rem 0;
+  background: var(--def-back);
+  display: flex;
+}
+
+.content nav {
+  flex-basis: 25%;
 }
