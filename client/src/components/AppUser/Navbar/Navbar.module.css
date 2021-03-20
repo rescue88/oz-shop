@@ -1,0 +1,6 @@
+/* menu block */
+.nav {
+    height: auto;
+    flex-basis: 25%;
+    background: var(--def-back);
+}
