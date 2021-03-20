@@ -1,7 +1,8 @@
 .header {
     padding: 1rem 1.5rem;
     font-size: 1.4rem;
-    background: #2B3253;
+    background: var(--foreground-back);
+
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,17 +32,13 @@
 
 /* search block */
 /* .select {
-    background: #0F1642;
+    width: 200px;
+}
+
+.select .select__item {
+    background: var(--foreground-back);
 } */
 
-.ant-select {
-    background: red;
-}
-
-.select__dropdown {
-    background: #0F1642;
-}
-
-.select__dropdown > :hover {
+.MuiSelect-select {
     background: red;
 }

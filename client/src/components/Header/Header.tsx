@@ -1,21 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Select } from 'antd';
+import { Select, MenuItem, InputLabel } from '@material-ui/core';
 
 import st from './Header.module.css';
-import logo from './../../assets/images/logo.svg';
-import cart from './../../assets/images/cart.svg';
-
-const { Option } = Select;
+import logo from './../../assets/icons/logo.svg';
 
 const Header: React.FC = () => {
-    const [dropdownValue, setDropdownValue] = useState('');
-
-    function handleChange(value: any) {
-        setDropdownValue(value);
-        console.log(value);
-    }
-
     return (
         <header className={st.header}>
             <NavLink className={st.header__logoBlock} to="/app">
@@ -28,18 +18,23 @@ const Header: React.FC = () => {
             </NavLink>
             <div className={st.searchBlock}>
                 <div className={st.searchBlock__category}>
-                    <Select
-                        className={st.select}
-                        dropdownClassName={st.select__dropdown}
-                        defaultActiveFirstOption={true}
-                        style={{ width: 120, background: '#0F1642' }} 
-                        onChange={handleChange}
-                        allowClear
-                    >
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="Yiminghe">yiminghe</Option>
-                    </Select>
+                <InputLabel id="demo-controlled-open-select-label">Age</InputLabel>
+                <Select
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select"
+                    // open={open}
+                    // onClose={handleClose}
+                    // onOpen={handleOpen}
+                    // value={age}
+                    // onChange={handleChange}
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
                 </div>
             </div>
         </header>
