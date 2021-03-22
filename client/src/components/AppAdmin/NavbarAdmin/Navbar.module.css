@@ -1,8 +1,5 @@
 /* menu block */
 .nav {
-    height: auto;
-    background: var(--foreground-back);
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,12 +11,12 @@
 }
 
 .nav a:not(.nav__itemActive) .nav__item:hover:not(.nav__itemActive) {
-    background: linear-gradient(var(--linear-primary), var(--linear-secondary));
+    background: var(--secondary-color);
 }
 
 /* nav item */
 .nav .nav__itemActive {
-    background: var(--secondary-color);
+    background: linear-gradient(var(--linear-primary), var(--linear-secondary));
 }
 
 .nav__item {
