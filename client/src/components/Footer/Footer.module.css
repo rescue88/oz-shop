@@ -1,6 +1,6 @@
 /* footer */
 .footer {
-    padding: 3rem 3rem;
+    padding: 2rem 3rem;
     background: var(--foreground-back);
     display: flex;
     justify-content: space-between;
@@ -9,7 +9,7 @@
 
 /* menu */
 .footer .footer__menu .menu__item:not(:last-child) {
-    margin-right: 2.5rem;
+    margin-right: 3rem;
 }
 
 .footer .footer__menu .menu__item a {
