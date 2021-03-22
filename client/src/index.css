@@ -61,6 +61,20 @@ body {
   z-index: -1;
 }
 
+/* blured foreground */
+body::before {
+  position: fixed;
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--def-back);
+  opacity: .85;
+
+  z-index: -2;
+}
+
 /* same global styles */
 ul {
   list-style: none;
@@ -75,27 +89,10 @@ svg {
   fill: #FFFFFF;
 }
 
-/* blured forefront */
-body::before {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  /* background: rgba(214, 207, 199, .8); */
-  background: var(--def-back);
-  opacity: .85;
-
-  z-index: -2;
-}
-
 /* App container */
-/* TODO: get rid of background */
 .main-container {
   width: 70%;
   height: 100vh;
-  background: gray;
   margin: 0 auto;
 }
 
@@ -105,6 +102,16 @@ body::before {
   display: flex;
 }
 
+.content nav, .content .page-container {
+  padding: 2rem 3rem;
+}
+
 .content nav {
-  flex-basis: 25%;
+  min-width: 25%;
+  background: var(--foreground-back);
+}
+
+.content .page-container {
+  max-width: 75%;
+  border: 1px solid red;
 }
