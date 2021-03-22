@@ -1,0 +1,57 @@
+/* slick slider container */
+.slider {
+    width: 80%;
+    min-width: 0;
+    height: 30rem;
+    margin: 0 auto;
+}
+
+.slider .slider__item {
+    height: 300px;
+    padding: 0 1rem;
+}
+
+.slider .slider__item:focus {
+    outline: none;
+    border: none;
+}
+
+.slider .slider__item img {
+    width: 100%;
+    height: 100%;
+}
+/* slick chevrons */
+.arrowNext, .arrowPrev {
+    position: absolute;
+    top: calc(50% - 25px);
+    height: 50px;
+    width: 50px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.arrowPrev {
+    left: -5rem;
+}
+
+.arrowNext {
+    right: -5rem;
+}
+
+.arrowNext:focus, .arrowPrev:focus {
+    outline: none;
+}
+
+.arrowNext:active, .arrowPrev:active {
+    transform: scale(1.1);
+}
+
+.arrowNext:hover svg, .arrowPrev:hover svg {
+    fill: var(--secondary-color);
+}
+
+.arrowNext svg, .arrowPrev svg {
+    width: 75%;
+    height: 75%;
+}
