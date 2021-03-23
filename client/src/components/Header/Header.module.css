@@ -8,7 +8,7 @@
     align-items: center;
 }
 
-/* imga block */
+/* img block */
 .header__logoBlock {
     display: flex;
     align-items: center;
@@ -41,4 +41,35 @@
 
 .MuiSelect-select {
     background: red;
+}
+
+/* theme toggle block */
+.toggle {
+    position: relative;
+    width: 6rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    /* border: 2px solid var(--linear-primary); */
+    background: linear-gradient(lightcyan, lightyellow);
+}
+/* toggle circle */
+.night {
+    position: absolute;
+    top: .3rem;
+    left: .3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: gold;
+    box-shadow: 0 0 5px yellow;
+    transition: all .3s ease;
+}
+/* toggle in another mode */
+.toggle.dark {
+    background: linear-gradient(midnightblue, rebeccapurple);
+}
+.toggle.dark .night {
+    background: #FEFEFE;
+    box-shadow: 0 0 5px #FFF;
+    transform: translate(3rem, 0);
 }
