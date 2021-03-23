@@ -1,12 +1,10 @@
 import { Router } from 'express';
-// import userCtrl from './../controllers/user.controller.js';
-// import authCtrl from './../controllers/auth.controller.js';
+import userCtrl from './../controllers/user.controller.js';
+import authCtrl from './../controllers/auth.controller.js';
 
 const router = Router();
 
-router.route('/api/users')
-    .get(userCtrl.list)
-    .post(userCtrl.create);
+router.route('/api/users').post(userCtrl.create);
 
 router.param('userId', userCtrl.userByID);
 

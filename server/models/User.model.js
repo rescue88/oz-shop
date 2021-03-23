@@ -2,6 +2,10 @@ import { Schema, model } from 'mongoose';
 import crypto from 'crypto';
 
 const UserSchema = new Schema({
+    avatar: {
+        data: Buffer,
+        contentType: String
+    },
     name: {
         type: String,
         trim: true,
@@ -26,6 +30,13 @@ const UserSchema = new Schema({
         trim: true,
         enum: ['admin', 'user', 'moder'],
         default: 'user'
+    },
+    favorites: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Product'
+        }],
+        default: []
     },
     created: {
         type: Date,
