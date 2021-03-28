@@ -1,43 +1,41 @@
-import { makeStyles } from '@material-ui/core';
 import { FieldAttributes, useField } from 'formik';
-import { TextField } from '@material-ui/core';
+import { TextField, FormControl, FormHelperText } from '@material-ui/core';
 import { FC } from 'react';
-
-const useStyles = makeStyles({
-    textField: {
-        padding: '.3rem 0',
-        background: 'var(--def-back)'
-    },
-    input: {
-      fontSize: '1.6rem',
-      WebkitBoxShadow: '0 0 0 1000px var(--def-back) inset',
-      color: 'var(--secondary-color)'
-    }
-});
+import { useStyles } from './useStyles';
 
 type MyTextFieldType = {
-    width?: number
+    width?: number | string
 } & FieldAttributes<{}>
 
-const MyTextField: FC<MyTextFieldType> = ({ width, placeholder, ...props }) => {
+const MyTextField: FC<MyTextFieldType> = ({ width, placeholder, type, ...props }) => {
     const [field, meta] = useField<{}>(props);
     const errorText = meta.error && meta.touched ? meta.error : '';
     const classes = useStyles();
   
     return (
-      <TextField
-        className={classes.textField}
-        inputProps={{
-          className: classes.input,
-          style: {
-            width: width,
-          }
-        }}
-        {...field} 
-        placeholder={placeholder}
-        helperText={errorText}
-        error={!!errorText}
-      />
+      <FormControl error={!!errorText}>
+        <TextField
+          className={classes.textField}
+          inputProps={{
+            className: classes.autoInput,
+            classes: {
+              root: {
+                fontSize: 14
+              }
+            },
+            style: {
+              width: '25rem',
+            },
+          }}
+          id={field.name}
+          {...field} 
+          type={type}
+          placeholder={placeholder}
+          // helperText={errorText}
+          error={!!errorText}
+        />
+        <FormHelperText className={classes.helperText} id={field.name}>{errorText}</FormHelperText>
+      </FormControl>
     )
 }
 
