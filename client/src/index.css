@@ -89,6 +89,13 @@ svg {
   fill: #FFFFFF;
 }
 
+hr {
+  height: .3rem;
+  margin: 1rem 0;
+  background: var(--secondary-color);
+  border: none;
+}
+
 /* App container */
 .main-container {
   width: 70%;
@@ -102,7 +109,7 @@ svg {
   display: flex;
 }
 
-.content nav, .content .page-container {
+.content nav {
   padding: 2rem 3rem;
 }
 
@@ -112,6 +119,8 @@ svg {
 }
 
 .content .page-container {
+  width: 75%;
   max-width: 75%;
-  border: 1px solid red;
+  min-height: 90vh;
+  padding: 0 3rem;
 }

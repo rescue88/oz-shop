@@ -39,10 +39,3 @@
     height: 2rem;
     margin-right: .5rem;
 }
-
-hr {
-    height: .3rem;
-    margin: 1rem 0;
-    background: var(--secondary-color);
-    border: none;
-}
