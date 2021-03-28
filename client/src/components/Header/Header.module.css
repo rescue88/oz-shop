@@ -31,45 +31,32 @@
 }
 
 /* search block */
-/* .select {
-    width: 200px;
+
+/* header nav */
+.headerNav {
+    background: var(--def-back);
 }
 
-.select .select__item {
-    background: var(--foreground-back);
-} */
-
-.MuiSelect-select {
-    background: red;
+.headerNav ul li {
+    padding: .5rem 2rem;
 }
 
-/* theme toggle block */
-.toggle {
-    position: relative;
-    width: 6rem;
+.headerNav ul li:not(:last-child) {
+    border-right: 1px solid #FFF;
+}
+
+.headerNav ul li:hover {
+    background: var(--secondary-color);
+}
+
+.headerNav ul li .link svg {
+    width: 3rem;
     height: 3rem;
-    border-radius: 1.5rem;
-    /* border: 2px solid var(--linear-primary); */
-    background: linear-gradient(lightcyan, lightyellow);
 }
-/* toggle circle */
-.night {
-    position: absolute;
-    top: .3rem;
-    left: .3rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background: gold;
-    box-shadow: 0 0 5px yellow;
-    transition: all .3s ease;
-}
-/* toggle in another mode */
-.toggle.dark {
-    background: linear-gradient(midnightblue, rebeccapurple);
-}
-.toggle.dark .night {
-    background: #FEFEFE;
-    box-shadow: 0 0 5px #FFF;
-    transform: translate(3rem, 0);
+
+.headerNav .linkBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
