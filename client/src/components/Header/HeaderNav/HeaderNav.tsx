@@ -36,7 +36,7 @@ const HeaderNav: FC = () => {
                     )
                 }
                 <li>
-                    <NavLink className={st.link} to={`/app/${isAuth? 'login': 'logout'}`}>
+                    <NavLink className={st.link} to={`/app/${isAuth? 'logout': 'login'}`}>
                         <HeaderNavItem Icon={isAuth? HeaderNavSignOutIcon : HeaderNavSignInIcon} name={isAuth ? 'Вийти': 'Увійти'} />
                     </NavLink>
                 </li>
