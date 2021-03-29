@@ -54,11 +54,11 @@ const LoginForm: FC = () => {
                 ({isSubmitting}) => (
                     <Form>
                         <div className={st.inputField}>
-                            <Field width={250} validate={ValidateLogin} name="login" placeholder="Введіть логін" type="input" as={MyTextField} />
+                            <Field width={250} validate={ValidateLogin} name="login" placeholder="Введіть логін" type="text" as={MyTextField} />
                         </div>
                         <div className={st.inputField}>
                             <Field 
-                                width={205}
+                                width={203}
                                 validate={ValidatePassword}
                                 name="password" 
                                 placeholder="Введіть пароль"
