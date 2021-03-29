@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core';
 // common styles for inputs/buttons
 export const useStyles = makeStyles({
     textField: {
-        padding: '.3rem 0',
         background: 'var(--def-back)',
         fontSize: '1.6rem'
     },
@@ -23,6 +22,10 @@ export const useStyles = makeStyles({
         transition: 'all 1s',
         '&:hover': {
             background: 'var(--secondary-color)',
+        },
+        '&:disabled': {
+            background: 'var(--def-back)',
+            border: '1px solid red'
         }
     }
 });
