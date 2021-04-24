@@ -2,8 +2,8 @@ import React from 'react';
 import Navbar from './Navbar/Navbar';
 import { Route } from 'react-router-dom';
 import Home from './Home/Home';
-import Login from './Login/Login';
-import Register from './Register/Register';
+import Login from './auth/Login/Login';
+import Register from './auth/Register/Register';
 
 const AppUser: React.FC = () => {
     return (

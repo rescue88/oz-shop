@@ -1,9 +1,9 @@
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import validator from 'validator';
-import MyPasswordField from '../../../common/MyPasswordField';
-import MySubmitButton from '../../../common/MySubmitButton';
-import MyTextField from '../../../common/MyTextField';
+import MyPasswordField from '../../../../common/MyPasswordField';
+import MySubmitButton from '../../../../common/MySubmitButton';
+import MyTextField from '../../../../common/MyTextField';
 import st from './../Register.module.css';
 
 const ValidateLogin = (value: string): string => {

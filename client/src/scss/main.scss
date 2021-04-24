@@ -1,3 +1,111 @@
+@import './fonts';
+@import './variables';
+
+@import './components/all';
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    outline: none;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: 'Roboto', Sans-Serif;
+}
+
+html {
+    font-size: 10px;
+}
+
 body {
-    background: red;
+    position: relative;
+    background-image: url(./assets/body-background.jpg);
+    background-size: cover;
+    background-position: f;
+    background-attachment: fixed;
+
+    z-index: -1;
+}
+
+// blured background
+body::before {
+    position: fixed;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--def-back);
+    opacity: 0.85;
+
+    z-index: -2;
+}
+
+ul {
+    display: flex;
+}
+
+a {
+    text-decoration: none;
+}
+
+svg {
+    fill: #ffffff;
+}
+
+hr {
+    height: 0.3rem;
+    margin: 1rem 0;
+    background: $secondary-color;
+    border: none;
+}
+
+// global common classes
+.centered-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.space-betw-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// skeleton styles
+// app container
+.main-container {
+    width: 70%;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.content {
+    padding: 2rem 0;
+    background: var(--def-back);
+    display: flex;
+}
+
+.content nav {
+    padding: 2rem 3rem;
+}
+
+.content nav {
+    min-width: 25%;
+    background: var(--foreground-back);
+}
+
+.content .page-container {
+    width: 75%;
+    max-width: 75%;
+    min-height: 90vh;
+    padding: 0 3rem;
 }

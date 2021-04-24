@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import st from './Home.module.css';
-import img from './../../../assets/top-background.jpg';
+import img from './../../../assets/slider.jpg';
 import PrevButton from './Arrows/PrevButton';
 import NextButton from './Arrows/NextButton';
 import RandomPropsType from './Arrows/RandomPropsType';
