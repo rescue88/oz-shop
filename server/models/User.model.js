@@ -1,5 +1,4 @@
-import { Schema, model } from 'mongoose';
-import crypto from 'crypto';
+const { Schema, model, Types } = require('mongoose');
 
 const UserSchema = new Schema({
     avatar: {
@@ -8,87 +7,46 @@ const UserSchema = new Schema({
     },
     name: {
         type: String,
-        trim: true,
-        required: 'Name is required'
+        required: "Ім'я обо'язкове поле"
     },
     email: {
         type: String,
-        trim: true,
-        unique: 'Email already exists',
+        unique: 'Дана пошта уже використовується в системі',
         match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-        required: 'Email is required'
+        required: "Пошта обо'язкове поле"
     },
-    nickname: {
+    login: {
         type: String,
-        trim: true,
-        unique: 'Nickname is already in use',
-        match: [/^[a-zA-Z0-9_]*$/, 'Please enter a valid nickname'],
-        required: 'Nickname is required'
+        unique: 'Даний логін уже використовується в системі',
+        match: [/^[a-zA-Z0-9_]*$/, 'Введіть логін у правильному форматі'],
+        required: "Логін обо'язкове поле"
+    },
+    phone: {
+        type: String,
+        unique: 'Даний мобільний уже використовується в системі',
+        required: "Телефон обо'язкове поле"
     },
     permissions: {
         type: String,
-        trim: true,
         enum: ['admin', 'user', 'moder'],
         default: 'user'
     },
-    favorites: {
-        type: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Product'
-        }],
-        default: []
+    password: {
+        type: String,
+        required: "Пароль обо'язкове поле"
     },
+    updated: Date,
     created: {
         type: Date,
         default: Date.now
     },
-    updated: Date,
-    hashed_password: {
-        type: String,
-        required: "Password is required"
+    favorites: {
+        type: [{
+            type: Types.ObjectId,
+            ref: 'Product'
+        }],
+        default: []
     },
-    salt: String
 });
 
-UserSchema.virtual('password')
-            .set(function(password) {
-                this._password = password;
-                this.salt = this.makeSalt();
-                this.hashed_password = this.encryptPassword(password);
-            })
-            .get(function() {
-                return this._password;
-            });
-
-UserSchema.path('hashed_password').validate(function(v) {
-    if(this._password && this._password.length < 6) {
-        this.invalidate('password', 'Password must be at least 6 characters');
-    }
-    if(this.isNew && !this._password) {
-        this.invalidate('password', 'Password is required');
-    }
-}, null);
-
-UserSchema.methods = {
-    // comparing passwords
-    authenticate: function(plainText) {
-        return this.encryptPassword(plainText) === this.hashed_password;
-    },
-    // hashing password
-    encryptPassword: function(password) {
-        if(!password) return '';
-        try {
-            return crypto.createHmac('sha1', this.salt)
-                            .update(password)
-                            .digest('hex');
-        } catch(err) {
-            return '';
-        }
-    },
-    // making an original identifier for encrypting(same passwords looks different)
-    makeSalt: function() {
-        return Math.round((new Date().valueOf() * Math.random())) + '';
-    }
-}
-
-export default model('User', UserSchema);
+module.exports = model('User', UserSchema);

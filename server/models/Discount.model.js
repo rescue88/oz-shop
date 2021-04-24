@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+const { Schema, model } = require('mongoose');
 
 const DiscountSchema = new Schema({
     name: {
@@ -24,4 +24,4 @@ const DiscountSchema = new Schema({
     }
 });
 
-export default model('Discount', DiscountSchema);
+module.exports = model('Discount', DiscountSchema);

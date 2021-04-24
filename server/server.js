@@ -1,11 +1,27 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
+const config = require('config');
 
-import app from './express.js';
-import config from './config/config.js';
+const app = require('./express');
 
 // assigning config values
-const PORT = config.port;
-const URI = config.mongoUri;
+const PORT = config.get('port') || 5000;
+const URI = config.get('mongoUri');
+
+async function start() {
+    try {
+        await mongoose.connect(URI, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true
+        });
+        console.log("Succesfully connected to DB");
+    } catch(e) {
+        console.log("Server Error", e.message);
+        process.exit(1);
+    }
+}
+
+start();
 
 // starting application
 app.listen(PORT, (err) => {
@@ -13,20 +29,4 @@ app.listen(PORT, (err) => {
         console.log(err);
     }
     console.log(`Server is running on port ${PORT}`);
-});
-
-// connecting to DB
-mongoose.connect(URI, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-});
-// checking for connection error
-mongoose.connection.on('error', () => {
-    throw new Error(`unable to connect to DB: ${URI}`);
-});
-
-// listen to a base url
-app.get('/', (req, res) => {
-    res.status(200).send('<div><h1>Server is working</h1></div>');
 });

@@ -1,9 +1,8 @@
-import { Router } from 'express';
-import userCtrl from './../controllers/user.controller.js';
-import authCtrl from './../controllers/auth.controller.js';
+const { Router } = require('express');
 
 const router = Router();
 
+// get all users
 router.get(
     '/',
     async (req, res) => {
@@ -16,12 +15,12 @@ router.get(
         }
     }
 )
+// find user by id
+// router.param('userId', userCtrl.userByID);
 
-router.param('userId', userCtrl.userByID);
+// router.route('/:userId')
+//     .get(authCtrl.requireSignin, userCtrl.read)
+//     .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
+//     .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove);
 
-router.route('/:userId')
-    .get(authCtrl.requireSignin, userCtrl.read)
-    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
-    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove);
-
-export default router;
+module.exports = router;

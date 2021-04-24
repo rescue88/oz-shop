@@ -1,8 +1,4 @@
-import express from 'express';
-// import cookieParser from 'cookie-parser';
-// import compress from 'compression';
-// import cors from 'cors';
-// import helmet from 'helmet';
+const express = require('express');
 
 const app = express();
 
@@ -10,17 +6,7 @@ const app = express();
 app.use(express.json({extended: true}));
 
 // listen to a base url and call routers
-app.use('/users', userRoutes);
-app.use('/auth', authRoutes);
+app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/users', require('./routes/user.routes'));
 
-app.use((err, req, res, next) => {
-    if(err.name === 'UnauthorizedError') {
-        res.status(401).json({ error: `${err.name}: ${err.message}` });
-    }
-    else if(err) {
-        res.status(400).json({ error: `${err.name}: ${err.message}` });
-        console.log(err);
-    }
-});
-
-export default app;
+module.exports = app;

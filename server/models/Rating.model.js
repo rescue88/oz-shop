@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+const { Schema, model } = require('mongoose');
 
 const RatingSchema = new Schema({
     user: {
@@ -17,4 +17,4 @@ const RatingSchema = new Schema({
     updated: Date
 });
 
-export default model('Rating', RatingSchema);
+module.exports = model('Rating', RatingSchema);
