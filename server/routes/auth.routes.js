@@ -3,10 +3,31 @@ import { Router } from 'express';
 
 const router = Router();
 
-// router.route('/auth/signin')
-//     .post(authCtrl.signin);
+// try to auth
+router.post(
+    '/login',
+    async (req, res) => {
+        try {
+            console.log("here");
+        } catch(e) {
+            return res.status(400).json({
+                message: e.message
+            });
+        }
+    }
+);
+// create user
+router.get(
+    '/register',
+    async (req, res) => {
+        try {
 
-// router.route('/auth/signout')
-//     .get(authCtrl.signout);
+        } catch(e) {
+            return res.status(400).json({
+                message: e.message
+            });
+        }
+    }
+);
 
 export default router;
