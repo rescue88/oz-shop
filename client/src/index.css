@@ -8,46 +8,9 @@
     --foreground-back: rgb(15, 22, 66);
 }
 
-a {
-    text-decoration: none;
-}
-
-svg {
-    fill: #ffffff;
-}
-
 hr {
     height: 0.3rem;
     margin: 1rem 0;
     background: var(--secondary-color);
     border: none;
-}
-
-/* App container */
-.main-container {
-    width: 70%;
-    height: 100vh;
-    margin: 0 auto;
-}
-
-.content {
-    padding: 2rem 0;
-    background: var(--def-back);
-    display: flex;
-}
-
-.content nav {
-    padding: 2rem 3rem;
-}
-
-.content nav {
-    min-width: 25%;
-    background: var(--foreground-back);
-}
-
-.content .page-container {
-    width: 75%;
-    max-width: 75%;
-    min-height: 90vh;
-    padding: 0 3rem;
 }

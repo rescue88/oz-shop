@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import st from './Login.module.css';
+
 import LoginForm from './LoginForm/LoginForm';
 
 const Login: FC = () => {
 
     return (
-        <div className={st.loginBlock}>
-            <div className={st.loginHeader}>Авторизація</div>
+        <div className="auth centered-col">
+            <div className="auth__header">Авторизація</div>
             <hr/>
             <LoginForm />
-            <div className={st.gotoRegister}>
-                Немає акаунту? Тоді створіть його на сторінці <NavLink className={st.link} to="/app/register">реєстрації</NavLink>!
+            <div className="auth__tip">
+                Немає акаунту? Тоді створіть його на сторінці <NavLink className="auth__tip_link" to="/app/register">реєстрації</NavLink>!
             </div>
         </div>
     )

@@ -1,9 +1,9 @@
 import { FC, useState } from 'react';
 import { Field, Form, Formik } from "formik";
+
 import MyPasswordField from "../../../../common/MyPasswordField";
 import MySubmitButton from "../../../../common/MySubmitButton";
 import MyTextField from "../../../../common/MyTextField";
-import st from './../Login.module.css';
 
 const ValidateLogin = (value: string): string => {
     let error: string = '';
@@ -53,10 +53,10 @@ const LoginForm: FC = () => {
             {
                 ({isSubmitting}) => (
                     <Form>
-                        <div className={st.inputField}>
+                        <div className="auth__input">
                             <Field width={250} validate={ValidateLogin} name="login" placeholder="Введіть логін" type="text" as={MyTextField} />
                         </div>
-                        <div className={st.inputField}>
+                        <div className="auth__input">
                             <Field 
                                 width={203}
                                 validate={ValidatePassword}
@@ -68,7 +68,7 @@ const LoginForm: FC = () => {
                                 as={MyPasswordField} 
                             />
                         </div>
-                        <div className={st.submitBtn}>
+                        <div className="auth__submit">
                             <MySubmitButton disabled={isSubmitting} text="Увійти" />
                         </div>
                     </Form>
