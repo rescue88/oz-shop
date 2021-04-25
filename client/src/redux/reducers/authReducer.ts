@@ -1,37 +1,40 @@
 type AuthStateType = {
-    userId: string | null,
-    email: string | null,
-    login: string | null,
-    token: string | null,
+    token: null | string,
     isAuth: boolean,
-    isFetching?: boolean
+    isLoading?: boolean
 }
 /* ACTIONS */
-const SET_USER_DATA: string = 'authReducer/SET-USER-DATA';
+const SIGN_IN: string = 'authReducer/SET-USER-DATA';
 
 /* INITIAL STATE */
-let authState: AuthStateType = {
-    userId: null,
-    email: null,
-    login: null,
+const authState: AuthStateType = {
     token: null,
-    isAuth: false
+    isAuth: false,
+    isLoading: false
 }
 
 /* ACTION CREATORS */
+export const signInActionCreator = (payload: any) => {
+    return {
+        type: SIGN_IN,
+        payload
+    }
+}
 
 /* THUNKS */
+export const login = () => {
+    
+}
 
 /* REDUCER */
 
 export const authReducer = (state: AuthStateType = authState, action: any) => {
     switch(action.type) {
-        case SET_USER_DATA: {
+        case SIGN_IN:
             return {
                 ...state,
                 ...action.playload
             }
-        }
         default:
             return state;
     }

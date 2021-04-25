@@ -1,12 +1,11 @@
-import { authReducer } from './authReducer';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-let reducers: any = combineReducers({
-    auth: authReducer
-});
+import { rootReducer } from './reducers/rootReducer';
 
-let store = createStore(reducers, applyMiddleware(thunk));
-(window as any).store = store;
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // redux extension installation + adding thunk middleware
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 export default store;
