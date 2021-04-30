@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const User = require('./../models/User.model');
 
 const router = Router();
 
@@ -7,7 +8,18 @@ router.get(
     '/',
     async (req, res) => {
         try {
-            console.log("here");
+            const users = await User.find();
+            console.log(users)
+
+            if(users) {
+                return res.status(200).json({
+                    users
+                });
+            }
+
+            return res.status(400).json({
+                message: 'Немає зареєстрованих юзерів'
+            });
         } catch(e) {
             return res.status(400).json({
                 message: e.message

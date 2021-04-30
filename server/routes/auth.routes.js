@@ -6,20 +6,6 @@ const config = require('config');
 
 const router = Router();
 
-router.get(
-    '/',
-    async (req, res) => {
-        try {
-            console.log("here");
-            return res.status(200).json({
-                message: "yoyoy"
-            });
-        } catch(e) {
-            return res.status(400);
-        }
-    }
-)
-
 // try to auth
 router.post(
     '/login',
