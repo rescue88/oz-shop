@@ -1,0 +1,71 @@
+.header {
+    padding: 1rem 1.5rem;
+    background: $foreground-back;
+    // picture with a description
+    &__logo {
+        &_img {
+            width: 6rem;
+            height: 6rem;
+            margin-right: 1rem;
+        }
+
+        &_name {
+            color: $primary-color;
+            font-size: 2rem;
+            line-height: 0.75;
+            text-align: center;
+            span {
+                font-size: 1.2rem;
+            }
+        }
+    }
+    // search field and submit btn
+    &__search {
+        form {
+            display: flex;
+            align-items: center;
+        }
+    }
+    // user bar with icons
+    &__bar {
+        background: $def-back;
+
+        &_link {
+            position: relative;
+            a {
+                display: block;
+                padding: 0.5rem 1.5rem;
+            }
+
+            &:not(:last-child) {
+                border-right: 1px solid #fff;
+            }
+
+            &:hover {
+                background: $secondary-color;
+            }
+            // only for cart to show amount of choosen products
+            .cart-items {
+                position: absolute;
+                top: 0.3rem;
+                left: 5rem;
+                width: 2rem;
+                height: 2rem;
+                background: $foreground-back;
+                border-radius: 50%;
+            }
+            // special styles if cart is not empty
+            .active-cart {
+                background: $green-dark;
+            }
+        }
+
+        &_item {
+            font-size: 1.4rem;
+            svg {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+}
