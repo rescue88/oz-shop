@@ -1,0 +1,36 @@
+.footer {
+    padding: 2rem 3rem;
+    background: $foreground-back;
+    &__menu {
+        &_item {
+            &:not(:last-child) {
+                margin-right: 1.5rem;
+            }
+
+            a:hover {
+                color: $secondary-color;
+            }
+        }
+    }
+
+    &__network {
+        a {
+            &:not(:last-child) {
+                margin-right: 1.5rem;
+            }
+
+            svg {
+                width: 2.5rem;
+                height: 2.5rem;
+                &:hover {
+                    fill: $primary-color;
+                }
+            }
+        }
+    }
+
+    &__rights {
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+    }
+}

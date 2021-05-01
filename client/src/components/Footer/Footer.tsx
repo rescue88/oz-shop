@@ -1,15 +1,14 @@
 import { FC } from 'react';
-import FooterNav from './FooterNav/FooterNav';
 
-import st from './Footer.module.css';
+import FooterNav from './FooterNav/FooterNav';
 import FooterNetwork from './FooterNetwork/FooterNetwork';
 
 const Footer: FC = () => {
     return (
-        <footer className={st.footer}>
+        <footer className="footer space-betw-row">
             <FooterNav />
             <FooterNetwork />
-            <div className={st.footer__rights}>©ТОВ "OZ" 2021. Усі права захищені.</div>
+            <div className="footer__rights">©ТОВ "OZ" 2021. Усі права захищено.</div>
         </footer>
     );
 }
