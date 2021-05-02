@@ -3,7 +3,8 @@ const { Schema, model, Types } = require('mongoose');
 const UserSchema = new Schema({
     avatar: {
         data: Buffer,
-        contentType: String
+        contentType: String,
+        default: ''
     },
     name: {
         type: String,
@@ -12,7 +13,7 @@ const UserSchema = new Schema({
     email: {
         type: String,
         unique: 'Дана пошта уже використовується в системі',
-        match: [/.+\@.+\..+/, 'Please fill a valid email address'],
+        match: [/.+\@.+\..+/, 'Будь-ласка, заповніть пошту правильно'],
         required: "Пошта обо'язкове поле"
     },
     login: {
