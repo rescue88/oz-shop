@@ -60,6 +60,11 @@ hr {
     border: none;
 }
 
+// material-ui snackbar font-size
+.MuiAlert-message {
+    font-size: 1.4rem;
+}
+
 // global common classes
 .centered-row {
     display: flex;
