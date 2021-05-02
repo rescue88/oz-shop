@@ -8,6 +8,7 @@ export type StateType = {
 // auth reducer initial state
 export type AuthStateType = {
     isAuth: boolean,
+    isRegistered: boolean,
     isLoading: boolean
 }
 

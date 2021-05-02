@@ -4,7 +4,7 @@ import { UserStateType } from './stateTypes';
 export const OZshop: string = 'OZshop';
 
 // get a message with a mistake description
-export type UnluckyResponse = {
+export type DefaultResponse = {
     message: string;
     success: boolean;
 }
@@ -14,4 +14,4 @@ export type LoginResponse = {
     token: string;
     userId: string;
     user: UserStateType;
-} & UnluckyResponse;
+} & DefaultResponse;
