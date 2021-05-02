@@ -52,7 +52,8 @@ router.post(
             });
         } catch(e) {
             return res.json({
-                message: e.message
+                message: `Щось не так з роутом /login ${e.message}`,
+                success: false
             });
         }
     }
@@ -74,14 +75,14 @@ router.post(
             const origLogin = await User.find({ login });
             if(origLogin.length) {
                 return res.status(400).json({
-                    message: "Даний логін вже використовується",
+                    message: "Даний логін уже використовується",
                     success: false
                 });
             }
             const origPhone = await User.find({ phone });
             if(origPhone.length) {
                 return res.status(400).json({
-                    message: "Даний мобільний вже використовується",
+                    message: "Даний мобільний уже використовується",
                     success: false
                 });
             }
@@ -99,12 +100,13 @@ router.post(
             await user.save();
 
             return res.status(200).json({
+                message: 'Юзера успішно створено',
                 success: true,
-                message: 'Юзера успішно створено'
             });
         } catch(e) {
             return res.status(400).json({
-                message: e.message
+                message: `Щось не так з роутом /register ${e.message}`,
+                success: false
             });
         }
     }
