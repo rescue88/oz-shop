@@ -1,69 +1,10 @@
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
-import validator from 'validator';
 
 import MyPasswordField from '../../../../common/MyPasswordField';
 import MySubmitButton from '../../../../common/MySubmitButton';
 import MyTextField from '../../../../common/MyTextField';
-
-const ValidateLogin = (value: string): string => {
-    let error: string = '';
-    if(!value) {
-        error = "Логін обов'язковий";
-    } else if(!validator.isAlphanumeric(value)) {
-        error = "Лише літери та цифри";
-    } else if(!validator.isLength(value, {min: 4, max: 12})) {
-        error = "Довжина логіна від 4 до 12 символів";
-    }
-    return error;
-}
-
-const ValidatePersonalName = (value: string): string => {
-    let error: string = '';
-    if(!value) {
-        error = "Ім'я обов'язкове";
-    } else if(!/^[А-ЯЁа-яё]{4,20}$/.test(value)) {
-        error = "Некоректно введне ім'я";
-    }
-    return error;
-}
-const ValidateEmail = (value: string): string => {
-    let error: string = '';
-    if(!value) {
-        error = "Пошта обов'язкова";
-    } else if(!validator.isEmail(value)) {
-        error = "Некоректно введна пошта";
-    }
-    return error;
-}
-
-const ValidatePhone = (value: string): string => {
-    let error: string = '';
-    if(!value) {
-        error = "Телефон обов'язковий";
-    } else if(!validator.isMobilePhone(value, 'uk-UA')) {
-        error = "+[код країни][номер] або лише [номер]";
-    }
-    return error;
-}
-
-const ValidatePassword = (value: string): string => {
-    let error: string = '';
-    if(!value) {
-        error = "Пароль обов'язковий";
-    } else if(!/^[a-zA-Z0-9_]{7,20}$/.test(value)) {
-        error = "Некоректно введений пароль";
-    }
-    return error;
-}
-
-const ValidateRepeatPassword = (password: string, repeatPassword: string): string => {
-    let error: string = '';
-    if(password !== repeatPassword) {
-        error = "Паролі не співпадають!";
-    }
-    return error;
-}
+import { ValidateLogin, ValidateEmail, ValidatePersonalName, ValidatePhone, ValidatePassword, ValidateRepeatPassword } from '../../../../../assets/validators/validators';
 
 const RegisterForm: FC = () => {
     const [showPass, setShowPass] = useState<boolean>(false);
@@ -88,10 +29,7 @@ const RegisterForm: FC = () => {
             }}
             onSubmit={(data, {setSubmitting}) => {
                 setSubmitting(true);
-                setTimeout(() => {
-                    console.log('submit', data);
-                    setSubmitting(false);
-                }, 3000);
+                setSubmitting(false);
             }}
         >
             {
