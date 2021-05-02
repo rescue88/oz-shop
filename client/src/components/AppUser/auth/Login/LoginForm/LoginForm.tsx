@@ -1,32 +1,16 @@
 import { FC, useState } from 'react';
 import { Field, Form, Formik } from "formik";
+import { useDispatch } from 'react-redux';
 
 import MyPasswordField from "../../../../common/MyPasswordField";
 import MySubmitButton from "../../../../common/MySubmitButton";
 import MyTextField from "../../../../common/MyTextField";
-
-const ValidateLogin = (value: string): string => {
-    let error: string = '';
-    if(!value) {
-        error = "Логін обов'язковий";
-    } else if(!/^[a-z0-9_]{3,15}$/.test(value)) {
-        error = "Некоректно введний логін";
-    }
-    return error;
-}
-
-const ValidatePassword = (value: string): string => {
-    let error: string = '';
-    if(!value) {
-        error = "Пароль обов'язковий";
-    } else if(!/^[a-zA-Z0-9_]{3,20}$/.test(value)) {
-        error = "Некоректно введений пароль";
-    }
-    return error;
-}
+import { ValidateLogin, ValidatePassword } from './../../../../../assets/validators/validators';
+import { login } from '../../../../../redux/reducers/authReducer';
 
 const LoginForm: FC = () => {
     const [showPass, setShowPass] = useState<boolean>(false);
+    const dispatch = useDispatch();
 
     const handleClickShowPassword = () => {
         setShowPass(!showPass);
@@ -44,10 +28,10 @@ const LoginForm: FC = () => {
             }}
             onSubmit={(data, {setSubmitting}) => {
                 setSubmitting(true);
-                setTimeout(() => {
-                    console.log('submit', data);
-                    setSubmitting(false);
-                }, 3000);
+
+                dispatch(login(data.login, data.password));
+
+                setSubmitting(false);
             }}
         >
             {
