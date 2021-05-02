@@ -16,7 +16,4 @@ export const theme = createMuiTheme({
             primary: 'rgb(255, 168, 76)',
         },
     },
-    typography: {
-        fontSize: 14
-    }
-})
+});
