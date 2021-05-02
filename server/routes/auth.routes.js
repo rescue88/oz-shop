@@ -17,7 +17,8 @@ router.post(
 
             if(!user) {
                 return res.status(400).json({
-                    message: "Користувача з даним логіном не існує"
+                    message: "Користувача з даним логіном не існує",
+                    success: false
                 });
             }
 
@@ -25,7 +26,8 @@ router.post(
 
             if(!isMatch) {
                 return res.status(400).json({
-                    message: "Пароль не вірний"
+                    message: "Пароль не вірний",
+                    success: false
                 });
             }
 
@@ -65,19 +67,22 @@ router.post(
             const origEmail = await User.find({ email });
             if(origEmail.length) {
                 return res.status(400).json({
-                    message: "Дана пошта вже використовується"
+                    message: "Дана пошта вже використовується",
+                    success: false
                 });
             }
             const origLogin = await User.find({ login });
             if(origLogin.length) {
                 return res.status(400).json({
-                    message: "Даний логін вже використовується"
+                    message: "Даний логін вже використовується",
+                    success: false
                 });
             }
             const origPhone = await User.find({ phone });
             if(origPhone.length) {
                 return res.status(400).json({
-                    message: "Даний мобільний вже використовується"
+                    message: "Даний мобільний вже використовується",
+                    success: false
                 });
             }
 
