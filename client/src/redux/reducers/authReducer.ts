@@ -1,3 +1,4 @@
+import { setSnackbar } from './snackbarReducer';
 import { authAPI } from './../../api/auth-api';
 import { setUserData } from './userReducer';
 import { AuthStateType } from './../../types/stateTypes';
@@ -36,20 +37,24 @@ export const setLoading = (payload: boolean) => {
 
 /* THUNKS */
 export const login = (login: string, password: string) => async (dispatch: Function) => {
-    let data: LoginResponse = await authAPI.login(login, password);
+    let data: LoginResponse = await authAPI.login(login, password).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
 
-    if(data.success) {
+    if(data && data.success) {
         // write user id and token into local storage
         localStorage.setItem(OZshop, JSON.stringify({
-            ...data
+            token: data.token,
+            userId: data.userId
         }));
         // set auth flag into true
         dispatch(signIn());
         // set user own data
         dispatch(setUserData(data.user));
-    } else {
-        const error = data.message;
-        console.log(error);
+        // show a success message
+        dispatch(setSnackbar(true, 'success', `Ласкаво просимо, ${data.user.login}`));
     }
 }
 
