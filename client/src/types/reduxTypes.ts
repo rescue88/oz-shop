@@ -5,7 +5,7 @@ export const OZshop: string = 'OZshop';
 
 // get a message with a mistake description
 export type UnluckyResponse = {
-    message?: string;
+    message: string;
     success: boolean;
 }
 
