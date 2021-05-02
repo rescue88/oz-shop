@@ -13,10 +13,10 @@ router.post(
         try {
             const { login, password } = req.body;
 
-            const user = await User.findOne({ login });
+            let user = await User.findOne({ login });
 
             if(!user) {
-                res.status(400).json({
+                return res.status(400).json({
                     message: "Користувача з даним логіном не існує"
                 });
             }
@@ -29,17 +29,27 @@ router.post(
                 });
             }
 
+            // generating token
             const token = jwt.sign(
                 { userId: user.id },
                 config.get('jwtSecret'),
                 { expiresIn: '1h' }
             );
 
+            // preparing user data for sending
+            user = user._doc;
+            delete user.__v;
+            delete user._id;
+            delete user.password;
+
             return res.status(200).json({
-                token, userId: user.id
+                success: true,
+                token, 
+                userId: user._id,
+                user
             });
         } catch(e) {
-            return res.status(400).json({
+            return res.json({
                 message: e.message
             });
         }
@@ -51,6 +61,25 @@ router.post(
     async (req, res) => {
         try {
             const { name, email, login, phone, password } = req.body;
+
+            const origEmail = await User.find({ email });
+            if(origEmail.length) {
+                return res.status(400).json({
+                    message: "Дана пошта вже використовується"
+                });
+            }
+            const origLogin = await User.find({ login });
+            if(origLogin.length) {
+                return res.status(400).json({
+                    message: "Даний логін вже використовується"
+                });
+            }
+            const origPhone = await User.find({ phone });
+            if(origPhone.length) {
+                return res.status(400).json({
+                    message: "Даний мобільний вже використовується"
+                });
+            }
 
             const hashedPassword = await bcrypt.hash(password, 12);
 
