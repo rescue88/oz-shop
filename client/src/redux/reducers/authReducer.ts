@@ -1,26 +1,29 @@
 import { setSnackbar } from './snackbarReducer';
 import { authAPI } from './../../api/auth-api';
 import { setUserData } from './userReducer';
-import { AuthStateType } from './../../types/stateTypes';
+import { AuthStateType, UserPermissions } from './../../types/stateTypes';
 import { LoginResponse, OZshop, DefaultResponse } from './../../types/reduxTypes';
 
 /* ACTIONS */
 const SIGN_IN: string = 'authReducer/SIGN_IN';
 const SIGN_OUT: string = 'authReducer/SIGN_OUT';
-const SET_REGISTERED: string = 'authReducer/SET_REGISTERED';
 const SET_LOADING: string = 'authReducer/SET-LOADING';
 
 /* INITIAL STATE */
 const authState: AuthStateType = {
+    token: null,
+    userId: null,
+    permissons: 'user',
     isAuth: false,
-    isRegistered: false,
     isLoading: false
 }
 
 /* ACTION CREATORS */
-export const signIn = () => {
+export const signIn = (token: string, id: string, permissions: keyof typeof UserPermissions) => {
     return {
-        type: SIGN_IN
+        type: SIGN_IN,
+        token,
+        id
     }
 }
 
@@ -30,14 +33,7 @@ export const signOut = () => {
     }
 }
 
-export const setRegistered = (payload: boolean) => {
-    return {
-        type: SET_REGISTERED,
-        payload
-    }
-}
-
-export const setLoading = (payload: boolean) => {
+export const setAuthLoading = (payload: boolean) => {
     return {
         type: SET_LOADING,
         payload
@@ -56,11 +52,12 @@ export const login = (login: string, password: string) => async (dispatch: Funct
         // write user id and token into local storage
         localStorage.setItem(OZshop, JSON.stringify({
             token: data.token,
-            userId: data.userId
+            userId: data.userId,
+            permissions: data.permissions
         }));
-        // set auth flag into true
-        dispatch(signIn());
-        // set user own data
+        // set auth data
+        dispatch(signIn(data.token, data.userId, data.permissions));
+        // set user data
         dispatch(setUserData(data.user));
         // show a success message
         dispatch(setSnackbar(true, 'success', `Ласкаво просимо, ${data.user.login}.`));
@@ -72,13 +69,11 @@ export const register = (login: string, email: string, name: string, phone: stri
         const {message} = error.response.data;
         // show a tip or an error
         dispatch(setSnackbar(true, 'error', message));
-        dispatch(setRegistered(false));
     });
 
     if(data && data.success) {
         // tell that user is created
         dispatch(setSnackbar(true, 'success', data.message));
-        dispatch(setRegistered(true));
     }
 }
 
@@ -88,7 +83,9 @@ export const authReducer = (state: AuthStateType = authState, action: any) => {
         case SIGN_IN:
             return {
                 ...state,
-                isAuth: true
+                isAuth: true,
+                token: action.token,
+                userId: action.id
             }
         case SIGN_OUT:
             // clear local storage
@@ -96,11 +93,6 @@ export const authReducer = (state: AuthStateType = authState, action: any) => {
             return {
                 ...state,
                 isAuth: false
-            }
-        case SET_REGISTERED:
-            return {
-                ...state,
-                isRegistered: action.payload
             }
         case SET_LOADING:
             return {

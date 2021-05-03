@@ -1,12 +1,12 @@
 import { UserStateType } from './../../types/stateTypes';
 
 /* ACTIONS */
-const SET_USER_DATA: string = 'authReducer/SET-USER-DATA';
+const SET_USER_DATA: string = 'userReducer/SET-USER-DATA';
+const CLEAR_USER_DATA: string = 'userReducer/CLEAR_USER_DATA';
 
 /* INITIAL STATE */
 const userState: UserStateType = {
     avatar: null,
-    permissons: null,
     name: null,
     email: null,
     login: null,
@@ -22,6 +22,12 @@ export const setUserData = (payload: UserStateType) => {
     }
 }
 
+export const clearUserData = () => {
+    return {
+        type: CLEAR_USER_DATA
+    }
+}
+
 /* THUNKS */
 
 /* REDUCER */
@@ -31,6 +37,10 @@ export const userReducer = (state: UserStateType = userState, action: any) => {
             return {
                 ...state,
                 ...action.payload
+            }
+        case CLEAR_USER_DATA:
+            return {
+                ...userState
             }
         default:
             return state;
