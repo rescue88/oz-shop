@@ -41,6 +41,7 @@ const MyPasswordField: FC<MyPasswordFieldType> = ({ width, placeholder, showPass
                     </InputAdornment>
                 }
                 error={!!errorText}
+                autoComplete="off"
             />
             <FormHelperText className={classes.helperText} id={field.name}>{errorText}</FormHelperText>
         </FormControl>
