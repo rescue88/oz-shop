@@ -46,7 +46,7 @@ const MySnackbar: FC = () => {
                     variant="filled"
                     onClose={handleClose}
                     color={snackbarType}
-
+                    severity={snackbarType}
                 >
                     {snackbarMessage}
                 </Alert>
