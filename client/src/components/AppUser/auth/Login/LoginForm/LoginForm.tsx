@@ -26,10 +26,10 @@ const LoginForm: FC = () => {
                 login: '',
                 password: '',
             }}
-            onSubmit={(data, {setSubmitting}) => {
+            onSubmit={async (data, {setSubmitting}) => {
                 setSubmitting(true);
 
-                dispatch(login(data.login, data.password));
+                await dispatch(login(data.login, data.password));
 
                 setSubmitting(false);
             }}

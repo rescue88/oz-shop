@@ -1,20 +1,16 @@
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import MyPasswordField from '../../../../common/MyPasswordField';
 import MySubmitButton from '../../../../common/MySubmitButton';
 import MyTextField from '../../../../common/MyTextField';
 import { ValidateLogin, ValidateEmail, ValidatePersonalName, ValidatePhone, ValidatePassword, ValidateRepeatPassword } from '../../../../../assets/validators/validators';
 import { register } from '../../../../../redux/reducers/authReducer';
-import { StateType } from '../../../../../types/stateTypes';
 
 const RegisterForm: FC = () => {
     const [showPass, setShowPass] = useState<boolean>(false);
-    const history = useHistory();
     const dispatch = useDispatch();
-    const isRegistered = useSelector((state: StateType) => state.auth.isRegistered);
 
     const handleClickShowPassword = () => {
         setShowPass(!showPass);
@@ -34,14 +30,10 @@ const RegisterForm: FC = () => {
                 password: '',
                 repeatPassword: ''
             }}
-            onSubmit={(data, {setSubmitting}) => {
+            onSubmit={async (data, {setSubmitting}) => {
                 setSubmitting(true);
 
-                dispatch(register(data.login, data.email, data.personalName, data.phone, data.password));
-                // redirect if registration is successful   
-                if(isRegistered) {
-                    history.push('/app/login');
-                }
+                await dispatch(register(data.login, data.email, data.personalName, data.phone, data.password));
 
                 setSubmitting(false);
             }}
