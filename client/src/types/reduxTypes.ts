@@ -1,4 +1,4 @@
-import { UserStateType } from './stateTypes';
+import { UserPermissions, UserStateType } from './stateTypes';
 
 // local storage name for storing id and token
 export const OZshop: string = 'OZshop';
@@ -13,5 +13,6 @@ export type DefaultResponse = {
 export type LoginResponse = {
     token: string;
     userId: string;
+    permissions: keyof typeof UserPermissions;
     user: UserStateType;
 } & DefaultResponse;

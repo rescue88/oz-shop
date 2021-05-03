@@ -5,23 +5,24 @@ export type StateType = {
     snackbar: SnackbarStateType;
 }
 
-// auth reducer initial state
-export type AuthStateType = {
-    isAuth: boolean,
-    isRegistered: boolean,
-    isLoading: boolean
-}
-
 // user roles
 export enum UserPermissions {
     'user',
     'moder',
     'admin'
 }
+// auth reducer initial state
+export type AuthStateType = {
+    token: string | null;
+    userId: string | null;
+    permissons: keyof typeof UserPermissions;
+    isAuth: boolean;
+    isLoading: boolean;
+}
+
 // user reducer initial state
 export type UserStateType = {
     avatar: any,
-    permissons: keyof typeof UserPermissions | null;
     name: string | null;
     email: string | null;
     login: string | null;
