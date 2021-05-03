@@ -37,17 +37,19 @@ router.post(
                 config.get('jwtSecret'),
                 { expiresIn: '1h' }
             );
+            const permissions = user._doc.permissions;
 
             // preparing user data for sending
             user = user._doc;
             delete user.__v;
-            delete user._id;
             delete user.password;
+            delete user.permissions;
 
             return res.status(200).json({
                 success: true,
                 token, 
                 userId: user._id,
+                permissions,
                 user
             });
         } catch(e) {
