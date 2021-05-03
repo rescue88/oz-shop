@@ -1,15 +1,26 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import HeaderNavItem from './HeaderNavItem/HeaderNavItem';
 import HeaderNavCartIcon from './Icons/HeaderNavCartIcon';
-import HeaderNavNotificationIcon from './Icons/HeaderNavNotificationIcon';
 import HeaderNavProfileIcon from './Icons/HeaderNavProfileIcon';
 import HeaderNavSignInIcon from './Icons/HeaderNavSignInIcon';
 import HeaderNavSignOutIcon from './Icons/HeaderNavSignOutIcon';
+import { StateType } from '../../../types/stateTypes';
+import { signOut } from '../../../redux/reducers/authReducer';
+import { clearUserData } from '../../../redux/reducers/userReducer';
+import { setSnackbar } from '../../../redux/reducers/snackbarReducer';
 
 const HeaderNav: FC = () => {
-    const [isAuth, setIsAuth] = useState<boolean>(false);
+    const dispatch = useDispatch();
+    const isAuth = useSelector((state: StateType) => state.auth.isAuth);
+
+    const logoutHandler = () => {
+        dispatch(signOut());
+        dispatch(clearUserData());
+        dispatch(setSnackbar(true, 'info', 'Сподіваємось, що ви повернетесь.'));
+    }
 
     return (
         <nav className="header__bar">
@@ -28,18 +39,22 @@ const HeaderNav: FC = () => {
                                 </NavLink>
                             </li>
                             <li className="header__bar_link">
-                                <NavLink to="/app/notification">
-                                    <HeaderNavItem Icon={HeaderNavNotificationIcon} name="Сповіщення" />
-                                </NavLink>
+                                <button type="button" onClick={logoutHandler}>
+                                    <HeaderNavItem Icon={HeaderNavSignOutIcon} name='Вийти' />
+                                </button>
                             </li>
                         </>
                     )
                 }
-                <li className="header__bar_link">
-                    <NavLink to={`/app/${isAuth? 'logout': 'login'}`}>
-                        <HeaderNavItem Icon={isAuth? HeaderNavSignOutIcon : HeaderNavSignInIcon} name={isAuth ? 'Вийти': 'Увійти'} />
-                    </NavLink>
-                </li>
+                {
+                    !isAuth && (
+                        <li className="header__bar_link">
+                            <NavLink to='/app/login'>
+                                <HeaderNavItem Icon={HeaderNavSignInIcon} name='Увійти' />
+                            </NavLink>
+                        </li>
+                    )
+                }
             </ul>
         </nav>
     );
