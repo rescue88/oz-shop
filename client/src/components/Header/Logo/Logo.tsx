@@ -10,7 +10,7 @@ const Logo: FC = () => {
                 <img src={logo} alt=""/>
             </div>
             <div className="header__logo_name">
-                OZ<br/><span>Магазин побутових<br/>товарів</span>
+                Магазин побутових<br/>товарів
             </div>
         </NavLink>
     )

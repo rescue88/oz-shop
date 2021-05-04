@@ -7,7 +7,7 @@ import ViberIcon from './FooterNetworkIcon/ViberIcon';
 
 const FooterNetwork: FC = () => {
     return (
-        <div className="footer__network">
+        <div className="footer__network centered-row">
             <a href="/" target="_blank">
                 <TelegramIcon />
             </a>
