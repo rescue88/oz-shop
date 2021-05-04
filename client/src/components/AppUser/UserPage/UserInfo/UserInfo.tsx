@@ -44,7 +44,7 @@ const UserInfo: FC = () => {
                     </div>
                 </div>
                 <div className="userInfo__data_settings">
-                    <Tooltip title="Змінити дані профіля">
+                    <Tooltip title="Змінити дані профіля" arrow>
                         <div>
                             <SettingsIcon />
                         </div>
