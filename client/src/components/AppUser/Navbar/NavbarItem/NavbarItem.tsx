@@ -1,21 +1,19 @@
 import { FC } from 'react';
-import NavIcon from './../NavIcon';
 import { NavLink } from 'react-router-dom';
 
-import st from './../Navbar.module.css';
+import NavIcon from './NavIcon';
 
 type NavbarItemType = {
     pageLink: string;
     pageName: string;
-    pageLinkIsExact?: boolean | false;
 }
 
-const NavbarItem: FC<NavbarItemType> = ({pageName, pageLink, pageLinkIsExact}) => {
+const NavbarItem: FC<NavbarItemType> = ({pageName, pageLink}) => {
     return (
-        <div className={st.nav__item}>
-            <NavLink to={`/app/${pageLink}`} activeClassName={st.nav__itemActive} exact={pageLinkIsExact}>
-                <div className={st.icon}><NavIcon /></div>
-                <div className={st.page}>{pageName}</div>
+        <div className="userNav__item">
+            <NavLink exact to={`/app/${pageLink}`} activeClassName="activeUserNavLink">
+                <div className="userNav__item_icon"><NavIcon /></div>
+                <div className="userNav__item_page">{pageName}</div>
             </NavLink>
         </div>
     );
