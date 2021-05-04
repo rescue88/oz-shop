@@ -7,10 +7,3 @@
     --def-back: rgb(43, 50, 83);
     --foreground-back: rgb(15, 22, 66);
 }
-
-hr {
-    height: 0.3rem;
-    margin: 1rem 0;
-    background: var(--secondary-color);
-    border: none;
-}
