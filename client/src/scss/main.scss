@@ -46,6 +46,7 @@ ul {
 }
 
 a {
+    display: block;
     text-decoration: none;
 }
 
@@ -67,6 +68,11 @@ img {
 // material-ui snackbar font-size
 .MuiAlert-message {
     font-size: 1.4rem;
+}
+// material-ui tooltip styles
+.MuiTooltip-tooltip {
+    font-size: 1.2rem !important;
+    // background: red !important;
 }
 
 // global common classes
