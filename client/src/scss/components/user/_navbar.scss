@@ -1,0 +1,39 @@
+.userNav {
+    &__section {
+        &_header {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 2rem;
+            font-size: 1.6rem;
+        }
+    }
+
+    &__item {
+        a {
+            width: 100%;
+            padding: 1.5rem 0;
+            padding-left: 3rem;
+            display: flex;
+            align-items: center;
+
+            &:hover:not(.activeUserNavLink) {
+                background: $secondary-color;
+            }
+        }
+
+        .activeUserNavLink {
+            background: $gradient;
+        }
+
+        &_icon {
+            svg {
+                height: 3rem;
+                width: 3rem;
+                margin-right: 1rem;
+            }
+        }
+
+        &_page {
+            font-size: 1.8rem;
+        }
+    }
+}
