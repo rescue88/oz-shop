@@ -1,0 +1,52 @@
+.userInfo {
+    &__header,
+    &__data {
+        padding: 1.7rem 1.5rem;
+    }
+
+    &__header {
+        font-size: 2rem;
+        text-transform: uppercase;
+    }
+
+    &__data {
+        height: 100%;
+        &_avatar,
+        &_content,
+        &_settings {
+            height: 22rem;
+        }
+
+        &_avatar {
+            flex-basis: 23%;
+        }
+
+        &_content {
+            flex-basis: 75%;
+
+            .part1,
+            .part2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        &_settings {
+            div {
+                cursor: pointer;
+                svg {
+                    width: 3rem;
+                    height: 3rem;
+                    &:hover {
+                        fill: $secondary-color;
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+    }
+
+    &__item {
+        margin: 1.5rem 0;
+        padding: 0 1.5rem;
+    }
+}
