@@ -3,28 +3,28 @@ import { makeStyles } from '@material-ui/core';
 // common styles for inputs/buttons
 export const useStyles = makeStyles({
     textField: {
-        background: 'var(--def-back)',
+        background: 'rgb(43, 50, 83)',
         fontSize: '1.6rem'
     },
     autoInput: {
       fontSize: '1.6rem',
-      WebkitBoxShadow: '0 0 0 1000px var(--def-back) inset',
-      color: 'var(--secondary-color)'
+      WebkitBoxShadow: '0 0 0 1000px rgb(43, 50, 83) inset',
+      color: 'rgb(255, 168, 76)'
     },
     helperText: {
-        background: 'var(--def-back)',
+        background: 'rgb(43, 50, 83)',
         fontSize: '1.2rem'
     },
     submitButton: {
         borderRadius: 0,
         fontSize: '1.5rem',
-        background: 'linear-gradient(var(--linear-primary), var(--linear-secondary))',
+        background: 'linear-gradient(#6ac676, #499e63)',
         transition: 'all 1s',
         '&:hover': {
-            background: 'var(--secondary-color)',
+            background: 'rgb(255, 168, 76)',
         },
         '&:disabled': {
-            background: 'var(--def-back)',
+            background: 'rgb(43, 50, 83)',
             border: '1px solid red'
         }
     }

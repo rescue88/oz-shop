@@ -35,7 +35,7 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: var(--def-back);
+    background: $def-back;
     opacity: 0.85;
 
     z-index: -2;
@@ -115,7 +115,7 @@ img {
 
 .content nav {
     min-width: 25%;
-    background: var(--foreground-back);
+    background: $foreground-back;
 }
 
 .content .page-container {
