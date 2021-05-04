@@ -30,7 +30,7 @@ const App: FC = () => {
                     userPerm === 'admin' && <Route path="/admin" render={() => <AppAdmin isAuth={isAuth} />} />
                   }
                   <Route path="/app" render={() => <AppUser isAuth={isAuth} />} />
-                  <Redirect to="/app" />
+                  <Redirect exact to="/app" />
                 </Switch>
               }
             </div>

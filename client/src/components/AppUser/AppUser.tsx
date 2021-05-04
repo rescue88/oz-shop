@@ -7,6 +7,7 @@ import Login from './auth/Login/Login';
 import Register from './auth/Register/Register';
 import { StateType } from '../../types/stateTypes';
 import { AppType } from '../../types/common';
+import UserPage from './UserPage/UserPage';
 
 const AppUser: FC<AppType> = ({isAuth}) => {
     return (
@@ -16,11 +17,13 @@ const AppUser: FC<AppType> = ({isAuth}) => {
                 <Switch>
                     <Route exact path="/app" render={() => <Home />} />
                     {
-                        !isAuth && (
+                        !isAuth ? (
                             <>
-                                <Route exact path="/app/login" render={() => <Login />} />
-                                <Route exact path="/app/register" render={() => <Register />} />
+                                <Route path="/app/login" render={() => <Login />} />
+                                <Route path="/app/register" render={() => <Register />} />
                             </>
+                        ) : (
+                            <Route path="/app/profile" render={() => <UserPage />} />
                         )
                     }
                     <Redirect exact to="/app" />
