@@ -26,7 +26,7 @@ const HeaderNav: FC = () => {
         <nav className="header__bar">
             <ul>
                 <li className="header__bar_link">
-                    <NavLink to="/app/cart">
+                    <NavLink exact to="/app/cart">
                         <HeaderNavItem Icon={HeaderNavCartIcon} name="Корзина" />
                     </NavLink>
                 </li>
@@ -34,7 +34,7 @@ const HeaderNav: FC = () => {
                     isAuth && (
                         <>
                             <li className="header__bar_link">
-                                <NavLink to="/app/profile">
+                                <NavLink exact to="/app/profile">
                                     <HeaderNavItem Icon={HeaderNavProfileIcon} name="Профіль" />
                                 </NavLink>
                             </li>
@@ -49,7 +49,7 @@ const HeaderNav: FC = () => {
                 {
                     !isAuth && (
                         <li className="header__bar_link">
-                            <NavLink to='/app/login'>
+                            <NavLink exact to='/app/login'>
                                 <HeaderNavItem Icon={HeaderNavSignInIcon} name='Увійти' />
                             </NavLink>
                         </li>
