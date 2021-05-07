@@ -13,7 +13,7 @@ router.post(
         try {
             const { login, password } = req.body;
 
-            let user = await User.findOne({ login });
+            const user = await User.findOne({ login });
 
             if(!user) {
                 return res.status(400).json({
@@ -37,20 +37,11 @@ router.post(
                 config.get('jwtSecret'),
                 { expiresIn: '1h' }
             );
-            const permissions = user._doc.permissions;
-
-            // preparing user data for sending
-            user = user._doc;
-            delete user.__v;
-            delete user.password;
-            delete user.permissions;
 
             return res.status(200).json({
                 success: true,
                 token, 
-                userId: user._id,
-                permissions,
-                user
+                userId: user._doc._id,
             });
         } catch(e) {
             return res.json({
