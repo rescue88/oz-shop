@@ -1,8 +1,15 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import SettingsIcon from '../icons/SettingsIcon';
 import defaultAva from './../../../../assets/images/defaultAva.png';
+import { UserStateType } from '../../../../types/stateTypes';
+import MyDialogWindow from '../../../common/MyDialogWindow';
+import UserInfoForm from './UserInfoForm/UserInfoForm';
+
+type UserInfoType = {
+    userData: UserStateType;
+}
 
 const userGroups = {
     user: 'користувач',
@@ -10,9 +17,16 @@ const userGroups = {
     moder: 'контент-менеджер'
 }
 
-const UserInfo: FC = () => {
+const UserInfo: FC<UserInfoType> = ({userData}) => {
+    const [openForm, setOpenForm] = useState<boolean>(false);
+
+    const toggleOpenForm = () => {
+        setOpenForm(prev => !prev);
+    }
+
     return (
         <section className="userInfo">
+            <MyDialogWindow open={openForm} onClose={toggleOpenForm} Content={UserInfoForm} />
             <div className="userInfo__header">Ваш профіль</div>
             <hr/>
             <div className="userInfo__data space-betw-row">
@@ -22,30 +36,30 @@ const UserInfo: FC = () => {
                 <div className="userInfo__data_content space-betw-row">
                     <div className="part1">
                         <div className="userInfo__item">
-                            <b>Логін:</b> finik
+                            <b>Логін:</b> {userData.login}
                         </div>
                         <div className="userInfo__item">
-                            <b>Пошта:</b> finik848848@gmail.com
+                            <b>Пошта:</b> {userData.email}
                         </div>
                         <div className="userInfo__item">
-                            <b>Ім'я:</b> Богдан Згоннік
+                            <b>Ім'я:</b> {userData.name}
                         </div>
                     </div>
                     <div className="part1">
                         <div className="userInfo__item">
-                            <b>Телефон:</b> +380980593614
+                            <b>Телефон:</b> {userData.phone}
                         </div>
                         <div className="userInfo__item">
-                            <b>Створено профіль:</b> 22 квітня 2021
+                            <b>Створено профіль:</b> {userData.created}
                         </div>
                         <div className="userInfo__item">
-                            <b>Група:</b> {userGroups.user}
+                            <b>Група:</b> {userGroups[userData.permissons]}
                         </div>
                     </div>
                 </div>
                 <div className="userInfo__data_settings">
                     <Tooltip title="Змінити дані профіля" arrow>
-                        <div>
+                        <div onClick={toggleOpenForm}>
                             <SettingsIcon />
                         </div>
                     </Tooltip>
