@@ -7,6 +7,6 @@ app.use(express.json({extended: true}));
 
 // listen to a base url and call routers
 app.use('/api/auth', require('./routes/auth.routes'));
-app.use('/api/users', require('./routes/user.routes'));
+app.use('/api/user', require('./routes/user.routes'));
 
 module.exports = app;

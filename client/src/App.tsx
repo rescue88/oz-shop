@@ -14,31 +14,29 @@ const App: FC = () => {
   const { ready } = useAuth();
 
   const isAuth = useSelector((state: StateType) => state.auth.isAuth);
-  const userPerm = useSelector((state: StateType) => state.auth.permissons);
+  const userPerm = useSelector((state: StateType) => state.user.permissons);
   // TODO:　make a preloader
+  if(!ready) {
+    return <div style={{width: '100%', height: '100%', backgroundColor: 'red'}}>not ready</div>
+  }
+
   return (
-    <>
-      {
-        ready ? (
-          <main className="main-container">
-            <MySnackbar />
-            <Header />
-            <div className="content">
-              {
-                <Switch>
-                  {
-                    userPerm === 'admin' && <Route path="/admin" render={() => <AppAdmin isAuth={isAuth} />} />
-                  }
-                  <Route path="/app" render={() => <AppUser isAuth={isAuth} />} />
-                  <Redirect exact to="/app" />
-                </Switch>
-              }
-            </div>
-            <Footer />
-          </main>
-        ) : (<div style={{width: '100%', height: '100%', backgroundColor: 'red'}}>not ready</div>)
-      }
-    </>
+    <main className="main-container">
+      <MySnackbar />
+      <Header />
+      <div className="content">
+        {
+          <Switch>
+            {
+              userPerm === 'admin' && <Route path="/admin" render={() => <AppAdmin isAuth={isAuth} />} />
+            }
+            <Route path="/app" render={() => <AppUser isAuth={isAuth} />} />
+            <Redirect exact to="/app" />
+          </Switch>
+        }
+      </div>
+      <Footer />
+    </main>
   );
 }
 

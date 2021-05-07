@@ -1,8 +1,8 @@
 import { setSnackbar } from './snackbarReducer';
 import { authAPI } from './../../api/auth-api';
-import { setUserData } from './userReducer';
-import { AuthStateType, UserPermissions } from './../../types/stateTypes';
+import { AuthStateType } from './../../types/stateTypes';
 import { LoginResponse, OZshop, DefaultResponse } from './../../types/reduxTypes';
+import { getUserData } from './userReducer';
 
 /* ACTIONS */
 const SIGN_IN: string = 'authReducer/SIGN_IN';
@@ -13,13 +13,12 @@ const SET_LOADING: string = 'authReducer/SET-LOADING';
 const authState: AuthStateType = {
     token: null,
     userId: null,
-    permissons: 'user',
     isAuth: false,
     isLoading: false
 }
 
 /* ACTION CREATORS */
-export const signIn = (token: string, id: string, permissions: keyof typeof UserPermissions) => {
+export const signIn = (token: string, id: string) => {
     return {
         type: SIGN_IN,
         token,
@@ -53,14 +52,13 @@ export const login = (login: string, password: string) => async (dispatch: Funct
         localStorage.setItem(OZshop, JSON.stringify({
             token: data.token,
             userId: data.userId,
-            permissions: data.permissions
         }));
-        // set auth data
-        dispatch(signIn(data.token, data.userId, data.permissions));
         // set user data
-        dispatch(setUserData(data.user));
+        await dispatch(getUserData(data.userId));
+        // set auth data
+        dispatch(signIn(data.token, data.userId));
         // show a success message
-        dispatch(setSnackbar(true, 'success', `Ласкаво просимо, ${data.user.login}.`));
+        dispatch(setSnackbar(true, 'success', 'Успішна авторизація! Ласкаво просимо'));
     }
 }
 
@@ -92,7 +90,7 @@ export const authReducer = (state: AuthStateType = authState, action: any) => {
             localStorage.removeItem(OZshop);
             return {
                 ...state,
-                isAuth: false
+                ...authState
             }
         case SET_LOADING:
             return {

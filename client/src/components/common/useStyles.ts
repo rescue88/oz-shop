@@ -29,3 +29,14 @@ export const useStyles = makeStyles({
         }
     }
 });
+
+export const dialogWindow = makeStyles({
+    content: {
+        paddingBottom: '2rem', 
+        background: 'rgb(15, 22, 66)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+});
