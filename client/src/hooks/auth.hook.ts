@@ -1,27 +1,29 @@
+import { StorageItemType } from './../types/common';
+import { getStorageItem, setStorageItem } from './../assets/helpers/helpers';
 import { useDispatch } from 'react-redux';
 import { useState, useCallback, useEffect } from 'react';
+
 import { signIn } from '../redux/reducers/authReducer';
-import { OZshop } from '../types/reduxTypes';
-import { UserPermissions } from '../types/stateTypes';
+import { getUserData } from '../redux/reducers/userReducer';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
     const [ready, setReady] = useState<boolean>(false);
 
-    const login = useCallback((jwtToken: string, id: string, permissions: keyof typeof UserPermissions) => {
-        dispatch(signIn(jwtToken, id, permissions));
+    const login = useCallback(async (jwtToken: string, id: string) => {
+        await dispatch(getUserData(id));
 
-        localStorage.setItem(OZshop, JSON.stringify({
-            userId: id, token: jwtToken, permissions
-        }));
+        dispatch(signIn(jwtToken, id));
+
+        setStorageItem(id, jwtToken);
     }, []);
 
     // auto save data from local storage into local state
     useEffect(() => {
-        const data = JSON.parse(localStorage.getItem(OZshop) || '{}');
+        const data: StorageItemType = getStorageItem();
 
         if(data && data.token) {
-            login(data.token, data.userId, data.permissions);
+            login(data.token, data.userId);
         }
         setReady(true);
     }, [login]);
