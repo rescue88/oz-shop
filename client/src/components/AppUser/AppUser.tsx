@@ -5,7 +5,6 @@ import Navbar from './Navbar/Navbar';
 import Home from './Home/Home';
 import Login from './auth/Login/Login';
 import Register from './auth/Register/Register';
-import { StateType } from '../../types/stateTypes';
 import { AppType } from '../../types/common';
 import UserPage from './UserPage/UserPage';
 

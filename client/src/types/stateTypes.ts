@@ -15,7 +15,6 @@ export enum UserPermissions {
 export type AuthStateType = {
     token: string | null;
     userId: string | null;
-    permissons: keyof typeof UserPermissions;
     isAuth: boolean;
     isLoading: boolean;
 }
@@ -26,6 +25,7 @@ export type UserStateType = {
     name: string | null;
     email: string | null;
     login: string | null;
+    permissons: keyof typeof UserPermissions;
     phone: string | null;
     created: number | null;
     favorites: Array<any>;
