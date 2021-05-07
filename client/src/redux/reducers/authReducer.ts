@@ -1,3 +1,4 @@
+import { removeStorageItem, setStorageItem } from './../../assets/helpers/helpers';
 import { setSnackbar } from './snackbarReducer';
 import { authAPI } from './../../api/auth-api';
 import { AuthStateType } from './../../types/stateTypes';
@@ -49,10 +50,7 @@ export const login = (login: string, password: string) => async (dispatch: Funct
 
     if(data && data.success) {
         // write user id and token into local storage
-        localStorage.setItem(OZshop, JSON.stringify({
-            token: data.token,
-            userId: data.userId,
-        }));
+        setStorageItem(data.token, data.userId);
         // set user data
         await dispatch(getUserData(data.userId));
         // set auth data
@@ -87,7 +85,7 @@ export const authReducer = (state: AuthStateType = authState, action: any) => {
             }
         case SIGN_OUT:
             // clear local storage
-            localStorage.removeItem(OZshop);
+            removeStorageItem();
             return {
                 ...state,
                 ...authState
