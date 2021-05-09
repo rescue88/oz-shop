@@ -1,6 +1,7 @@
 // whole state type(mostly for selectors)
 export type StateType = {
     auth: AuthStateType;
+    admin: AdminStateType;
     user: UserStateType;
     snackbar: SnackbarStateType;
 }
@@ -17,6 +18,19 @@ export type AuthStateType = {
     userId: string | null;
     isAuth: boolean;
     isLoading: boolean;
+}
+
+// admin reducer initial state
+export type ChangeUsersPageType = {
+    id: string;
+    login: string;
+    email: string;
+    name: string;
+    permissions: string;
+    phone: string
+}
+export type AdminStateType = {
+    changeUsers: Array<ChangeUsersPageType> | []
 }
 
 // user reducer initial state
