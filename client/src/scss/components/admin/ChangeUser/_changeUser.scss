@@ -1,0 +1,20 @@
+.changeUser {
+    &__header {
+        margin: 2rem 0;
+    }
+
+    &__items {
+        &_item {
+        }
+    }
+
+    &__header,
+    &__item {
+        display: flex;
+        &_item {
+            flex-basis: calc(100% / 6);
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+    }
+}

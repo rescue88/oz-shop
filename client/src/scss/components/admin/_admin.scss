@@ -1,0 +1,10 @@
+@import './ChangeUser/changeUser';
+
+.changeContainer {
+    &__header {
+        padding: 1rem 0;
+        font-size: 3rem;
+        text-align: center;
+        font-weight: bold;
+    }
+}
