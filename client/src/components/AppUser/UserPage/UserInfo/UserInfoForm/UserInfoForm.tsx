@@ -55,11 +55,11 @@ const UserInfoForm: React.FC<UserInfoType & {closeForm: () => void}> = ({userDat
             {
                 ({isSubmitting}) => (
                     <Form>
-                        <div className="auth__header">
+                        <div className="form__header">
                             Змінити профіль
                         </div>
                         <hr/>
-                        <div className="auth__input_file centered-col">
+                        <div className="form__input_file centered-col">
                             <div className="file__header">
                                 Обрати новий аватар
                             </div>
@@ -77,19 +77,19 @@ const UserInfoForm: React.FC<UserInfoType & {closeForm: () => void}> = ({userDat
                                 <p>{fileName}</p>
                             </div>
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidateLogin} name="login" placeholder="Введіть логін" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidateEmail} name="email" placeholder="Введіть пошту" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidatePersonalName} name="name" placeholder="Введіть ім'я" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidatePhone} name="phone" placeholder="Введіть мобільний" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__submit">
+                        <div className="form__submit">
                             <MySubmitButton disabled={isSubmitting} text="Змінити профіль" />
                         </div>
                     </Form>

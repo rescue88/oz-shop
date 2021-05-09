@@ -41,19 +41,19 @@ const RegisterForm: FC = () => {
             {
                 ({values, isSubmitting}) => (
                     <Form>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidateLogin} name="login" placeholder="Введіть логін" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidatePersonalName} name="personalName" placeholder="Введіть ім'я" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidateEmail} name="email" placeholder="Введіть пошту" type="email" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidatePhone} name="phone" placeholder="Введіть телефон" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field 
                                 width={203}
                                 validate={ValidatePassword}
@@ -65,7 +65,7 @@ const RegisterForm: FC = () => {
                                 as={MyPasswordField} 
                             />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field 
                                 width={250} 
                                 validate={() => ValidateRepeatPassword(values.password, values.repeatPassword)} 
@@ -75,7 +75,7 @@ const RegisterForm: FC = () => {
                                 as={MyTextField} 
                             />
                         </div>
-                        <div className="auth__submit">
+                        <div className="form__submit">
                             <MySubmitButton disabled={isSubmitting} text="Створити профіль" />
                         </div>
                     </Form>

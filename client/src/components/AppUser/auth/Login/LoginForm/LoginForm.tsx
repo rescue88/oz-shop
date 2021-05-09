@@ -37,10 +37,10 @@ const LoginForm: FC = () => {
             {
                 ({isSubmitting}) => (
                     <Form>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field width={250} validate={ValidateLogin} name="login" placeholder="Введіть логін" type="text" as={MyTextField} />
                         </div>
-                        <div className="auth__input">
+                        <div className="form__input">
                             <Field 
                                 width={203}
                                 validate={ValidatePassword}
@@ -52,7 +52,7 @@ const LoginForm: FC = () => {
                                 as={MyPasswordField} 
                             />
                         </div>
-                        <div className="auth__submit">
+                        <div className="form__submit">
                             <MySubmitButton disabled={isSubmitting} text="Увійти" />
                         </div>
                     </Form>
