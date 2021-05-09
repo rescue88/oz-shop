@@ -109,18 +109,13 @@ img {
     display: flex;
 }
 
-// .content nav {
-//     padding: 2rem 3rem;
-// }
-
 .content nav {
-    min-width: 25%;
+    min-width: 20%;
     background: $foreground-back;
 }
 
 .content .page-container {
-    width: 75%;
-    max-width: 75%;
+    min-width: 80%;
     min-height: 90vh;
     padding: 0 3rem;
 }
