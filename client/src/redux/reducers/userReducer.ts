@@ -47,8 +47,8 @@ export const getUserData = (id: string) => async (dispatch: Function) => {
     }
 }
 
-export const updateUserData = (id: string, photo: any, login: string, email: string, name: string, phone: string) => async (dispatch: Function) => {
-    const data: DefaultResponse = await userAPI.updateProfile(id, photo, login, email, name, phone).catch(error => {
+export const updateUserData = (id: string, userData: FormData) => async (dispatch: Function) => {
+    const data: DefaultResponse = await userAPI.updateProfile(id, userData).catch(error => {
         const {message} = error.response.data;
         // show a tip or an error
         dispatch(setSnackbar(true, 'error', message)); 
@@ -56,6 +56,7 @@ export const updateUserData = (id: string, photo: any, login: string, email: str
 
     // console.log(data);
     if(data && data.success) {
+        await dispatch(getUserData(id));
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }

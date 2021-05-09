@@ -8,44 +8,52 @@ import MySubmitButton from '../../../../common/MySubmitButton';
 import { updateUserData } from '../../../../../redux/reducers/userReducer';
 import { getStorageItem } from '../../../../../assets/helpers/helpers';
 import { StorageItemType } from '../../../../../types/common';
+import { UserInfoType } from './../UserInfo';
 
-// const TypeUserInfoForm = {
-
-// }
-
-const UserInfoForm: React.FC = () => {
-    const [choosenFile, setChoosenFile] = React.useState<string>('Не обрано');
-
+const UserInfoForm: React.FC<UserInfoType & {closeForm: () => void}> = ({userData, closeForm}) => {
+    const [fileName, setFileName] = React.useState<string>('Не обрано');
+    const [choosenFile, setChoosenFile] = React.useState<File | string>('{}');
     const dispatch = useDispatch();
-
+    
     const changeFileInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if(event.currentTarget.files?.length) {
-            setChoosenFile(event.currentTarget.files[0].name);
+        const files: FileList | null = event.currentTarget.files;
+
+        if(files?.length) {
+            setFileName(files[0].name);
+            setChoosenFile(files[0]);
         } else {
-            setChoosenFile("Не обрано");
+            setFileName("Не обрано");
+            setChoosenFile('{}');
         }
     }
 
     return (
         <Formik
             initialValues={{
-                photo: '',
-                login: '',
-                email: '',
-                name: '',
-                phone: '',
+                login: userData.login!,
+                email: userData.email!,
+                name: userData.name!,
+                phone: userData.phone!,
             }}
             onSubmit={async (data, {setSubmitting}) => {
                 setSubmitting(true);
 
+                let formData = new FormData();
+                choosenFile && formData.append('avatar', choosenFile);
+                choosenFile && formData.append('login', data.login);
+                choosenFile && formData.append('email', data.email);
+                choosenFile && formData.append('name', data.name);
+                choosenFile && formData.append('phone', data.phone);
+
                 const storageItem: StorageItemType = getStorageItem();
-                await dispatch(updateUserData(storageItem!.userId, data.photo, data.login, data.email, data.name, data.phone));
+                await dispatch(updateUserData(storageItem!.userId, formData));
 
                 setSubmitting(false);
+                closeForm();
             }}
         >
             {
-                ({values, isSubmitting}) => (
+                ({isSubmitting}) => (
                     <Form>
                         <div className="auth__header">
                             Змінити профіль
@@ -56,22 +64,19 @@ const UserInfoForm: React.FC = () => {
                                 Обрати новий аватар
                             </div>
                             <div className="file__field centered-row">
-                                <label htmlFor="photo">
+                                <label htmlFor="avatar">
                                     <input 
                                         accept="image/*" 
-                                        id="photo"
-                                        name="photo" 
+                                        id="avatar"
+                                        name="avatar" 
                                         type="file"
                                         onChange={(e) => changeFileInputHandler(e)}
                                     />
                                     Обрати файл
                                 </label>
-                                <p>{choosenFile}</p>
+                                <p>{fileName}</p>
                             </div>
                         </div>
-                        {
-                            console.log(values.photo)
-                        }
                         <div className="auth__input">
                             <Field width={250} validate={ValidateLogin} name="login" placeholder="Введіть логін" type="text" as={MyTextField} />
                         </div>
