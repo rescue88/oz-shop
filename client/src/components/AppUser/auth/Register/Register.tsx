@@ -12,7 +12,7 @@ const Register: FC = () => {
             <hr/>
             <RegisterForm />
             <div className="auth__tip">
-                Уже є акаунт? Перейдіть на сторінку <NavLink className="auth__tip_link" to="/app/login">авторизації</NavLink>!
+                Уже є акаунт? Перейдіть на сторінку <NavLink className="auth__tip_link" to="/app/login">авторизації</NavLink>
             </div>
         </div>
     );

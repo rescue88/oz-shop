@@ -10,7 +10,7 @@ const Login: FC = () => {
             <hr/>
             <LoginForm />
             <div className="auth__tip">
-                Немає акаунту? Тоді створіть його на сторінці <NavLink className="auth__tip_link" to="/app/register">реєстрації</NavLink>!
+                Немає акаунту? Тоді створіть його на сторінці <NavLink className="auth__tip_link" to="/app/register">реєстрації</NavLink>
             </div>
         </div>
     )
