@@ -14,7 +14,7 @@ const userState: UserStateType = {
     name: null,
     email: null,
     login: null,
-    permissons: 'user',
+    permissions: 'user',
     phone: null,
     created: null,
     favorites: [],

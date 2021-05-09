@@ -54,7 +54,7 @@ const UserInfo: FC<UserInfoType> = ({userData}) => {
                             <b>Створено профіль:</b> {userData.created}
                         </div>
                         <div className="userInfo__item">
-                            <b>Група:</b> {userGroups[userData.permissons]}
+                            <b>Група:</b> {userGroups[userData.permissions]}
                         </div>
                     </div>
                 </div>

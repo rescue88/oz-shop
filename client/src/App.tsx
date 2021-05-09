@@ -14,7 +14,7 @@ const App: FC = () => {
   const { ready } = useAuth();
 
   const isAuth = useSelector((state: StateType) => state.auth.isAuth);
-  const userPerm = useSelector((state: StateType) => state.user.permissons);
+  const userPerm = useSelector((state: StateType) => state.user.permissions);
   // TODO:　make a preloader
   if(!ready) {
     return <div style={{width: '100%', height: '100%', backgroundColor: 'red'}}>not ready</div>

@@ -25,7 +25,7 @@ export type UserStateType = {
     name: string | null;
     email: string | null;
     login: string | null;
-    permissons: keyof typeof UserPermissions;
+    permissions: keyof typeof UserPermissions;
     phone: string | null;
     created: number | null;
     favorites: Array<any>;
