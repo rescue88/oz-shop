@@ -3,27 +3,16 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import st from './Home.module.css';
 import img from './../../../assets/slider.jpg';
 import PrevButton from './Arrows/PrevButton';
 import NextButton from './Arrows/NextButton';
-import RandomPropsType from './Arrows/RandomPropsType';
 
-type SlickSettingsType = {
-    dots?: boolean;
-    infinite?: boolean;
-    draggable?: boolean;
-    adaptiveHeight?: boolean;
-    autoplay?: boolean;
-    speed?: number;
-    slidesToShow?: number;
-    slidesToScroll?: number;
-    prevArrow?: ReactElement<RandomPropsType>;
-    nextArrow?: ReactElement<RandomPropsType>;
+export type SliderButtonsType = {
+    onClick?: () => void;
 }
 
 const Home: FC = () => {
-    const settings: SlickSettingsType = {
+    const settings = {
         dots: false,
         infinite: true,
         draggable: false,
@@ -37,15 +26,15 @@ const Home: FC = () => {
     }
 
     return (
-        <div className={st.slider}>
+        <div className="slider">
             <Slider {...settings} >
-                <div className={st.slider__item}>
+                <div className="slider__item">
                     <img src={img} alt="" />
                 </div>
-                <div className={st.slider__item}>
+                <div className="slider__item">
                     <img src={img} alt="" />
                 </div>
-                <div className={st.slider__item}>
+                <div className="slider__item">
                     <img src={img} alt="s" />
                 </div>
             </Slider>
