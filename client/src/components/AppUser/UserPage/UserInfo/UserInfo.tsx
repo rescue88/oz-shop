@@ -6,8 +6,9 @@ import defaultAva from './../../../../assets/images/defaultAva.png';
 import { UserStateType } from '../../../../types/stateTypes';
 import MyDialogWindow from '../../../common/MyDialogWindow';
 import UserInfoForm from './UserInfoForm/UserInfoForm';
+import { convertBuffer } from '../../../../assets/helpers/helpers';
 
-type UserInfoType = {
+export type UserInfoType = {
     userData: UserStateType;
 }
 
@@ -26,12 +27,12 @@ const UserInfo: FC<UserInfoType> = ({userData}) => {
 
     return (
         <section className="userInfo">
-            <MyDialogWindow open={openForm} onClose={toggleOpenForm} Content={UserInfoForm} />
+            <MyDialogWindow open={openForm} onClose={toggleOpenForm} Content={() => <UserInfoForm userData={userData} closeForm={toggleOpenForm} />} />
             <div className="userInfo__header">Ваш профіль</div>
             <hr/>
             <div className="userInfo__data space-betw-row">
                 <div className="userInfo__data_avatar">
-                    <img src={defaultAva} alt="user avatar"/>
+                    <img src={userData.avatar.data ? convertBuffer(userData.avatar.data.data): defaultAva} alt="user avatar"/>
                 </div>
                 <div className="userInfo__data_content space-betw-row">
                     <div className="part1">
