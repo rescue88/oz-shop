@@ -50,7 +50,7 @@ export const login = (login: string, password: string) => async (dispatch: Funct
 
     if(data && data.success) {
         // write user id and token into local storage
-        setStorageItem(data.token, data.userId);
+        setStorageItem(data.userId, data.token);
         // set user data
         await dispatch(getUserData(data.userId));
         // set auth data
