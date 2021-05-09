@@ -48,7 +48,7 @@ export const deleteUser = (id: string) => async (dispatch: Function) => {
 }
 
 /* REDUCER */
-export const adminReducer = (state: any = adminState, action: any) => {
+export const adminReducer = (state: AdminStateType = adminState, action: any) => {
     switch(action.type) {
         case SET_USERS:
             return {

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsers } from '../../../redux/reducers/adminReducer';
 import { ChangeUsersPageType, StateType } from '../../../types/stateTypes';
+import ChangeUsersItem from './ChangeUsersItem/ChangeUsersItem';
 
 const userTableKeys = [
     "Логін",
@@ -16,6 +17,7 @@ const userTableKeys = [
 const ChangeUsers: FC = () => {
     const dispatch = useDispatch();
     const users: Array<ChangeUsersPageType> = useSelector((state: StateType) => state.admin.changeUsers);
+    console.log(users);
 
     const changeUsersHandler = async () => {
         await dispatch(getUsers());
@@ -23,7 +25,7 @@ const ChangeUsers: FC = () => {
 
     useEffect(() => {
         changeUsersHandler();
-    }, [changeUsersHandler, dispatch]);
+    }, []);
     
     return (
         <div className="changeContainer">
@@ -38,9 +40,9 @@ const ChangeUsers: FC = () => {
                     }
                 </div>
                 <div className="changeUser__items">
-                    <div className="changeUser__items_item">
-                        
-                    </div>
+                    {
+                        users.map(item => <ChangeUsersItem key={item.id} {...item} />)
+                    }
                 </div>
             </div>
         </div>

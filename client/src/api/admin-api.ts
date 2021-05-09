@@ -6,7 +6,7 @@ export const adminAPI = {
         return response.data;
     },
     async deleteProfile(id: string) {
-        const response = await axiosInstance.get<any>(`user/delete/${id}`);
+        const response = await axiosInstance.delete<any>(`user/delete/${id}`);
         return response.data;
     }
 }
