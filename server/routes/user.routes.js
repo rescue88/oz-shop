@@ -6,7 +6,27 @@ const fs = require('fs');
 const { deleteUserPrivateInfo, parseDateUkr, userById } = require('./helpers/helpers');
 const router = Router();
 
-// fint user by id
+// get a list of all users
+router.get(
+    '/',
+    async (req, res) => {
+        try {
+            const users = await User.find({}, {login: 1, email: 1, name: 1, permissions: 1, phone: 1});
+            // at least 1 user in a list - admin; if(!users) isnt required
+            return res.status(200).json({
+                message: "Список юзерів успішно завантажено",
+                success: true,
+                users
+            });
+        } catch(e) {
+            return res.status(400).json({
+                message: 'Не вдалось отримати юзерів'
+            });
+        }
+    }
+);
+
+// find user by id
 router.get(
     '/:id',
     userById,
@@ -29,6 +49,7 @@ router.get(
     }
 );
 
+// update profile
 router.put(
     '/update/:id',
     userById,
@@ -62,12 +83,35 @@ router.put(
                 });
             } catch(e) {
                 return res.status(400).json({
-                    message: e.message,
+                    message: 'Не вдалося оновити профіль',
                     success: false
                 });
             }
         });
     }
-)
+);
+
+// delete profile
+router.delete(
+    '/delete/:id',
+    userById,
+    async (req, res) => {
+        try {
+            const user = req.profile;
+
+            await user.remove();
+
+            return res.status(200).json({
+                message: 'Юзера успішно видалено',
+                success: true
+            });
+        } catch(e) {
+            return res.status(400).json({
+                message: 'Не вдалося видалити юзера',
+                success: false
+            });
+        }
+    }
+);
 
 module.exports = router;
