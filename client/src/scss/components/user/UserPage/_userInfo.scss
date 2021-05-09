@@ -19,6 +19,10 @@
 
         &_avatar {
             flex-basis: 20%;
+            &,
+            img {
+                border-radius: 50%;
+            }
         }
 
         &_content {

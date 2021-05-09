@@ -31,7 +31,6 @@ const MyTextField: FC<MyTextFieldType> = ({ width, placeholder, type, ...props }
           {...field} 
           type={type}
           placeholder={placeholder}
-          // helperText={errorText}
           error={!!errorText}
         />
         <FormHelperText className={classes.helperText} id={field.name}>{errorText}</FormHelperText>
