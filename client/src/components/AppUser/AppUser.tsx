@@ -13,20 +13,22 @@ const AppUser: FC<AppType> = ({isAuth}) => {
         <>
             <Navbar />
             <section className="page-container">
-                <Switch>
-                    <Route exact path="/app" render={() => <Home />} />
-                    {
-                        !isAuth ? (
-                            <>
-                                <Route path="/app/login" render={() => <Login />} />
-                                <Route path="/app/register" render={() => <Register />} />
-                            </>
-                        ) : (
-                            <Route path="/app/profile" render={() => <UserPage />} />
-                        )
-                    }
-                    <Redirect exact to="/app" />
-                </Switch>
+                {
+                    isAuth ? (
+                        <Switch>
+                            <Route exact path="/app" render={() => <Home />} />
+                            <Route exact path="/app/profile" render={() => <UserPage />} />
+                            <Redirect exact to="/app" />
+                        </Switch>
+                    ) : (
+                        <Switch>
+                            <Route exact path="/app" render={() => <Home />} />
+                            <Route exact path="/app/login" render={() => <Login />} />
+                            <Route exact path="/app/register" render={() => <Register />} />
+                            <Redirect exact to="/app" />
+                        </Switch>
+                    )
+                }
             </section>
         </>
     )

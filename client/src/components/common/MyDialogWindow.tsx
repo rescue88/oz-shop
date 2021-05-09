@@ -4,13 +4,13 @@ import { DialogContent } from '@material-ui/core';
 
 import { dialogWindow } from './useStyles';
 
-type MyDialogWindow = {
+type MyDialogWindowType = {
     Content: FC;
     open: boolean;
     onClose: () => void;
 }
 
-const MyDialogWindow: FC<MyDialogWindow> = ({open, Content, onClose}) => {
+const MyDialogWindow: FC<MyDialogWindowType> = ({open, Content, onClose}) => {
     const classes = dialogWindow();
 
     return (

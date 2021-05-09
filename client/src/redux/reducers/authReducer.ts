@@ -2,7 +2,7 @@ import { removeStorageItem, setStorageItem } from './../../assets/helpers/helper
 import { setSnackbar } from './snackbarReducer';
 import { authAPI } from './../../api/auth-api';
 import { AuthStateType } from './../../types/stateTypes';
-import { LoginResponse, OZshop, DefaultResponse } from './../../types/reduxTypes';
+import { LoginResponse, DefaultResponse } from './../../types/reduxTypes';
 import { getUserData } from './userReducer';
 
 /* ACTIONS */

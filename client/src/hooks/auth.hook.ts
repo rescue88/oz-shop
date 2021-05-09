@@ -1,10 +1,10 @@
-import { StorageItemType } from './../types/common';
-import { getStorageItem, setStorageItem } from './../assets/helpers/helpers';
 import { useDispatch } from 'react-redux';
 import { useState, useCallback, useEffect } from 'react';
 
 import { signIn } from '../redux/reducers/authReducer';
 import { getUserData } from '../redux/reducers/userReducer';
+import { StorageItemType } from './../types/common';
+import { getStorageItem, setStorageItem } from './../assets/helpers/helpers';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
@@ -16,6 +16,7 @@ export const useAuth = () => {
         dispatch(signIn(jwtToken, id));
 
         setStorageItem(id, jwtToken);
+        setReady(true);
     }, []);
 
     // auto save data from local storage into local state
@@ -25,7 +26,6 @@ export const useAuth = () => {
         if(data && data.token) {
             login(data.token, data.userId);
         }
-        setReady(true);
     }, [login]);
 
     return { login, ready }

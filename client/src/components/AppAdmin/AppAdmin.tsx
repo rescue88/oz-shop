@@ -1,18 +1,19 @@
 import React from 'react';
-import NavbarAdmin from './NavbarAdmin/NavbarAdmin';
 import { Redirect } from 'react-router-dom';
 
-type AppAdminType = {
-    isAuth: boolean;
-}
+import NavbarAdmin from './NavbarAdmin/NavbarAdmin';
+import { AppType } from '../../types/common';
+import { UserPermissions } from './../../types/stateTypes'
 
-const AppAdmin: React.FC<AppAdminType> = ({isAuth}) => {
+const AppAdmin: React.FC<AppType & {userPerm: keyof typeof UserPermissions}> = ({isAuth, userPerm}) => {
     return (
         <>
-            {
-                isAuth ? null : <Redirect to="/app" />
-            }
             <NavbarAdmin />
+            <section className="page-container">
+                <div>
+                    admin-home
+                </div>
+            </section>
         </>
     )
 }

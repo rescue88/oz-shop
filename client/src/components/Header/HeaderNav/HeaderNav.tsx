@@ -7,6 +7,7 @@ import HeaderNavCartIcon from './Icons/HeaderNavCartIcon';
 import HeaderNavProfileIcon from './Icons/HeaderNavProfileIcon';
 import HeaderNavSignInIcon from './Icons/HeaderNavSignInIcon';
 import HeaderNavSignOutIcon from './Icons/HeaderNavSignOutIcon';
+import HeaderNavAdminIcon from './Icons/HeaderNavAdminIcon';
 import { StateType } from '../../../types/stateTypes';
 import { signOut } from '../../../redux/reducers/authReducer';
 import { clearUserData } from '../../../redux/reducers/userReducer';
@@ -15,6 +16,7 @@ import { setSnackbar } from '../../../redux/reducers/snackbarReducer';
 const HeaderNav: FC = () => {
     const dispatch = useDispatch();
     const isAuth = useSelector((state: StateType) => state.auth.isAuth);
+    const permissions = useSelector((state: StateType) => state.user.permissions);
 
     const logoutHandler = () => {
         dispatch(signOut());
@@ -25,6 +27,15 @@ const HeaderNav: FC = () => {
     return (
         <nav className="header__bar">
             <ul>
+                {
+                    isAuth && permissions === 'admin' && (
+                        <li className="header__bar_link">
+                            <NavLink exact to="/admin">
+                                <HeaderNavItem Icon={HeaderNavAdminIcon} name="Адмін-панель" />
+                            </NavLink>
+                        </li>
+                    )
+                }
                 <li className="header__bar_link">
                     <NavLink exact to="/app/cart">
                         <HeaderNavItem Icon={HeaderNavCartIcon} name="Корзина" />

@@ -1,21 +1,15 @@
 import { FC } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import st from './../Navbar.module.css';
+import { NavbarType } from '../../../../types/common';
 
-type NavAdminItemType = {
-    NavIcon: FC;
-    pageName: string;
-}
-
-const NavAdminItem: FC<NavAdminItemType> = ({NavIcon, pageName}) => {
+const NavAdminItem: FC<NavbarType> = ({NavIcon, pageName, pageLink}) => {
     return (
-        <div className={st.nav__item}>
-            <div className={st.icon}>
-                <NavIcon />
-            </div>
-            <div className={st.page}>
-                {`${pageName}`}
-            </div>
+        <div className="main-nav__item">
+            <NavLink exact to={`/admin/${pageLink}`} activeClassName="activeNavLink">
+                <div className="main-nav__item_icon"><NavIcon /></div>
+                <div className="main-nav__item_page">{pageName}</div>
+            </NavLink>
         </div>
     );
 }

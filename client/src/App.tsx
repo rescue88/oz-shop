@@ -28,7 +28,7 @@ const App: FC = () => {
         {
           <Switch>
             {
-              userPerm === 'admin' && <Route path="/admin" render={() => <AppAdmin isAuth={isAuth} />} />
+              userPerm === 'admin' && <Route path="/admin" render={() => <AppAdmin isAuth={isAuth} userPerm={userPerm} />} />
             }
             <Route path="/app" render={() => <AppUser isAuth={isAuth} />} />
             <Redirect exact to="/app" />
