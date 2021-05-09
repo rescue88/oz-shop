@@ -21,3 +21,14 @@ export const setStorageItem = (userId: string, token: string): void => {
 export const removeStorageItem = (): void => {
     localStorage.removeItem(OZshop);
 }
+
+// convert Buffer type into base64
+export const convertBuffer = (image: any): string => {
+    let binary: string = '';
+
+    let bytes: Array<any> = [].slice.call(new Uint8Array(image));
+    console.log('bytes', bytes);
+    bytes.forEach((b) => binary += String.fromCharCode(b));
+    
+    return `data:image/*;base64, ${btoa(binary)}`;
+}
