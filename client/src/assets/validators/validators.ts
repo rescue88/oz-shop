@@ -16,8 +16,10 @@ export const ValidatePersonalName = (value: string): string => {
     let error: string = '';
     if(!value) {
         error = "Ім'я обов'язкове";
-    } else if(!/^[А-ЯЁа-яё\s]{7,30}$/.test(value)) {
-        error = "Некоректно введне ім'я";
+    } else if(value.length < 7 || value.length > 35) {
+        error = "Довжина ім'я від 7 до 35 символів";
+    } else if(!/^[А-Яа-яЁёЄєіІ ]+$/g.test(value)) {
+        error = "Лише пробіли і літери рос./укр. абетки";
     }
     return error;
 }
