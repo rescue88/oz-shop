@@ -6,16 +6,10 @@ import defaultAva from './../../../../assets/images/defaultAva.png';
 import { UserStateType } from '../../../../types/stateTypes';
 import MyDialogWindow from '../../../common/MyDialogWindow';
 import UserInfoForm from './UserInfoForm/UserInfoForm';
-import { convertBuffer } from '../../../../assets/helpers/helpers';
+import { convertBuffer, userGroups } from '../../../../assets/helpers/helpers';
 
 export type UserInfoType = {
     userData: UserStateType;
-}
-
-const userGroups = {
-    user: 'користувач',
-    admin: 'адмін',
-    moder: 'контент-менеджер'
 }
 
 const UserInfo: FC<UserInfoType> = ({userData}) => {

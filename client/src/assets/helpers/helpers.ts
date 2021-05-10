@@ -1,5 +1,16 @@
 import { StorageItemType } from './../../types/common';
 import { OZshop } from "../../types/reduxTypes";
+import { UserPermissions } from '../../types/stateTypes';
+
+type UserGroupsType = {
+    [key in keyof typeof UserPermissions]: string;
+}
+
+export const userGroups: UserGroupsType = {
+    user: 'користувач',
+    admin: 'адмін',
+    moder: 'контент-менеджер',
+}
 
 // get storage data
 export const getStorageItem = (): StorageItemType => {
