@@ -25,6 +25,8 @@ export const useAuth = () => {
 
         if(data && data.token) {
             login(data.token, data.userId);
+        } else {
+            setReady(true);
         }
     }, [login]);
 
