@@ -17,7 +17,6 @@ const userTableKeys = [
 const ChangeUsers: FC = () => {
     const dispatch = useDispatch();
     const users: Array<ChangeUsersPageType> = useSelector((state: StateType) => state.admin.changeUsers);
-    console.log(users);
 
     const changeUsersHandler = async () => {
         await dispatch(getUsers());
@@ -41,7 +40,7 @@ const ChangeUsers: FC = () => {
                 </div>
                 <div className="changeUser__items">
                     {
-                        users.map(item => <ChangeUsersItem key={item.id} {...item} />)
+                        users.map(item => <ChangeUsersItem key={item._id} {...item} />)
                     }
                 </div>
             </div>

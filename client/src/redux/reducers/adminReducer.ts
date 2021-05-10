@@ -1,3 +1,4 @@
+import { getStorageItem } from './../../assets/helpers/helpers';
 import { DefaultResponse, GetUsersResponse } from './../../types/reduxTypes';
 import { AdminStateType, ChangeUsersPageType } from '../../types/stateTypes';
 import { adminAPI } from './../../api/admin-api';
@@ -27,14 +28,20 @@ export const getUsers = () => async (dispatch: Function) => {
         dispatch(setSnackbar(true, 'error', message));
     });
 
-    if(data && data.success) {
-        console.log(data.users);
+    if(data && data.success) {;
         dispatch(setUsers(data.users));
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }
 
 export const deleteUser = (id: string) => async (dispatch: Function) => {
+    const userId = getStorageItem()!.userId;
+    if(id === userId) {
+        console.log("here")
+        dispatch(setSnackbar(true, 'error', 'Відмовлено у видаленні свого акаунту'));
+        return;
+    }
+    
     const data: DefaultResponse = await adminAPI.deleteProfile(id).catch(error => {
         const {message} = error.response.data;
         // show a tip or an error

@@ -22,7 +22,7 @@ export type AuthStateType = {
 
 // admin reducer initial state
 export type ChangeUsersPageType = {
-    id: string;
+    _id: string;
     login: string;
     email: string;
     name: string;
