@@ -10,5 +10,6 @@ app.use(cors());
 // listen to a base url and call routers
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/user', require('./routes/user.routes'));
+app.use('/api/category', require('./routes/category.routes'));
 
 module.exports = app;
