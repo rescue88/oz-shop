@@ -14,7 +14,7 @@ const Navbar: FC = () => {
                 <div className="main-nav__section_menu">
                     <NavbarItem NavIcon={NavIcon} pageLink="" pageName="Головна" />
                     <NavbarItem NavIcon={NavIcon} pageLink="products" pageName="Товари" />    
-                    <NavbarItem NavIcon={NavIcon} pageLink="discount" pageName="Знижки" />
+                    <NavbarItem NavIcon={NavIcon} pageLink="discounts" pageName="Знижки" />
                 </div>
             </div>
             <div className="main-nav__section">

@@ -7,6 +7,9 @@ import Login from './auth/Login/Login';
 import Register from './auth/Register/Register';
 import { AppType } from '../../types/common';
 import UserPage from './UserPage/UserPage';
+import ProductsPage from './ProductPage/ProductsPage';
+import CartPage from './CartPage/CartPage';
+import DiscountPage from './DiscountPage/DiscountPage';
 
 const AppUser: FC<AppType> = ({isAuth}) => {
     return (
@@ -17,12 +20,18 @@ const AppUser: FC<AppType> = ({isAuth}) => {
                     isAuth ? (
                         <Switch>
                             <Route exact path="/app" render={() => <Home />} />
+                            <Route exact path="/app/products" render={() => <ProductsPage />} />
+                            <Route exact path="/app/cart" render={() => <CartPage />} />
+                            <Route exact path="/app/discounts" render={() => <DiscountPage />} />
                             <Route exact path="/app/profile" render={() => <UserPage />} />
                             <Redirect exact to="/app" />
                         </Switch>
                     ) : (
                         <Switch>
                             <Route exact path="/app" render={() => <Home />} />
+                            <Route exact path="/app/products" render={() => <ProductsPage />} />
+                            <Route exact path="/app/cart" render={() => <CartPage />} />
+                            <Route exact path="/app/discounts" render={() => <DiscountPage />} />
                             <Route exact path="/app/login" render={() => <Login />} />
                             <Route exact path="/app/register" render={() => <Register />} />
                             <Redirect exact to="/app" />
