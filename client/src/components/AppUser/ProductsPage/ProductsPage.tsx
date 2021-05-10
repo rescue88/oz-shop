@@ -8,9 +8,11 @@ const ProductPage: FC = () => {
         <div className="productsPage">
             <ProductsPageFilters />
             <div className="productsPage__content">
-                <div className="productsPage__content_header">Сторінка товарів</div>
-                <div className="productsPage__content_items">
-                    <ProductsPageItem />
+                <div className="productsPage__content_header">Наявні товари</div>
+                <div className="productsPage__content_items space-betw-row">
+                    {
+                        Array(10).fill(3).map((item, idx) => <ProductsPageItem key={idx} /> )
+                    }
                 </div>
             </div>
         </div>

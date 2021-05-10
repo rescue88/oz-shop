@@ -1,0 +1,97 @@
+.productsPage__content_items {
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+        width: 33rem;
+        margin-bottom: 2.5rem;
+        background: $foreground-back;
+        border-radius: 0.7rem;
+        overflow: hidden;
+
+        & > div:not(:last-child) {
+            margin-bottom: 2.5rem;
+        }
+
+        &__picture {
+            width: 100%;
+            height: 27rem;
+            img {
+                display: block;
+                width: 80%;
+                height: 90%;
+            }
+        }
+
+        &__ratePrice,
+        &__name {
+            padding: 0 2rem;
+        }
+
+        &__ratePrice {
+            &_rate {
+                padding: 0.5rem 1rem;
+                font-size: 1.4rem;
+                border-radius: 0.7rem;
+                background: $primary-color;
+                color: black;
+                svg {
+                    width: 2rem;
+                    height: 1.5rem;
+                    fill: black;
+                }
+            }
+
+            &_price {
+                font-size: 2rem;
+                letter-spacing: 0.1rem;
+            }
+        }
+
+        &__name {
+            &_header {
+                font-size: 2rem;
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+            }
+
+            &_subheader {
+                font-size: 1.4rem;
+                font-weight: 300;
+            }
+        }
+
+        &__buttons {
+            &_wishlist,
+            &_cart {
+                width: 50%;
+                padding: 1.5rem 0;
+                background: none;
+                font-size: 1.6rem;
+                text-transform: uppercase;
+                color: black;
+                cursor: pointer;
+                opacity: 0.9;
+                transition: opacity 0.3s;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                svg {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    margin-right: 0.7rem;
+                    fill: black;
+                }
+            }
+
+            &_wishlist {
+                background: $additional-color;
+            }
+
+            &_cart {
+                background: $primary-color;
+            }
+        }
+    }
+}

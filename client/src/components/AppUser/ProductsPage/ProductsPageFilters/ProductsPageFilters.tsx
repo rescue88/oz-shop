@@ -1,5 +1,14 @@
 import { FC, useState } from 'react';
 
+const categoryNames = [
+    'Всі',
+    'Для кухні',
+    'Для дому',
+    'Кліматична техніка',
+    'Аксесуари',
+    'Гігієна',
+];
+
 const ProductsPageFilters: FC = () => {
     const [visiblePopup, setVisiblePopup] = useState<boolean>(false);
 

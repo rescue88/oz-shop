@@ -99,24 +99,29 @@ img {
 // skeleton styles
 // app container
 .main-container {
-    width: 70%;
+    width: 75%;
     height: 100vh;
     margin: 0 auto;
 }
 
 .content {
-    padding: 2rem 0;
     background: $def-back;
     display: flex;
 }
 
 .content nav {
     min-width: 20%;
+    margin: 2.5rem 0;
     background: $foreground-back;
 }
 
 .content .page-container {
     min-width: 80%;
     min-height: 90vh;
+    margin-top: 2.5rem;
     padding: 0 3rem;
+
+    & > div:not(.productsPage) {
+        margin-bottom: 2.5rem;
+    }
 }

@@ -1,7 +1,13 @@
 // products page filters
 @import './filters';
+// products item;
+@import './productsItem';
 
 .productsPage {
-    background: $foreground-back;
-    padding: 1rem 2rem;
+    &__content {
+        &_header {
+            margin-bottom: 1.5rem;
+            font-size: 2.4rem;
+        }
+    }
 }

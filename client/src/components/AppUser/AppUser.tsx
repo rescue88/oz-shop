@@ -7,7 +7,7 @@ import Login from './auth/Login/Login';
 import Register from './auth/Register/Register';
 import { AppType } from '../../types/common';
 import UserPage from './UserPage/UserPage';
-import ProductsPage from './ProductPage/ProductsPage';
+import ProductsPage from './ProductsPage/ProductsPage';
 import CartPage from './CartPage/CartPage';
 import DiscountPage from './DiscountPage/DiscountPage';
 
