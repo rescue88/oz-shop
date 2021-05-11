@@ -1,34 +1,39 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
+import { ProductItemType } from '../../../../types/stateTypes';
 
 import defaultProduct from './../../../../assets/images/defaultProduct.png';
 
-const ProductsPageItem: FC = () => {
+const ProductsPageItem: FC<ProductItemType> = ({
+    _id, name, description, image, price, discounts
+}) => {
     return (
-        <NavLink className="item" to="/app">
-            <div className="item__picture centered-row">
-                <img src={defaultProduct} alt="product" />
-            </div>
-            <div className="item__ratePrice space-betw-row">
-                <div className="item__ratePrice_rate">
-                    4.0
-                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                        <path d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 
-                            33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 
-                            139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z">
-                        </path>
-                    </svg>
+        <div className="itemContainer">
+            <NavLink className="item" to={`/app/products/${_id}`}>
+                <div className="item__picture centered-row">
+                    <img src={defaultProduct} alt="product" />
                 </div>
-                <div className="item__ratePrice_price">
-                    ₴9999
+                <div className="item__ratePrice space-betw-row">
+                    <div className="item__ratePrice_rate">
+                        4.0
+                        <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 
+                                33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 
+                                139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div className="item__ratePrice_price">
+                        ₴{price}
+                    </div>
                 </div>
-            </div>
-            <div className="item__name">
-                <div className="item__name_header">Холодильник samsung A05</div>
-                <div className="item__name_subheader">Холодильник середнього розміру з функцією no-frost(без розморозок)</div>
-            </div>
-            <div className="item__buttons">
-                <button className="item__buttons_wishlist" type="button">
+                <div className="item__name">
+                    <div className="item__name_header">{name}</div>
+                    <div className="item__name_subheader">{description}</div>
+                </div>
+            </NavLink>
+            <div className="itemContainer__buttons">
+                <button className="itemContainer__buttons_wishlist" type="button">
                     <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 
                             27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 
@@ -37,7 +42,7 @@ const ProductsPageItem: FC = () => {
                     </svg>
                     В замітки
                 </button>
-                <button className="item__buttons_cart" type="button">
+                <button className="itemContainer__buttons_cart" type="button">
                     <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450.391 450.391">
                         <g>
                             <path d="M143.673,350.322c-25.969,0-47.02,21.052-47.02,47.02c0,25.969,21.052,47.02,47.02,47.02
@@ -59,7 +64,7 @@ const ProductsPageItem: FC = () => {
                     В корзину
                 </button>
             </div>
-        </NavLink>
+        </div>
     );
 }
 

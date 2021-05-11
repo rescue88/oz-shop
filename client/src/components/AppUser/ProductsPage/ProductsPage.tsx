@@ -1,9 +1,24 @@
+import { useEffect } from 'react';
 import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from '../../../redux/reducers/productReducer';
+import { StateType } from '../../../types/stateTypes';
 
 import ProductsPageFilters from './ProductsPageFilters/ProductsPageFilters';
 import ProductsPageItem from './ProductsPageItem/ProductsPageItem';
 
 const ProductPage: FC = () => {
+    const dispatch = useDispatch();
+    const products = useSelector((state: StateType) => state.product.products);
+
+    const getProductsHandler = async () => {
+        await dispatch(getProducts());
+    }
+
+    useEffect(() => {
+        getProductsHandler();
+    }, []);
+
     return (
         <div className="productsPage">
             <ProductsPageFilters />
@@ -11,7 +26,9 @@ const ProductPage: FC = () => {
                 <div className="productsPage__content_header">Наявні товари</div>
                 <div className="productsPage__content_items space-betw-row">
                     {
-                        Array(10).fill(3).map((item, idx) => <ProductsPageItem key={idx} /> )
+                        products.length 
+                            ? products.map(item => <ProductsPageItem key={item._id} {...item} />)
+                            : Array(5).fill(3).map((item, idx) => <div>product</div> )
                     }
                 </div>
             </div>
