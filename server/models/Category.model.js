@@ -6,6 +6,10 @@ const CategorySchema = new Schema({
         unique: "Ім'я категорії є унікальним полем",
         required: "Ім'я категорії обов'язкове"
     },
+    label: {
+        type: String,
+        required: "Підпис категорії обов'язковий"
+    },
     description: String,
 });
 

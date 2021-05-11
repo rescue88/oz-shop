@@ -1,58 +1,53 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const ProductSchema = new Schema({
     name: {
         type: String,
-        required: 'Product name is required'
+        required: "Ім'я продукту є обов'язковим полем",
+        unique: "Товар з таким ім'ям уже існує"
     },
     description: {
         type: String,
-        required: 'Description is required'
+        required: "Додайте опис продукту"
     },
-    images: {
-        data: [Buffer],
-        contentType: String
+    image: {
+        data: Buffer,
+        contentType: String,
+        default: ""
     },
     category: {
-        type: Schema.ObjectId,
-        ref: 'Category'
+        type: Types.ObjectId,
+        ref: "categories"
     },
     price: {
         type: Number,
-        required: 'Product price is required'
+        required: "Вкажіть ціну товару"
     },
     amount: {
         type: Number,
-        min: [0, 'Minimal amount of products is 0'],
-        max: [30, 'Maximum amount of products is 30'],
+        min: [0, "Кількість продуктів - невід'ємне число"],
+        max: [30, "Максимальна кількість продуктів одного типу на складі - 30шт."],
         default: 0
     },
-    discounts: {
-        type: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Discount'
-        }],
-        default: []
+    producer: {
+        type: String,
+        required: "Вкажіть виробника продукту"
     },
-    comments: {
-        type: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Message'
-        }],
-        default: []
-    },
-    rating: {
-        type: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Rating'
-        }],
-        default: []
+    size: {
+        type: String,
+        required: "Вкажіть габарити продукта"
     },
     created: {
         type: Date,
         default: Date.now
     },
-    updated: Date
+    discounts: {
+        type: [{
+            type: Types.ObjectId,
+            ref: "Discount"
+        }],
+        default: []
+    },
 });
 
-module.exports = model('Product', ProductSchema);
+module.exports = model("Product", ProductSchema);
