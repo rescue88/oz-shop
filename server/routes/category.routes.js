@@ -36,18 +36,18 @@ router.post(
     '/create',
     async (req, res) => {
         try {
-            const {name, description} = req.body;
+            const {name} = req.body;
 
             const candidate = await Category.find({name});
 
-            if(!candidate) {
+            if(candidate.length) {
                 return res.status(400).json({
                     message: "Ім'я категорії вже додано",
                     success: false,
                 });
             }
 
-            const category = new Category({name, description});
+            const category = new Category({...req.body});
             await category.save();
 
             return res.status(200).json({
@@ -55,8 +55,8 @@ router.post(
                 success: true
             });
         } catch(e) {
-            return res.json({
-                message: `Щось не так з роутом /category/create ${e.message}`,
+            return res.status(400).json({
+                message: `Не вдалось додати нову категорію товарів; ${e.message}`,
                 success: false
             });
         }
@@ -66,6 +66,13 @@ router.post(
 // change category
 router.put(
     '/update/:id',
+    async (req, res) => {
+
+    }
+);
+
+router.delete(
+    '/delete/:name',
     async (req, res) => {
 
     }
