@@ -11,7 +11,7 @@ const snackbarState: SnackbarStateType = {
 }
 
 /* ACTION CREATORS */
-export const setSnackbar = (snackbarOpen: boolean, snackbarType: keyof typeof SnackbarType, snackbarMessage: string) => ({
+export const setSnackbar = (snackbarOpen: boolean, snackbarType: SnackbarType, snackbarMessage: string) => ({
     type: SET_SNACKBAR,
     snackbarOpen,
     snackbarType,
