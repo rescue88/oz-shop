@@ -4,14 +4,9 @@ export type StateType = {
     admin: AdminStateType;
     user: UserStateType;
     snackbar: SnackbarStateType;
+    product: ProductStateType;
 }
 
-// user roles
-export enum UserPermissions {
-    'user',
-    'moder',
-    'admin'
-}
 // auth reducer initial state
 export type AuthStateType = {
     token: string | null;
@@ -33,28 +28,42 @@ export type AdminStateType = {
     changeUsers: Array<ChangeUsersPageType> | []
 }
 
+// user roles
+export type UserPermissionType = 'user' | 'admin' | 'moder';
 // user reducer initial state
 export type UserStateType = {
     avatar: any,
     name: string | null;
     email: string | null;
     login: string | null;
-    permissions: keyof typeof UserPermissions;
+    permissions: UserPermissionType;
     phone: string | null;
     created: number | null;
     favorites: Array<any>;
 }
 
 // material ui snakcbar types
-export enum SnackbarType {
-    'error',
-    'warning',
-    'info',
-    'success'
-}
+export type SnackbarType = 'error' | 'warning' | 'info' | 'success';
 // snackbar reducer initial state
 export type SnackbarStateType = {
     snackbarOpen: boolean;
-    snackbarType: keyof typeof SnackbarType;
+    snackbarType: SnackbarType;
     snackbarMessage: string;
+}
+
+// categories
+export type CategoryNameType = 'kitchen' | 'home' | 'climate' | 'accessorie' | 'hygiene';
+// product state type
+export type ProductItemType = {
+    _id: string;
+    name: string;
+    description: string;
+    image: any;
+    price: number;
+    discounts: Array<any>;
+}
+
+export type ProductStateType = {
+    products: Array<ProductItemType>;
+    filters: any;
 }
