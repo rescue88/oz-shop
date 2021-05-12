@@ -24,7 +24,7 @@ const ProductsPageItem: FC<ProductItemType> = ({
     }
 
     return (
-        <div className="itemContainer">
+        <div className={`itemContainer ${isLoading ? 'disable-clicks' : ''}`}>
             <NavLink className="item" to={`/app/products/${_id}`}>
                 <div className="item__picture centered-row">
                     <img src={defaultProduct} alt="product" />

@@ -1,4 +1,5 @@
 @import './ChangeUser/changeUser';
+@import './ChangeProduct/changeProduct';
 
 .changeContainer {
     &__header {
@@ -6,5 +7,69 @@
         font-size: 3rem;
         text-align: center;
         font-weight: bold;
+    }
+}
+
+.changeBlock {
+    &__header {
+        margin: 2rem 0;
+        display: flex;
+        &_item {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+    }
+
+    &__items {
+        &_item {
+            padding: 1.5rem 0;
+            font-size: 1.6rem;
+            border: 1px solid $green-dark;
+            border-radius: 0.7rem;
+            display: flex;
+
+            &:not(:last-child) {
+                margin-bottom: 1rem;
+            }
+
+            .item__image {
+                height: 5rem;
+                border-radius: 50%;
+            }
+
+            .item__change,
+            .item__delete {
+                button {
+                    background: none;
+                    cursor: pointer;
+                    &:hover {
+                        svg {
+                            fill: $danger-color;
+                        }
+                    }
+
+                    &:active:not(:disabled) {
+                        transform: scale(1.1);
+                    }
+
+                    &:disabled {
+                        svg {
+                            fill: $additional-color;
+                        }
+                    }
+
+                    svg {
+                        width: 3rem;
+                        height: 3rem;
+                    }
+                }
+            }
+
+            .item__change button:hover {
+                svg { 
+                    fill: $secondary-color;
+                }
+            }
+        }
     }
 }
