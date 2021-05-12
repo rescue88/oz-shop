@@ -1,8 +1,9 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUsers } from '../../../redux/reducers/adminReducer';
+import { deleteUser, getUsers } from '../../../redux/reducers/adminReducer';
 import { ChangeUsersPageType, StateType } from '../../../types/stateTypes';
+import ChangePageLoader from '../../common/Loader/ChangePageLoader';
 import ChangeUsersItem from './ChangeUsersItem/ChangeUsersItem';
 
 const userTableKeys = [
@@ -15,32 +16,56 @@ const userTableKeys = [
 ];
 
 const ChangeUsers: FC = () => {
+    const [isFetching, setIsFetching] = useState<boolean>(false);
     const dispatch = useDispatch();
     const users: Array<ChangeUsersPageType> = useSelector((state: StateType) => state.admin.changeUsers);
 
-    const changeUsersHandler = async () => {
+    const getUsersHandler = async () => {
+        setIsFetching(true);
+
         await dispatch(getUsers());
+
+        setIsFetching(false);
     }
 
-    useEffect(() => {
-        changeUsersHandler();
+    const deleteUserHandler = useCallback(async (id: string) => {
+        setIsFetching(true);
+
+        await dispatch(deleteUser(id));
+
+        setIsFetching(false);
     }, []);
+
+    useEffect(() => {
+        getUsersHandler();
+    }, [deleteUserHandler]);
     
     return (
         <div className="changeContainer">
             <div className="changeContainer__header">Редагування користувачів</div>
             <hr />
-            <div className="changeContainer__content changeUser">
-                <div className="changeUser__header">
+            <div className="changeContainer__content changeBlock">
+                <div className="changeBlock__header changeUsers">
                     {
                         userTableKeys.map(item => (
-                            <div key={item} className="changeUser__header_item centered-row">{item}</div>
+                            <div key={item} className="changeBlock__header_item centered-row">{item}</div>
                         ))
                     }
                 </div>
-                <div className="changeUser__items">
+                <div className="changeBlock__items changeUsers">
                     {
-                        users.map(item => <ChangeUsersItem key={item._id} {...item} />)
+                        users.length ? (
+                            users.map(item => (
+                                <ChangeUsersItem 
+                                    key={item._id} 
+                                    {...item} 
+                                    deleteUser={deleteUserHandler} 
+                                    isFetching={isFetching} 
+                                />
+                            ))
+                        ) : (
+                            Array(10).fill(0).map(item => <ChangePageLoader />)
+                        )
                     }
                 </div>
             </div>
