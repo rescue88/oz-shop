@@ -21,7 +21,7 @@ const parseDateUkr = (date, template) => {
 const userById = async (req, res, next) => {
     try {
         let user;
-        if(req.query) {
+        if(Object.keys(req.query).length) {
             user = await User.findById(req.query.id);
         } else {
             user = await User.findById(req.params.id);

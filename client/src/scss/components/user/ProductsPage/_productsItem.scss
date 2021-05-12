@@ -12,6 +12,10 @@
             box-shadow: 0px 0px 5px rgba(255, 168, 76, .5);
         }
 
+        &.disable-clicks {
+            position: relative;
+        }
+
         .item {
             &__picture {
                 width: 100%;
