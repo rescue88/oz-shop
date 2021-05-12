@@ -114,4 +114,71 @@ router.delete(
     }
 );
 
+// save product into your favorites tab
+router.post(
+    '/favorites/add/:id',
+    userById,
+    async (req, res) => {
+        try {
+            let user = req.profile;
+            const {productId} = req.body;
+    
+            if(user.favorites.includes(productId)) {
+                return res.status(400).json({
+                    message: "Товар вже додано до обраного",
+                    success: false
+                });
+            }
+    
+            user.favorites.push(productId);
+    
+            await user.save();
+    
+            return res.status(200).json({
+                message: "Товар успішно додано до заміток",
+                success: true,
+                productId
+            });
+        } catch(e) {
+            res.status(400).json({
+                message: "Не вдалося додати до заміток",
+                success: false
+            });
+        }
+    }
+);
+
+// delete from favorites tab
+router.get(
+    '/favorites/delete',
+    userById,
+    async (req, res) => {   
+        try {
+            let user = req.profile;
+            const productId = req.query.id;
+
+            if(!user.favorites.includes(productId)) {
+                return res.status(400).json({
+                    message: "Такого товару в обраних не існує",
+                    success: false
+                });
+            }
+
+            user.favorites = user.favorites.filter(item => item !== productId);
+            await user.save();
+
+            return res.status(200).json({
+                message: "Товар успішно видалено із збереженого",
+                success: true,
+                productId
+            });
+        } catch(e) {
+            res.status(400).json({
+                message: "Не вдалося видалити товар із заміток",
+                success: false
+            });
+        }
+    }
+);
+
 module.exports = router;
