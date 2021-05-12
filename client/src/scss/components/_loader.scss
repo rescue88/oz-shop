@@ -1,0 +1,35 @@
+.defaultLoader {
+    width: 100vw;
+    height: 100vh;
+
+    &__icon {
+        width: 12rem;
+        height: 12rem;
+        margin-bottom: 1rem;
+        svg {
+            width: 50%;
+            height: 50%;
+            animation-iteration-count: infinite;
+            animation-duration: 1.5s;
+            animation-name: icon;
+            transition: all .3s ease-in;
+
+            @keyframes icon {
+                50% {
+                    width: 100%;
+                    height: 100%;
+                }
+                100% {
+                    width: 50%;
+                    height: 50%;
+                }
+            }
+        }
+    }
+
+    &__header {
+        color: $secondary-color;
+        font-size: 3rem;
+        font-weight: bold;
+    }
+}
