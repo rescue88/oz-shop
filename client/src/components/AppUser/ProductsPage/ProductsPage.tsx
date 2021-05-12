@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../../redux/reducers/productReducer';
 import { StateType } from '../../../types/stateTypes';
+import ProductItemLoader from '../../common/Loader/ProductItemLoader';
 
 import ProductsPageFilters from './ProductsPageFilters/ProductsPageFilters';
 import ProductsPageItem from './ProductsPageItem/ProductsPageItem';
@@ -28,7 +29,7 @@ const ProductPage: FC = () => {
                     {
                         products.length 
                             ? products.map(item => <ProductsPageItem key={item._id} {...item} />)
-                            : Array(5).fill(3).map((item, idx) => <div>product</div> )
+                            : Array(6).fill(0).map((item, idx) => <ProductItemLoader key={idx} /> )
                     }
                 </div>
             </div>
