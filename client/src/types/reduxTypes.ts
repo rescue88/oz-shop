@@ -28,3 +28,8 @@ export type UserDataResponse = {
 export type GetProductsResponse = {
     products: Array<ProductItemType>
 } & DefaultResponse;
+
+// add to favorites server response
+export type FavoritesResponse = {
+    productId: string;
+} & DefaultResponse;
