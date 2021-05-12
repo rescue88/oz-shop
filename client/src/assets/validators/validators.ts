@@ -61,3 +61,36 @@ export const ValidateRepeatPassword = (password: string, repeatPassword: string)
     }
     return error;
 }
+
+export const ValidateProductAmount = (amount: string): string => {
+    let error: string = '';
+    if(!validator.isInt(amount)) {
+        error = "Кількість товарів - це ціле число";
+    }
+    if(Number(amount) < 0 || Number(amount) > 30) {
+        error = "Кількість товарів має бути в межах від 0 до 30";
+    }
+    return error;
+}
+
+export const ValidateName = (name: string): string => {
+    let error: string = '';
+    if(!name) {
+        error = "Назва товару обов'язкова";
+    }
+    if(!validator.isLength(name, {min: 7, max: 35})) {
+        error = "Довжина назви від 7 до 35 символів";
+    }
+    return error;
+}
+
+export const ValidateDescription = (description: string): string => {
+    let error : string = '';
+    if(!description) {
+        error = "Опис товару обов'язковий";
+    }
+    if(!validator.isLength(description, {min: 35, max: 200})) {
+        error = "Довжина опису від 35 до 200 символів";
+    }
+    return error;
+}
