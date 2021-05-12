@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import AppAdmin from './components/AppAdmin/AppAdmin';
 import AppUser from './components/AppUser/AppUser';
+import Loader from './components/common/Loader/Loader';
 import MySnackbar from './components/common/MySnackbar/MySnackbar';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
@@ -17,7 +18,7 @@ const App: FC = () => {
   const userPerm = useSelector((state: StateType) => state.user.permissions);
   // TODO:　make a preloader
   if(!ready) {
-    return <div style={{width: '100%', height: '100%', backgroundColor: 'red'}}>not ready</div>
+    return <Loader />
   }
 
   return (
