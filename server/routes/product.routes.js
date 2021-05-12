@@ -1,15 +1,15 @@
 const { Router } = require('express');
 const Product = require('./../models/Product.model');
-const { categoryByName } = require('./helpers/helpers');
+const { categoryByName, productById, deleteUnnecessaryInfo } = require('./helpers/helpers');
 
 const router = Router();
 
-// get all categories
+// get all products
 router.get(
     '/',
     async (req, res) => {
         try {
-            const products = await Product.find({});
+            let products = await Product.find({});
 
             if(!products.length) {
                 return res.status(400).json({
@@ -18,10 +18,14 @@ router.get(
                 });
             }
 
+            products = products.map(item => {
+                return deleteUnnecessaryInfo(item._doc, '');
+            });
+
             return res.status(200).json({
                 message: 'Товари завантажено успішно!',
                 success: true,
-                products
+                products: products
             });
         } catch(e) {
             return res.json({
@@ -32,7 +36,7 @@ router.get(
     }
 );
 
-// add new category
+// add new product
 router.post(
     '/create',
     async (req, res) => {
@@ -75,7 +79,7 @@ router.post(
     }
 );
 
-// change category
+// change product
 router.put(
     '/update/:id',
     async (req, res) => {
@@ -83,10 +87,26 @@ router.put(
     }
 );
 
+// delete product
 router.delete(
     '/delete/:id',
+    productById,
     async (req, res) => {
+        try {
+            const product = req.product;
 
+            await product.remove();
+
+            return res.status(200).json({
+                message: 'Товар успішно видалено',
+                success: true
+            });
+        } catch(e) {
+            return res.status(200).json({
+                message: `Не вдалося видалити товар; ${e.message}`,
+                success: true
+            });
+        }
     }
 );
 

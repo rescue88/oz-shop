@@ -2,14 +2,17 @@ const { format } = require('date-fns');
 const ua = require('date-fns/locale/uk');
 const User = require('./../../models/User.model');
 const Category = require('./../../models/Category.model');
+const Product = require('./../../models/Product.model');
 
 // remove unnecessary data before sending a response
-const deleteUserPrivateInfo = (user) => {
-    delete user.__v;
-    delete user.password;
-    delete user._id;
+const deleteUnnecessaryInfo = (doc, modelName = '') => {
+    delete doc.__v;
+    if(modelName === 'user') {
+        delete doc.password;
+        delete doc._id;
+    }
 
-    return user;
+    return doc;
 }
 
 // parsing date in a ua format: Day Month Year
@@ -47,21 +50,44 @@ const userById = async (req, res, next) => {
 // find category in a route by name(not a middleware)
 const categoryByName = async (name) => {
     try {
-        const category = await Category.find({name});
+        const category = await Category.findOne({name});
 
-        if(!category.length) {
+        if(!category) {
             return null;
         }
 
-        return category[0]._id;
+        return category._id;
     } catch(e) {
-        return e.message;
+        return null;
+    }
+}
+
+// find product by id
+const productById = async (req, res, next) => {
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if(!product) {
+            return res.status(400).json({
+                message: 'Не вдалося знайти товар із заданими ідентифікатором',
+                success: false
+            });
+        }
+
+        req.product = product;
+        next();
+    } catch(e) {
+        return res.status(400).json({
+            message: `Не вдалося знайти товар із заданими ідентифікатором; ${e.message}`,
+            success: false
+        });
     }
 }
 
 module.exports = {
-    deleteUserPrivateInfo,
+    deleteUnnecessaryInfo,
     parseDateUkr,
     userById,
-    categoryByName
+    categoryByName,
+    productById
 };
