@@ -20,7 +20,12 @@ const parseDateUkr = (date, template) => {
 // middleware to find a user
 const userById = async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.id);
+        let user;
+        if(req.query) {
+            user = await User.findById(req.query.id);
+        } else {
+            user = await User.findById(req.params.id);
+        }
 
         if(!user) {
             return res.status(400).json({
