@@ -8,5 +8,9 @@ export const adminAPI = {
     async deleteProfile(id: string) {
         const response = await axiosInstance.delete<any>(`user/delete/${id}`);
         return response.data;
+    },
+    async deleteProduct(id: string) {
+        const response = await axiosInstance.delete<any>(`product/delete/${id}`);
+        return response.data;
     }
 }

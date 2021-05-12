@@ -30,14 +30,12 @@ export const getUsers = () => async (dispatch: Function) => {
 
     if(data && data.success) {;
         dispatch(setUsers(data.users));
-        dispatch(setSnackbar(true, 'success', data.message));
     }
 }
 
 export const deleteUser = (id: string) => async (dispatch: Function) => {
-    const userId = getStorageItem()!.userId;
+    const {userId} = getStorageItem()!;
     if(id === userId) {
-        console.log("here")
         dispatch(setSnackbar(true, 'error', 'Відмовлено у видаленні свого акаунту'));
         return;
     }
@@ -49,7 +47,18 @@ export const deleteUser = (id: string) => async (dispatch: Function) => {
     });
 
     if(data && data.success) {
-        await dispatch(getUsers());
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
+export const deleteProduct = (id: string) => async (dispatch: Function) => {
+    const data: DefaultResponse = await adminAPI.deleteProduct(id).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }

@@ -39,7 +39,7 @@ export type UserStateType = {
     permissions: UserPermissionType;
     phone: string | null;
     created: number | null;
-    favorites: Array<any>;
+    favorites: Array<string>;
 }
 
 // material ui snakcbar types
@@ -59,8 +59,13 @@ export type ProductItemType = {
     name: string;
     description: string;
     image: any;
+    category: string;
     price: number;
-    discounts: Array<any>;
+    amount: number;
+    producer: string;
+    size: string;
+    created: string;
+    discounts: Array<string>;
 }
 
 export type ProductStateType = {

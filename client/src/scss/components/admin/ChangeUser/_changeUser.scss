@@ -1,56 +1,6 @@
-.changeUser {
-    &__header {
-        margin: 2rem 0;
-        display: flex;
-        &_item {
-            font-size: 1.4rem;
-            font-weight: bold;
-        }
-    }
-
-    &__items {
-        &_item {
-            padding: 1.5rem 0;
-            font-size: 1.6rem;
-            border: 1px solid $green-dark;
-            border-radius: 0.7rem;
-            display: flex;
-
-            &:not(:last-child) {
-                margin-bottom: 1rem;
-            }
-
-            .item__delete {
-                button {
-                    background: none;
-                    cursor: pointer;
-                    &:hover {
-                        svg {
-                            fill: $danger-color;
-                        }
-                    }
-
-                    &:active:not(:disabled) {
-                        transform: scale(1.1);
-                    }
-
-                    &:disabled {
-                        svg {
-                            fill: $additional-color;
-                        }
-                    }
-
-                    svg {
-                        width: 3rem;
-                        height: 3rem;
-                    }
-                }
-            }
-        }
-    }
-
-    &__header_item,
-    &__items_item > div {
+.changeUsers {
+    .changeBlock__header_item,
+    .changeBlock__items_item > div {
         &:nth-child(1),
         &:nth-child(5) {
             flex-basis: 17%;
