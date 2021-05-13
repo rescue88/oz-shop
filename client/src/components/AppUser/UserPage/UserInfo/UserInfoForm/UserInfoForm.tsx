@@ -39,11 +39,11 @@ const UserInfoForm: React.FC<UserInfoType & {closeForm: () => void}> = ({userDat
                 setSubmitting(true);
 
                 let formData = new FormData();
-                choosenFile && formData.append('avatar', choosenFile);
-                choosenFile && formData.append('login', data.login);
-                choosenFile && formData.append('email', data.email);
-                choosenFile && formData.append('name', data.name);
-                choosenFile && formData.append('phone', data.phone);
+                formData.append('avatar', choosenFile);
+                formData.append('login', data.login);
+                formData.append('email', data.email);
+                formData.append('name', data.name);
+                formData.append('phone', data.phone);
 
                 const storageItem: StorageItemType = getStorageItem();
                 await dispatch(updateUserData(storageItem!.userId, formData));
