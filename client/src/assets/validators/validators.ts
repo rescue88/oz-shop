@@ -1,4 +1,5 @@
 import validator from 'validator';
+import { CategoryNameType } from '../../types/stateTypes';
 
 export const ValidateLogin = (value: string): string => {
     let error: string = '';
@@ -62,17 +63,6 @@ export const ValidateRepeatPassword = (password: string, repeatPassword: string)
     return error;
 }
 
-export const ValidateProductAmount = (amount: string): string => {
-    let error: string = '';
-    if(!validator.isInt(amount)) {
-        error = "Кількість товарів - це ціле число";
-    }
-    if(Number(amount) < 0 || Number(amount) > 30) {
-        error = "Кількість товарів має бути в межах від 0 до 30";
-    }
-    return error;
-}
-
 export const ValidateName = (name: string): string => {
     let error: string = '';
     if(!name) {
@@ -94,3 +84,47 @@ export const ValidateDescription = (description: string): string => {
     }
     return error;
 }
+
+export const ValidateProductAmount = (amount: string): string => {
+    let error: string = '';
+    if(!validator.isInt(amount)) {
+        error = "Кількість товарів - це ціле число";
+    }
+    if(Number(amount) < 0 || Number(amount) > 30) {
+        error = "Кількість товарів у межах від 0 до 30";
+    }
+    return error;
+}
+
+export const ValidateProductSize = (size: string): string => {
+    let error: string = '';
+    const mass: Array<string> = size.split("x");
+
+    if(mass.length !== 2) {
+        error = "Приклад формату даних - 1000x1000";
+        return error;
+    }
+    if(!validator.isInt(mass[0]) || !validator.isInt(mass[1])) {
+        error = "Зліва або справа від x записано не число";
+        if(Number(mass[0]) < 1 || Number(mass[1]) < 1) {
+            error = "Розмір одного з габаритів менше 1";
+        }
+    }
+
+    return error;
+}
+
+// export const ValidateProductCategory = (category: string): string => {
+//     let error: string = '';
+//     const keys: CategoryNameType;
+
+//     if(!category) {
+//         error = 'Заповніть категорію';
+//     }
+
+//     if(category in keys) {
+//         error = 'Категорія має бути представле';
+//     }
+
+//     return error;
+// }
