@@ -3,6 +3,7 @@ import { DefaultResponse, GetUsersResponse } from './../../types/reduxTypes';
 import { AdminStateType, ChangeUsersPageType } from '../../types/stateTypes';
 import { adminAPI } from './../../api/admin-api';
 import { setSnackbar } from './snackbarReducer';
+import { getProducts } from './productReducer';
 
 /* ACTIONS */
 const SET_USERS: string = 'adminReducer/changeUsers/SET_USERS';
@@ -47,6 +48,7 @@ export const deleteUser = (id: string) => async (dispatch: Function) => {
     });
 
     if(data && data.success) {
+        dispatch(getUsers());
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }
@@ -59,10 +61,11 @@ export const deleteProduct = (id: string) => async (dispatch: Function) => {
     });
 
     if(data && data.success) {
+        dispatch(getProducts());
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }
-
+    
 /* REDUCER */
 export const adminReducer = (state: AdminStateType = adminState, action: any) => {
     switch(action.type) {
