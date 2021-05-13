@@ -20,7 +20,7 @@ const ChangeUsers: FC = () => {
     const dispatch = useDispatch();
     const users: Array<ChangeUsersPageType> = useSelector((state: StateType) => state.admin.changeUsers);
 
-    const getUsersHandler = async () => {
+    const getUsersHandler =  async () => {
         setIsFetching(true);
 
         await dispatch(getUsers());

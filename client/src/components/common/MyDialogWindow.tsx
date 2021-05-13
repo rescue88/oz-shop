@@ -1,11 +1,11 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { DialogContent } from '@material-ui/core';
 
 import { dialogWindow } from './useStyles';
 
 type MyDialogWindowType = {
-    Content: FC;
+    Content: ReactNode;
     open: boolean;
     onClose: () => void;
 }
@@ -21,7 +21,7 @@ const MyDialogWindow: FC<MyDialogWindowType> = ({open, Content, onClose}) => {
             onClose={onClose}
         >
             <DialogContent className={classes.content}>
-                <Content />
+                {Content}
             </DialogContent>
         </Dialog>
     );

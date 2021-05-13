@@ -21,7 +21,11 @@ const UserInfo: FC<UserInfoType> = ({userData}) => {
 
     return (
         <section className="userInfo">
-            <MyDialogWindow open={openForm} onClose={toggleOpenForm} Content={() => <UserInfoForm userData={userData} closeForm={toggleOpenForm} />} />
+            <MyDialogWindow 
+                open={openForm} 
+                onClose={toggleOpenForm} 
+                Content={<UserInfoForm userData={userData} closeForm={toggleOpenForm} />} 
+            />
             <div className="userInfo__header">Ваш профіль</div>
             <hr/>
             <div className="userInfo__data space-betw-row">
