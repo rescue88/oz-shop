@@ -53,6 +53,32 @@ export const deleteUser = (id: string) => async (dispatch: Function) => {
     }
 }
 
+export const createProduct = (productData: FormData) => async (dispatch: Function) => {
+    const data: DefaultResponse = await adminAPI.createProduct(productData).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(getProducts());
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
+export const updateProduct = (id: string, productData: FormData) => async (dispatch: Function) => {
+    const data: DefaultResponse = await adminAPI.updateProduct(id, productData).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(getProducts());
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
 export const deleteProduct = (id: string) => async (dispatch: Function) => {
     const data: DefaultResponse = await adminAPI.deleteProduct(id).catch(error => {
         const {message} = error.response.data;
