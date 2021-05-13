@@ -20,6 +20,53 @@
         }
     }
 
+    &__panel {
+        padding: 2rem 1rem 0 1rem;
+        &_addItem {
+            svg {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+
+    // svg-buttons
+    .changeBlock__panel_addItem,
+    .item__change,
+    .item__delete {
+        button {
+            background: none;
+            cursor: pointer;
+            &:hover {
+                svg {
+                    fill: $danger-color;
+                }
+            }
+
+            &:active:not(:disabled) {
+                transform: scale(1.1);
+            }
+
+            &:disabled {
+                svg {
+                    fill: $additional-color;
+                }
+            }
+
+            svg {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+
+    .changeBlock__panel_addItem button:hover,
+    .item__change button:hover {
+        svg { 
+            fill: $secondary-color;
+        }
+    }
+
     &__items {
         &_item {
             padding: 1.5rem 0;
@@ -35,40 +82,6 @@
             .item__image {
                 height: 5rem;
                 border-radius: 50%;
-            }
-
-            .item__change,
-            .item__delete {
-                button {
-                    background: none;
-                    cursor: pointer;
-                    &:hover {
-                        svg {
-                            fill: $danger-color;
-                        }
-                    }
-
-                    &:active:not(:disabled) {
-                        transform: scale(1.1);
-                    }
-
-                    &:disabled {
-                        svg {
-                            fill: $additional-color;
-                        }
-                    }
-
-                    svg {
-                        width: 3rem;
-                        height: 3rem;
-                    }
-                }
-            }
-
-            .item__change button:hover {
-                svg { 
-                    fill: $secondary-color;
-                }
             }
         }
     }
