@@ -62,6 +62,21 @@ const categoryByName = async (name) => {
     }
 }
 
+// find category by label
+const categoryByLabel = async (label) => {
+    try {
+        const category = await Category.findOne({label});
+
+        if(!category) {
+            return null;
+        }
+
+        return category._id;
+    } catch(e) {
+        return null;
+    }
+}
+
 // find product by id
 const productById = async (req, res, next) => {
     try {
@@ -89,5 +104,6 @@ module.exports = {
     parseDateUkr,
     userById,
     categoryByName,
+    categoryByLabel,
     productById
 };

@@ -1,6 +1,9 @@
 const { Router } = require('express');
+const formidable = require('formidable');
+const fs = require('fs');
+
 const Product = require('./../models/Product.model');
-const { categoryByName, productById, deleteUnnecessaryInfo } = require('./helpers/helpers');
+const { categoryByName, productById, deleteUnnecessaryInfo, categoryByLabel } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -11,6 +14,7 @@ router.get(
         try {
             let products = await Product.find({});
 
+            // check if no product documnts in db
             if(!products.length) {
                 return res.status(400).json({
                     message: 'Товари ще не додано',
@@ -18,6 +22,7 @@ router.get(
                 });
             }
 
+            // mapping to delete props like __v
             products = products.map(item => {
                 return deleteUnnecessaryInfo(item._doc, '');
             });
@@ -40,50 +45,101 @@ router.get(
 router.post(
     '/create',
     async (req, res) => {
-        try {
-            let {
-                name,
-                category,
-            } = req.body;
-
-            const candidate = await Product.find({name});
-
-            if(candidate.length) {
+        let form = new formidable.IncomingForm();
+        form.parse(req, async (err, fields, files) => {
+            if(err) {
                 return res.status(400).json({
-                    message: "Товар з даним ім'ям уже існує!",
-                    success: false,
+                    message: "Не вдалося створити новий продукт",
+                    success: false
                 });
             }
 
-            category = await categoryByName(category);
-            if(category === null) {
+            // check that we are adding original product name
+            const candidate = await Product.findOne({name: fields.name});
+
+            if(candidate) {
                 return res.status(400).json({
-                    message: "Неможливо додати товар до існуючої категорії"
+                    message: "Товар з такою назвою вже є",
+                    success: false
                 });
             }
 
-            req.body.category = category;
-            const product = new Product({...req.body});
-            await product.save();
+            // if file recieved, save two necessary fields to store in db
+            if(files.image) {
+                fields.image = {};
+                fields.image.data = fs.readFileSync(files.image.path);
+                fields.image.contentType = files.image.type;
+            } else {
+                delete fields.image;
+            }
 
-            return res.status(200).json({
-                message: "Новий товар успішно додано",
-                success: true
-            });
-        } catch(e) {
-            return res.status(400).json({
-                message: `Не вдалося додати товар; ${e.message}`,
-                success: false
-            });
-        }
+            console.log(fields.image);
+
+            // retrieve category id
+            fields.category = await categoryByLabel(fields.category);
+
+            try {
+                const product = new Product({...fields});
+
+                await product.save();
+
+                return res.status(200).json({
+                    message: 'Новий продукт успішно додано',
+                    success: true
+                });
+            } catch(e) {
+                return res.status(400).json({
+                    message: `Не вдалося додати продукт; ${e.message}`,
+                    success: false
+                });
+            }
+        });
     }
 );
 
 // change product
 router.put(
     '/update/:id',
+    productById,
     async (req, res) => {
-        
+        let form = new formidable.IncomingForm();
+        form.parse(req, async (err, fields, files) => {
+            if(err) {
+                return res.status(400).json({
+                    message: "Не вдалося оновити дані продукта",
+                    success: false
+                });
+            }
+
+            console.log(files);
+
+            let product = req.product;
+
+            // if file recieved, save two necessary fields to store in db
+            if(files.image) {
+                product.image.data = fs.readFileSync(files.image.path);
+                product.image.contentType = files.image.type;
+            } else {
+                delete fields.image;
+            }
+
+            // combine newer fields with older
+            product = Object.assign(product, fields); 
+
+            try {
+                await product.save();
+
+                return res.status(200).json({
+                    message: 'Дані продукта успішно оновлено',
+                    success: true
+                });
+            } catch(e) {
+                return res.status(400).json({
+                    message: 'Не вдалося оновити продукт',
+                    success: false
+                });
+            }
+        });
     }
 );
 
