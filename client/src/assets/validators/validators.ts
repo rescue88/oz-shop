@@ -67,8 +67,7 @@ export const ValidateName = (name: string): string => {
     let error: string = '';
     if(!name) {
         error = "Назва товару обов'язкова";
-    }
-    if(!validator.isLength(name, {min: 7, max: 35})) {
+    } else if(!validator.isLength(name, {min: 7, max: 35})) {
         error = "Довжина назви від 7 до 35 символів";
     }
     return error;
@@ -78,8 +77,7 @@ export const ValidateDescription = (description: string): string => {
     let error : string = '';
     if(!description) {
         error = "Опис товару обов'язковий";
-    }
-    if(!validator.isLength(description, {min: 35, max: 200})) {
+    } else if(!validator.isLength(description, {min: 35, max: 200})) {
         error = "Довжина опису від 35 до 200 символів";
     }
     return error;
@@ -89,8 +87,7 @@ export const ValidateProductAmount = (amount: string): string => {
     let error: string = '';
     if(!validator.isInt(amount)) {
         error = "Кількість товарів - це ціле число";
-    }
-    if(Number(amount) < 0 || Number(amount) > 30) {
+    } else if(Number(amount) < 0 || Number(amount) > 30) {
         error = "Кількість товарів у межах від 0 до 30";
     }
     return error;
@@ -103,8 +100,7 @@ export const ValidateProductSize = (size: string): string => {
     if(mass.length !== 2) {
         error = "Приклад формату даних - 1000x1000";
         return error;
-    }
-    if(!validator.isInt(mass[0]) || !validator.isInt(mass[1])) {
+    } else if(!validator.isInt(mass[0]) || !validator.isInt(mass[1])) {
         error = "Зліва або справа від x записано не число";
         if(Number(mass[0]) < 1 || Number(mass[1]) < 1) {
             error = "Розмір одного з габаритів менше 1";
@@ -114,17 +110,43 @@ export const ValidateProductSize = (size: string): string => {
     return error;
 }
 
-// export const ValidateProductCategory = (category: string): string => {
-//     let error: string = '';
-//     const keys: CategoryNameType;
+export const ValidateProductCategory = (category: string): string => {
+    let error: string = '';
 
-//     if(!category) {
-//         error = 'Заповніть категорію';
-//     }
+    if(!category) {
+        error = 'Оберіть категорію товару';
+    }
 
-//     if(category in keys) {
-//         error = 'Категорія має бути представле';
-//     }
+    return error;
+}
 
-//     return error;
-// }
+export const ValidateProductPrice = (price: string): string => {
+    let error: string = '';
+
+    console.log(price, !price)
+    if(!price) {
+        error = 'Введіть ціну';
+    } else if(!validator.isInt(price)) {
+        if(Number(price) < 100 || Number(price) > 100000) {
+            error = 'Діапазон цін від 100 до 100000 грн';
+        }
+        error = 'Ціна - це ціле число';
+    }
+    
+    return error;
+}
+
+export const ValidateProductProducer = (producer: string): string => {
+    let error = '';
+    const words: Array<string> = producer.split(' ');
+
+    if(!producer) {
+        error = 'Введіть компанію-виробника';
+    } else if(words.length > 2) {
+        error = 'Не більше 2 слів';
+    } else if(producer.length > 40) {
+        error = 'Максимальна кількість символів - 40';
+    }
+
+    return error;
+}
