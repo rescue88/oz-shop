@@ -3,7 +3,7 @@ const User = require('./../models/User.model');
 const formidable = require('formidable');
 const fs = require('fs');
 
-const { deleteUserPrivateInfo, parseDateUkr, userById } = require('./helpers/helpers');
+const { deleteUnnecessaryInfo, parseDateUkr, userById } = require('./helpers/helpers');
 const router = Router();
 
 // get a list of all users
@@ -34,7 +34,7 @@ router.get(
         try {
             let user = req.profile;
             // preparing user data for sending
-            user = deleteUserPrivateInfo(user._doc);
+            user = deleteUnnecessaryInfo(user._doc, 'user');
             user.created = parseDateUkr(user.created, 'PP');
 
             return res.status(200).json({

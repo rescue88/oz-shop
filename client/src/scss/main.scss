@@ -66,6 +66,12 @@ img {
     height: 100%;
 }
 
+label {
+    display: block;
+    margin-bottom: .7rem;
+    font-size: 1.4rem;
+}
+
 // material-ui snackbar font-size
 .MuiAlert-message {
     font-size: 1.4rem;
