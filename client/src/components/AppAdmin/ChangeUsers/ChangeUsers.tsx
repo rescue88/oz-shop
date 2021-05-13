@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteUser, getUsers } from '../../../redux/reducers/adminReducer';
 import { ChangeUsersPageType, StateType } from '../../../types/stateTypes';
+import MySimpleTextInput from '../../common/Input/MySimpleTextInput';
 import ChangePageLoader from '../../common/Loader/ChangePageLoader';
 import ChangeUsersItem from './ChangeUsersItem/ChangeUsersItem';
 
@@ -17,8 +18,13 @@ const userTableKeys = [
 
 const ChangeUsers: FC = () => {
     const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [searchStr, setSearchStr] = useState<string>('');
     const dispatch = useDispatch();
     const users: Array<ChangeUsersPageType> = useSelector((state: StateType) => state.admin.changeUsers);
+
+    const changeSearchStrHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchStr(event.currentTarget.value.toLocaleLowerCase());
+    }
 
     const getUsersHandler =  async () => {
         setIsFetching(true);
@@ -45,6 +51,12 @@ const ChangeUsers: FC = () => {
             <div className="changeContainer__header">Редагування користувачів</div>
             <hr />
             <div className="changeContainer__content changeBlock">
+                <div className="changeBlock__panel space-betw-row">
+                    <div className="changeBlock__panel_findInput">
+                        <label htmlFor="search">Пошук за іменем продукта</label>
+                        <MySimpleTextInput name="search" changeHandler={changeSearchStrHandler} inputValue={searchStr} />
+                    </div>
+                </div>
                 <div className="changeBlock__header changeUsers">
                     {
                         userTableKeys.map(item => (
@@ -54,7 +66,16 @@ const ChangeUsers: FC = () => {
                 </div>
                 <div className="changeBlock__items changeUsers">
                     {
-                        users.length ? (
+                        users.length ? searchStr ? (
+                            users.filter(item => item.login.includes(searchStr)).map(item => (
+                                <ChangeUsersItem 
+                                    key={item._id} 
+                                    {...item} 
+                                    deleteUser={deleteUserHandler} 
+                                    isFetching={isFetching} 
+                                />
+                            ))
+                        ) : (
                             users.map(item => (
                                 <ChangeUsersItem 
                                     key={item._id} 

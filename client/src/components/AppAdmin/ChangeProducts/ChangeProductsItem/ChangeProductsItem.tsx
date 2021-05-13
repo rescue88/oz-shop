@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { convertBuffer } from '../../../../assets/helpers/helpers';
 
 import { ProductItemType } from '../../../../types/stateTypes';
 import AddUpdateProductForm from '../../../common/Form/AddUpdateProductForm';
@@ -24,18 +25,23 @@ const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteProduct, isFetchi
     return (
         <div className="changeBlock__items_item">
             <MyDialogWindow
+                dialogWidth={'md'}
                 open={openForm}
                 onClose={toggleOpenForm}
                 Content={
                     <AddUpdateProductForm 
-                        header="Додати товар" 
+                        header="Оновити товар" 
                         product={product} 
                         closeForm={toggleOpenForm} 
                     />
                 }
             />
             <div className="item__image centered-row">
-                <img className="centered-row" src={defaultProductPhoto} alt="" />
+                <img 
+                    className="centered-row" 
+                    src={product.image.data ? convertBuffer(product.image.data.data): defaultProductPhoto} 
+                    alt="" 
+                />
             </div>
             <div className="item__name centered-row">{product.name}</div>
             <div className="item__price centered-row">₴{product.price}</div>
