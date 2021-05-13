@@ -1,9 +1,11 @@
-import { useCallback } from 'react';
-import { FC, useState, useEffect } from 'react';
+import Tooltip from '@material-ui/core/Tooltip';
+import { FC, useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { deleteProduct } from '../../../redux/reducers/adminReducer';
 import { getProducts } from '../../../redux/reducers/productReducer';
 import { StateType } from '../../../types/stateTypes';
+import AddIcon from '../../common/Icons/AddIcon';
 import ChangePageLoader from '../../common/Loader/ChangePageLoader';
 import ChangeProductsItem from './ChangeProductsItem/ChangeProductsItem';
 
@@ -21,13 +23,17 @@ const ChangeProducts: FC = () => {
     const dispatch = useDispatch();
     const {products} = useSelector((state: StateType) => state.product);
 
-    const getProductsHandler = async () => {
+    const getProductsHandler = useCallback(async () => {
         setIsFetching(true);
 
         await dispatch(getProducts());
 
         setIsFetching(false);
-    }
+    }, []);
+
+    const updateProductHandler = useCallback(async() => {
+
+    }, []);
 
     const deleteProductHandler = useCallback(async (id: string) => {
         setIsFetching(true);
@@ -46,6 +52,19 @@ const ChangeProducts: FC = () => {
             <div className="changeContainer__header">Редагування товарів</div>
             <hr />
             <div className="changeContainer__content changeBlock">
+                <div className="changeBlock__panel space-betw-row">
+                    <div className="changeBlock__panel_findInput">
+                        <input type="text" />
+                    </div>
+                    
+                    <Tooltip title="Додати товар" arrow>
+                        <div className="changeBlock__panel_addItem">
+                            <button>
+                                <AddIcon />
+                            </button>
+                        </div>
+                    </Tooltip>
+                </div>
                 <div className="changeBlock__header changeProducts">
                     {
                         productTableKeys.map(item => (
@@ -59,7 +78,7 @@ const ChangeProducts: FC = () => {
                             products.map(item => (
                                 <ChangeProductsItem 
                                     key={item._id} 
-                                    {...item} 
+                                    product={item}
                                     isFetching={isFetching} 
                                     deleteProduct={deleteProductHandler} 
                                 />
