@@ -23,8 +23,7 @@
             .file__header {
                 margin-bottom: 1rem;
             }
-            .file__field {
-            }
+
             label {
                 margin-right: 1rem;
                 padding: 0.5rem 1rem;
@@ -69,5 +68,13 @@
                 color: $secondary-color;
             }
         }
+    }
+}
+
+// styles for large forms
+.formContainer {
+    width: 100%;
+    & > div {
+        margin: 0 5rem;
     }
 }

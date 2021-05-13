@@ -5,18 +5,19 @@ import { DialogContent } from '@material-ui/core';
 import { dialogWindow } from './useStyles';
 
 type MyDialogWindowType = {
+    dialogWidth: 'sm' | 'md' | 'lg' | 'xl';
     Content: ReactNode;
     open: boolean;
     onClose: () => void;
 }
 
-const MyDialogWindow: FC<MyDialogWindowType> = ({open, Content, onClose}) => {
+const MyDialogWindow: FC<MyDialogWindowType> = ({dialogWidth, open, Content, onClose}) => {
     const classes = dialogWindow();
 
     return (
         <Dialog
             fullWidth={true}
-            maxWidth={'sm'}
+            maxWidth={dialogWidth}
             open={open}
             onClose={onClose}
         >

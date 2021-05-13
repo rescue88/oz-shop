@@ -1,4 +1,4 @@
-import { DefaultResponse, GetProductsResponse } from '../../types/reduxTypes';
+import { GetProductsResponse } from '../../types/reduxTypes';
 import { ProductItemType, ProductStateType } from '../../types/stateTypes';
 import { productAPI } from './../../api/product-api';
 import { setSnackbar } from './snackbarReducer';
