@@ -6,13 +6,13 @@ const AddsMenu: FC = () => {
         <nav className="userAdds__menu">
             <ul>
                 <li>
-                    <NavLink exact to="/app/profile/" activeClassName="activeUserAdd">Збережені товари</NavLink>
+                    <NavLink exact to="/app/profile/" activeClassName="activeTab">Збережені товари</NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/app/profile/orders" activeClassName="activeUserAdd">Замовлення</NavLink>
+                    <NavLink exact to="/app/profile/orders" activeClassName="activeTab">Замовлення</NavLink>
                 </li>
                 <li>
-                    <NavLink exact to="/app/profile/comments" activeClassName="activeUserAdd">Коментарі</NavLink>
+                    <NavLink exact to="/app/profile/comments" activeClassName="activeTab">Коментарі</NavLink>
                 </li>
             </ul>
             <hr/>

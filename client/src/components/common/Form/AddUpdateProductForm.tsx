@@ -10,14 +10,14 @@ import MySimpleTextarea from '../Input/MySimpleTextarea';
 import MySelectField from '../MySelectField';
 import { createProduct, updateProduct } from '../../../redux/reducers/adminReducer';
 
-type AddUpdateProductForm = {
+type AddUpdateProductFormType = {
     product?: ProductItemType;
     header: string;
     addOrUpdate?: () => void;
     closeForm: () => void;
 }
 
-const AddUpdateProductForm: FC<AddUpdateProductForm> = ({header, product, closeForm}) => {
+const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, closeForm}) => {
     const [fileName, setFileName] = useState<string>('Не обрано');
     const [choosenFile, setChoosenFile] = useState<File | string>('{}');
     const dispatch = useDispatch();

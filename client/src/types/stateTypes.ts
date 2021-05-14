@@ -9,10 +9,7 @@ export type StateType = {
 
 // auth reducer initial state
 export type AuthStateType = {
-    token: string | null;
-    userId: string | null;
     isAuth: boolean;
-    isLoading: boolean;
 }
 
 // admin reducer initial state
@@ -30,6 +27,14 @@ export type AdminStateType = {
 
 // user roles
 export type UserPermissionType = 'user' | 'admin' | 'moder';
+// user's favorites type
+export type UserFavoritesType = {
+    _id: string;
+    image: any;
+    name: string;
+    price: number;
+    amount: number;
+}
 // user reducer initial state
 export type UserStateType = {
     avatar: any,
@@ -39,7 +44,7 @@ export type UserStateType = {
     permissions: UserPermissionType;
     phone: string | null;
     created: number | null;
-    favorites: Array<string>;
+    favorites: Array<UserFavoritesType>;
 }
 
 // material ui snakcbar types

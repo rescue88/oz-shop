@@ -1,14 +1,14 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
 import { getStorageItem } from '../../../../assets/helpers/helpers';
 import { addToFavorites } from '../../../../redux/reducers/userReducer';
 import { ProductItemType, StateType } from '../../../../types/stateTypes';
-
 import defaultProduct from './../../../../assets/images/defaultProduct.png';
 
 const ProductsPageItem: FC<ProductItemType> = ({
-    _id, name, description, image, price, discounts
+    _id, name, description, image, price, amount, discounts
 }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const ProductsPageItem: FC<ProductItemType> = ({
         setIsLoading(true);
 
         const userId = getStorageItem()!.userId;
-        await dispatch(addToFavorites(userId, _id));
+        await dispatch(addToFavorites(userId, {_id, image, name, price, amount}));
 
         setIsLoading(false);
     }
@@ -53,7 +53,7 @@ const ProductsPageItem: FC<ProductItemType> = ({
                     className="itemContainer__buttons_wishlist" 
                     type="button" 
                     onClick={addToFavoritesHandler}
-                    disabled={favorites.includes(_id) ? true : false}
+                    disabled={favorites.map(item => item._id).includes(_id) ? true : false}
                 >
                     <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 
