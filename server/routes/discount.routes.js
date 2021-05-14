@@ -2,7 +2,7 @@ const { Router } = require('express');
 const formidable = require('formidable');
 const fs = require('fs');
 
-const { Discount } = require('./../models/Discount.model');
+const Discount = require('./../models/Discount.model');
 const { discountById } = require('./helpers/helpers');
 
 const router = Router();
@@ -23,7 +23,8 @@ router.get(
 
             return res.status(200).json({
                 message: "Наявні знижки успішно отримано",
-                success: true
+                success: true,
+                discounts
             });
         } catch(e) {
             return res.status(400).json({
