@@ -109,8 +109,6 @@ router.put(
                 });
             }
 
-            console.log(files);
-
             let product = req.product;
 
             // if file recieved, save two necessary fields to store in db

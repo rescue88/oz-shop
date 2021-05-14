@@ -2,7 +2,8 @@ const { Router } = require('express');
 const formidable = require('formidable');
 const fs = require('fs');
 
-const Discount = require('./../models/Discount.model');
+const { Discount } = require('./../models/Discount.model');
+const { discountById } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -86,8 +87,44 @@ router.post(
 // update discount
 router.put(
     '/update',
+    discountById,
     async(req, res) => {
+        let form = new formidable.IncomingForm();
+        form.parse(req, async (err, fields, files) => {
+            if(err) {
+                return res.status(400).json({
+                    message: "Не вдалося оновити дані знижки",
+                    success: false
+                });
+            }
 
+            let discount = req.discount;
+
+            // if file recieved, save two necessary fields to store in db
+            if(files.image) {
+                discount.image.data = fs.readFileSync(files.image.path);
+                discount.image.contentType = files.image.type;
+            } else {
+                delete fields.image;
+            }
+
+            // combine newer fields with older
+            discount = Object.assign(discount, fields); 
+
+            try {
+                await discount.save();
+
+                return res.status(200).json({
+                    message: 'Дані продукта успішно оновлено',
+                    success: true
+                });
+            } catch(e) {
+                return res.status(400).json({
+                    message: 'Не вдалося оновити продукт',
+                    success: false
+                });
+            }
+        });
     }
 );
 

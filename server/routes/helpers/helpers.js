@@ -1,8 +1,10 @@
 const { format } = require('date-fns');
 const ua = require('date-fns/locale/uk');
+
 const User = require('./../../models/User.model');
 const Category = require('./../../models/Category.model');
 const Product = require('./../../models/Product.model');
+const Discount = require('./../../models/Discount.model');
 
 // remove unnecessary data before sending a response
 const deleteUnnecessaryInfo = (doc, modelName = '') => {
@@ -131,6 +133,28 @@ const retrieveFavorites = async (req, res, next) => {
     }
 }
 
+// find discount by id
+const discountById = async (req, res, next) => {
+    try {
+        const discount = await Discount.findById(req.params.id);
+
+        if(!discount) {
+            return res.status(400).json({
+                message: 'Не вдалося знайти знижку із заданими ідентифікатором',
+                success: false
+            });
+        }
+
+        req.discount = discount;
+        next();
+    } catch(e) {
+        return res.status(400).json({
+            message: `Не вдалося знайти знижку із заданими ідентифікатором; ${e.message}`,
+            success: false
+        });
+    }
+}
+
 module.exports = {
     deleteUnnecessaryInfo,
     parseDateUkr,
@@ -138,5 +162,6 @@ module.exports = {
     categoryByName,
     categoryByLabel,
     productById,
-    retrieveFavorites
+    retrieveFavorites,
+    discountById
 };
