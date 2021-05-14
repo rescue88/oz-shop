@@ -64,10 +64,11 @@ const AddUpdateDiscountForm: FC<AddUpdateDiscountFormType> = ({discount, closeFo
                 closeForm();
             }}
         >
-            {({isSubmitting}) => {
-                <Form>
-                    <div className="form__header">{header}</div>
-                    <div className="formContainer">
+            {
+                ({isSubmitting}) => (
+                    <Form>
+                        <div className="form__header">{header}</div>
+                        <hr />
                         <div className="form__input_file centered-col">
                             <div className="file__header">
                                 Обрати нове зображення
@@ -97,12 +98,12 @@ const AddUpdateDiscountForm: FC<AddUpdateDiscountFormType> = ({discount, closeFo
                             <label htmlFor="percent">Відсоток знижки</label>
                             <Field validate={ValidateDiscountPercent} name="percent" placeholder="Введіть ціну знижки" type="text" as={MyTextField} />
                         </div>
-                    </div>
-                    <div className="form__submit">
-                        <MySubmitButton disabled={isSubmitting} text={discount ? 'Змінити знижку' : 'Додати знижку'} />
-                    </div>
-                </Form>
-            }}
+                        <div className="form__submit">
+                            <MySubmitButton disabled={isSubmitting} text={discount ? 'Змінити знижку' : 'Додати знижку'} />
+                        </div>
+                    </Form> 
+                )
+            }
         </Formik>
     );
 }
