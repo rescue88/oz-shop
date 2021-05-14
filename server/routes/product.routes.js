@@ -2,8 +2,9 @@ const { Router } = require('express');
 const formidable = require('formidable');
 const fs = require('fs');
 
+const User = require('./../models/User.model');
 const Product = require('./../models/Product.model');
-const { categoryByName, productById, deleteUnnecessaryInfo, categoryByLabel } = require('./helpers/helpers');
+const { categoryByName, productById, deleteUnnecessaryInfo, categoryByLabel, retrieveFavorites } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -40,6 +41,31 @@ router.get(
         }
     }
 );
+
+// router.get(
+//     '/favorites',
+//     retrieveFavorites
+//     async (req, res) => {
+//         const {userId} = req.query;
+
+//         // const favorites = await User
+
+//         if(!favorites.length) {
+//             return res.status(400).json({
+//                 message: "Немає збережених товарів",
+//                 success: false
+//             });
+//         }
+
+//         const products = await Product.find({_id});
+
+//         return res.status(200).json({
+//             message: "Інформація про обрані товари успішно отримана!",
+//             success: true,
+//             products
+//         })
+//     }
+// )
 
 // add new product
 router.post(
@@ -152,6 +178,11 @@ router.delete(
             const product = req.product;
 
             await product.remove();
+
+            let products = await User.find({});
+            for(let i = 0; i < products.length; i++) {
+                if(products[i].favorites.includes(product._id));
+            }
 
             return res.status(200).json({
                 message: 'Товар успішно видалено',

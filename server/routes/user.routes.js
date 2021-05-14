@@ -3,7 +3,7 @@ const User = require('./../models/User.model');
 const formidable = require('formidable');
 const fs = require('fs');
 
-const { deleteUnnecessaryInfo, parseDateUkr, userById } = require('./helpers/helpers');
+const { deleteUnnecessaryInfo, parseDateUkr, userById, retrieveFavorites } = require('./helpers/helpers');
 const router = Router();
 
 // get a list of all users
@@ -30,12 +30,14 @@ router.get(
 router.get(
     '/:id',
     userById,
+    retrieveFavorites,
     async (req, res) => {
         try {
             let user = req.profile;
             // preparing user data for sending
             user = deleteUnnecessaryInfo(user._doc, 'user');
             user.created = parseDateUkr(user.created, 'PP');
+            user.favorites = req.favorites;
 
             return res.status(200).json({
                 success: true,
@@ -149,13 +151,13 @@ router.post(
 );
 
 // delete from favorites tab
-router.get(
+router.delete(
     '/favorites/delete',
     userById,
-    async (req, res) => {   
+    async (req, res) => {
         try {
             let user = req.profile;
-            const productId = req.query.id;
+            const productId = req.query.productId;
 
             if(!user.favorites.includes(productId)) {
                 return res.status(400).json({
@@ -164,7 +166,7 @@ router.get(
                 });
             }
 
-            user.favorites = user.favorites.filter(item => item !== productId);
+            user.favorites = user.favorites.filter(item => item != productId);
             await user.save();
 
             return res.status(200).json({
@@ -174,7 +176,7 @@ router.get(
             });
         } catch(e) {
             res.status(400).json({
-                message: "Не вдалося видалити товар із заміток",
+                message: `Не вдалося видалити товар із заміток; ${e.message}`,
                 success: false
             });
         }

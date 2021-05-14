@@ -41,7 +41,7 @@ const userById = async (req, res, next) => {
         next();
     } catch(e) {
         return res.status(400).json({
-            message: 'Помилка, юзера не знайдено',
+            message: `Помилка, юзера не знайдено; ${e.message}`,
             success: false
         });
     }
@@ -99,11 +99,44 @@ const productById = async (req, res, next) => {
     }
 }
 
+// retrieve users own favorites middleware
+const retrieveFavorites = async (req, res, next) => {
+    try {
+        const {favorites} = req.profile;
+
+        if(!favorites.length) {
+            req.favorites = [];
+
+            next();
+        }
+        
+        let products = await Product.find({}, {image: 1, name: 1, price: 1, amount: 1});
+
+        products = products.filter(item => favorites.includes(item._doc._id));
+        products.map(item => {
+            if(!item.image.data) {
+                item.image.data = null;
+            }
+            return item;
+        });
+        
+        req.favorites = products;
+
+        next();
+    } catch(e) {
+        return res.status(400).json({
+            message: `Невдала спроба отримати обрані товари; ${e.message}`,
+            success: false
+        });
+    }
+}
+
 module.exports = {
     deleteUnnecessaryInfo,
     parseDateUkr,
     userById,
     categoryByName,
     categoryByLabel,
-    productById
+    productById,
+    retrieveFavorites
 };
