@@ -1,6 +1,6 @@
 import { DefaultResponse, FavoritesResponse, UserDataResponse } from './../../types/reduxTypes';
 import { userAPI } from '../../api/user-api';
-import { UserStateType } from './../../types/stateTypes';
+import { UserFavoritesType, UserStateType } from './../../types/stateTypes';
 import { setSnackbar } from './snackbarReducer';
 
 /* ACTIONS */
@@ -34,7 +34,7 @@ export const clearUserData = () => {
     }
 }
 
-export const setFavorites = (payload: string) => {
+export const setFavorites = (payload: UserFavoritesType) => {
     return {
         type:  SET_FAVORITES,
         payload
@@ -75,15 +75,15 @@ export const updateUserData = (id: string, userData: FormData) => async (dispatc
     }
 }
 
-export const addToFavorites = (userId: string, productId: string) => async (dispatch: Function) => {
-    const data: FavoritesResponse = await userAPI.addToFavorites(userId, productId).catch(error => {
+export const addToFavorites = (userId: string, userFavorite: UserFavoritesType) => async (dispatch: Function) => {
+    const data: FavoritesResponse = await userAPI.addToFavorites(userId, userFavorite._id).catch(error => {
         const {message} = error.response.data;
         // show a tip or an error
         dispatch(setSnackbar(true, 'error', message)); 
     });
 
     if(data && data.success) {
-        dispatch(setFavorites(data.productId));
+        dispatch(setFavorites(userFavorite));
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }
@@ -96,6 +96,7 @@ export const deleteFromFavorites = (userId: string, productId: string) => async 
     });
 
     if(data && data.success) {
+        dispatch(deleteFavorites(data.productId));
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }
@@ -121,7 +122,7 @@ export const userReducer = (state: UserStateType = userState, action: any) => {
         case DELETE_FAVORITES:
             return {
                 ...state,
-                favorites: [...state.favorites.filter(item => item !== action.payload)]
+                favorites: [...state.favorites.filter(item => item._id != action.payload)]
             }
         default:
             return state;

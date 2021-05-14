@@ -12,18 +12,13 @@ const SET_LOADING: string = 'authReducer/SET-LOADING';
 
 /* INITIAL STATE */
 const authState: AuthStateType = {
-    token: null,
-    userId: null,
     isAuth: false,
-    isLoading: false
 }
 
 /* ACTION CREATORS */
-export const signIn = (token: string, id: string) => {
+export const signIn = () => {
     return {
         type: SIGN_IN,
-        token,
-        id
     }
 }
 
@@ -54,7 +49,7 @@ export const login = (login: string, password: string) => async (dispatch: Funct
         // set user data
         await dispatch(getUserData(data.userId));
         // set auth data
-        dispatch(signIn(data.token, data.userId));
+        dispatch(signIn());
         // show a success message
         dispatch(setSnackbar(true, 'success', 'Успішна авторизація! Ласкаво просимо'));
     }
@@ -80,8 +75,6 @@ export const authReducer = (state: AuthStateType = authState, action: any) => {
             return {
                 ...state,
                 isAuth: true,
-                token: action.token,
-                userId: action.id
             }
         case SIGN_OUT:
             // clear local storage
@@ -89,11 +82,6 @@ export const authReducer = (state: AuthStateType = authState, action: any) => {
             return {
                 ...state,
                 ...authState
-            }
-        case SET_LOADING:
-            return {
-                ...state,
-                isLoading: action.payload
             }
         default:
             return state;
