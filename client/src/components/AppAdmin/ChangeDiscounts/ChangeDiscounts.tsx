@@ -3,27 +3,51 @@ import { FC, useState } from 'react';
 
 import MySimpleTextInput from '../../common/Input/MySimpleTextInput';
 import AddIcon from '../../common/Icons/AddIcon';
+import MyDialogWindow from '../../common/MyDialogWindow';
+import AddUpdateDiscountForm from '../../common/Form/AddUpdateDiscountForm';
+import { useSelector } from 'react-redux';
+import { ChangeDiscountsPageType, StateType } from '../../../types/stateTypes';
+import ChangeDiscountsItem from './ChangeDiscountsItem/ChangeDiscountItem';
+import ChangePageLoader from '../../common/Loader/ChangePageLoader';
 
 const discountTableKeys = [
     'Зображення',
     'Назва',
     'Опис',
     'Знижка',
-]
+];
 
 const ChangeDiscounts: FC = () => {
+    const [isFetching, setIsFetching] = useState<boolean>(false);
+    const [openForm, setOpenForm] = useState<boolean>(false);
     const [searchStr, setSearchStr] = useState<string>('');
+    const discounts: Array<ChangeDiscountsPageType> = useSelector((state: StateType) => state.admin.changeDiscounts)
 
     const changeSearchStrHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchStr(event.currentTarget.value.toLocaleLowerCase());
     }
 
     const toggleOpenForm = () => {
+        setOpenForm(prev => !prev);
+    }
+
+    const deleteHandler = (id: string) => {
 
     }
 
     return (
         <div className="changeContainer">
+            <MyDialogWindow 
+                dialogWidth={'sm'}
+                open={openForm}
+                onClose={toggleOpenForm}
+                Content={
+                    <AddUpdateDiscountForm 
+                        header="Оновити товар" 
+                        closeForm={toggleOpenForm} 
+                    />
+                }
+            />
             <div className="changeContainer__header">Редагування знижок</div>
             <hr />
             <div className="changeContainer__content changeBlock">
@@ -50,7 +74,27 @@ const ChangeDiscounts: FC = () => {
                 </div>
                 <div className="changeBlock__items changeProducts">
                     {
-                        
+                        discounts.length ? searchStr ? (
+                            discounts.filter(item => item.name.toLowerCase().includes(searchStr)).map(item => (
+                                <ChangeDiscountsItem 
+                                    key={item._id} 
+                                    discount={item}
+                                    isFetching={isFetching}
+                                    deleteHandler={deleteHandler}
+                                />
+                            ))
+                        ) : (
+                            discounts.map(item => (
+                                <ChangeDiscountsItem 
+                                    key={item._id}
+                                    discount={item}
+                                    isFetching={isFetching}
+                                    deleteHandler={deleteHandler}
+                                />
+                            ))
+                        ) : (
+                            Array(10).fill(0).map((item, idx) => <ChangePageLoader key={idx} />)
+                        )
                     }
                 </div>
             </div>
