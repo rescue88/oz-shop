@@ -1,5 +1,4 @@
 import validator from 'validator';
-import { CategoryNameType } from '../../types/stateTypes';
 
 export const ValidateLogin = (value: string): string => {
     let error: string = '';
@@ -146,6 +145,20 @@ export const ValidateProductProducer = (producer: string): string => {
         error = 'Не більше 2 слів';
     } else if(producer.length > 40) {
         error = 'Максимальна кількість символів - 40';
+    }
+
+    return error;
+}
+
+export const ValidateDiscountPercent = (percent: string): string => {
+    let error = '';
+
+    if(!percent) {
+        error = 'Введіть відсоток знижки';
+    } else if(!validator.isInt(percent)) {
+        error = 'Введіть чило';
+    } else if(Number(percent) < 5 || Number(percent) > 50) {
+        error = 'Введіть значення від 5 до 50';
     }
 
     return error;
