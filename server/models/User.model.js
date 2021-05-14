@@ -4,7 +4,6 @@ const UserSchema = new Schema({
     avatar: {
         data: Buffer,
         contentType: String,
-        default: ''
     },
     name: {
         type: String,

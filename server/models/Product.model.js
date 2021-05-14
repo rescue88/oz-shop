@@ -46,7 +46,6 @@ const ProductSchema = new Schema({
             type: Types.ObjectId,
             ref: "Discount"
         }],
-        default: []
     },
 });
 
