@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import AddsMenu from './AddsMenu';
 import UserComments from './tabs/UserComments';
-import UserFavorites from './tabs/UserFavorites';
+import UserFavorites from './tabs/UserFavorites/UserFavorites';
 import UserOrders from './tabs/UserOrders';
 
 const UserAdds: FC = () => {

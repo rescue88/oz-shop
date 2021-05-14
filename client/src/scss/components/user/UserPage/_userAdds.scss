@@ -11,11 +11,11 @@
                     font-size: 1.6rem;
                     height: 100%;
 
-                    &:hover:not(.activeUserAdd) {
+                    &:hover:not(.activeTab) {
                         background: $secondary-color;
                     }
                 }
-                .activeUserAdd {
+                .activeTab {
                     background: $gradient;
                 }
             }
@@ -27,14 +27,52 @@
     }
 
     &__content {
-        padding: 1.7rem 1.5rem;
+        padding: 0 1.5rem 2rem 1.5rem;
         font-size: 1.4rem;
     }
 
     &__favorites {
+        &_warning {
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
         &_item {
             &:not(:last-child) {
                 border-bottom: 1px solid $additional-color;
+            }
+        }
+
+        .item {
+            padding: 1rem 0;
+            height: 33rem;
+            font-size: 1.6rem;
+
+            &__image {
+                width: 30rem;
+            }
+
+            &__info {
+                margin-left: 5rem;
+                & > div:not(:last-child) {
+                    margin-bottom: 2rem;
+                }
+            }
+
+            &__delete {
+                background: none;
+                cursor: pointer;
+                svg {
+                    width: 3rem;
+                    height: 3rem;
+                    transition: all .3s;
+                    &:hover {
+                        fill: $danger-color;
+                    }
+                    &:active {
+                        transform: scale(1.1);
+                    }
+                }
             }
         }
     }
