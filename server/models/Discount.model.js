@@ -1,17 +1,18 @@
 const { Schema, model } = require('mongoose');
 
 const DiscountSchema = new Schema({
-    name: {
-        type: String,
-        required: 'Discount name is required'
-    },
-    description: {
-        type: String,
-        required: 'Discount description is required'
-    },
     image: {
         data: Buffer,
         contentType: String
+    },
+    name: {
+        type: String,
+        required: "Назва знижки обов'язкова",
+        uniqure: true
+    },
+    description: {
+        type: String,
+        required: "Опис знижки обов'язковий"
     },
     created: {
         type: Date,
@@ -19,8 +20,7 @@ const DiscountSchema = new Schema({
     },
     percent: {
         type: Number,
-        min: [1, '< 1% discount doesnt matter'],
-        max: [50, 'the highest discount possibility is 50%']
+        required: "Відсоток знижки обов'язковий"
     }
 });
 

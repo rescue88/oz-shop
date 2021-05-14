@@ -35,7 +35,6 @@ const UserSchema = new Schema({
         type: String,
         required: "Пароль обо'язкове поле"
     },
-    updated: Date,
     created: {
         type: Date,
         default: Date.now
