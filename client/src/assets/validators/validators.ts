@@ -76,8 +76,8 @@ export const ValidateDescription = (description: string): string => {
     let error : string = '';
     if(!description) {
         error = "Опис товару обов'язковий";
-    } else if(!validator.isLength(description, {min: 35, max: 200})) {
-        error = "Довжина опису від 35 до 200 символів";
+    } else if(!validator.isLength(description, {min: 100, max: 400})) {
+        error = "Довжина опису від 100 до 400 символів";
     }
     return error;
 }
