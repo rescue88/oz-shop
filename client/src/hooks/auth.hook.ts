@@ -13,7 +13,7 @@ export const useAuth = () => {
     const login = useCallback(async (jwtToken: string, id: string) => {
         await dispatch(getUserData(id));
 
-        dispatch(signIn(jwtToken, id));
+        dispatch(signIn());
 
         setStorageItem(id, jwtToken);
         setReady(true);
