@@ -9,19 +9,18 @@ import MySubmitButton from '../MySubmitButton';
 import MySimpleTextarea from '../Input/MySimpleTextarea';
 import MySelectField from '../MySelectField';
 import { createProduct, updateProduct } from '../../../redux/reducers/adminReducer';
+import { AddUpdateFormType } from '../../../types/common';
 
 type AddUpdateProductFormType = {
-    item?: ProductItemType;
-    header: string;
-    closeForm: () => void;
-}
+    product?: ProductItemType;
+} & AddUpdateFormType;
 
-const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, item, closeForm}) => {
+const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, closeForm}) => {
     const [fileName, setFileName] = useState<string>('Не обрано');
     const [choosenFile, setChoosenFile] = useState<File | string>('{}');
     const dispatch = useDispatch();
 
-    const initialFormState = !item ? ({
+    const initialFormState = !product ? ({
         name: '',
         description: '',
         category: '',
@@ -30,13 +29,13 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, item, close
         producer: '',
         size: ''
     }) : ({
-        name: item.name,
-        description: item.description,
-        category: item.category,
-        price: String(item.price),
-        amount: String(item.amount),
-        producer: item.producer,
-        size: item.size
+        name: product.name,
+        description: product.description,
+        category: product.category,
+        price: String(product.price),
+        amount: String(product.amount),
+        producer: product.producer,
+        size: product.size
     });
     
     const changeFileInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,10 +66,10 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, item, close
                 formData.append('producer', data.producer);
                 formData.append('size', data.size);
 
-                if(!item) {
+                if(!product) {
                     await dispatch(createProduct(formData));
                 } else {
-                    await dispatch(updateProduct(item._id, formData));
+                    await dispatch(updateProduct(product._id, formData));
                 }
 
                 setSubmitting(false);
@@ -81,9 +80,7 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, item, close
             {
                 ({isSubmitting}) => (
                     <Form>
-                        <div className="form__header">
-                            {header}
-                        </div>
+                        <div className="form__header">{header}</div>
                         <hr/>
                         <div className="formContainer centered-row">
                             <div className="formContainer_part1">
@@ -140,7 +137,7 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, item, close
                             </div>
                         </div>
                         <div className="form__submit">
-                            <MySubmitButton disabled={isSubmitting} text={item ? 'Змінити товар' : 'Додати товар'} />
+                            <MySubmitButton disabled={isSubmitting} text={product ? 'Змінити товар' : 'Додати товар'} />
                         </div>
                     </Form>
                 )
