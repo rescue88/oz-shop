@@ -11,18 +11,17 @@ import MySelectField from '../MySelectField';
 import { createProduct, updateProduct } from '../../../redux/reducers/adminReducer';
 
 type AddUpdateProductFormType = {
-    product?: ProductItemType;
+    item?: ProductItemType;
     header: string;
-    addOrUpdate?: () => void;
     closeForm: () => void;
 }
 
-const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, closeForm}) => {
+const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, item, closeForm}) => {
     const [fileName, setFileName] = useState<string>('Не обрано');
     const [choosenFile, setChoosenFile] = useState<File | string>('{}');
     const dispatch = useDispatch();
 
-    const initialFormState = !product ? ({
+    const initialFormState = !item ? ({
         name: '',
         description: '',
         category: '',
@@ -31,13 +30,13 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, cl
         producer: '',
         size: ''
     }) : ({
-        name: product.name,
-        description: product.description,
-        category: product.category,
-        price: String(product.price),
-        amount: String(product.amount),
-        producer: product.producer,
-        size: product.size
+        name: item.name,
+        description: item.description,
+        category: item.category,
+        price: String(item.price),
+        amount: String(item.amount),
+        producer: item.producer,
+        size: item.size
     });
     
     const changeFileInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,10 +67,10 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, cl
                 formData.append('producer', data.producer);
                 formData.append('size', data.size);
 
-                if(!product) {
+                if(!item) {
                     await dispatch(createProduct(formData));
                 } else {
-                    await dispatch(updateProduct(product._id, formData));
+                    await dispatch(updateProduct(item._id, formData));
                 }
 
                 setSubmitting(false);
@@ -141,7 +140,7 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, cl
                             </div>
                         </div>
                         <div className="form__submit">
-                            <MySubmitButton disabled={isSubmitting} text={product ? 'Змінити товар' : 'Додати товар'} />
+                            <MySubmitButton disabled={isSubmitting} text={item ? 'Змінити товар' : 'Додати товар'} />
                         </div>
                     </Form>
                 )

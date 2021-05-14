@@ -10,7 +10,6 @@ import defaultProductPhoto from './../../../../assets/images/defaultProduct.png'
 
 type ChangeProductsItemType = {
     product: ProductItemType;
-    updateProduct?: () => void;
     deleteProduct: (id: string) => void;
     isFetching: boolean;
 }
@@ -31,7 +30,7 @@ const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteProduct, isFetchi
                 Content={
                     <AddUpdateProductForm 
                         header="Оновити товар" 
-                        product={product} 
+                        item={product} 
                         closeForm={toggleOpenForm} 
                     />
                 }

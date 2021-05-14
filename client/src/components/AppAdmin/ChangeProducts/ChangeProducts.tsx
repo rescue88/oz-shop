@@ -44,10 +44,6 @@ const ChangeProducts: FC = () => {
         setIsFetching(false);
     }, []);
 
-    const updateProductHandler = useCallback(async() => {
-
-    }, []);
-
     const deleteProductHandler = useCallback(async (id: string) => {
         setIsFetching(true);
 

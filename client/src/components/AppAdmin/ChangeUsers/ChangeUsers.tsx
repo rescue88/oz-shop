@@ -53,7 +53,7 @@ const ChangeUsers: FC = () => {
             <div className="changeContainer__content changeBlock">
                 <div className="changeBlock__panel space-betw-row">
                     <div className="changeBlock__panel_findInput">
-                        <label htmlFor="search">Пошук за іменем продукта</label>
+                        <label htmlFor="search">Пошук користувача за логіном</label>
                         <MySimpleTextInput name="search" changeHandler={changeSearchStrHandler} inputValue={searchStr} />
                     </div>
                 </div>
