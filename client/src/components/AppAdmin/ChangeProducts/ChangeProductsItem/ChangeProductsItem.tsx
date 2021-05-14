@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { convertBuffer } from '../../../../assets/helpers/helpers';
+import { ChangePagesItemType } from '../../../../types/common';
 
 import { ProductItemType } from '../../../../types/stateTypes';
 import AddUpdateProductForm from '../../../common/Form/AddUpdateProductForm';
@@ -10,11 +11,9 @@ import defaultProductPhoto from './../../../../assets/images/defaultProduct.png'
 
 type ChangeProductsItemType = {
     product: ProductItemType;
-    deleteProduct: (id: string) => void;
-    isFetching: boolean;
-}
+} & ChangePagesItemType;
 
-const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteProduct, isFetching, product}) => {
+const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteHandler, isFetching, product}) => {
     const [openForm, setOpenForm] = useState<boolean>(false); 
 
     const toggleOpenForm = () => {
@@ -30,7 +29,7 @@ const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteProduct, isFetchi
                 Content={
                     <AddUpdateProductForm 
                         header="Оновити товар" 
-                        item={product} 
+                        product={product} 
                         closeForm={toggleOpenForm} 
                     />
                 }
@@ -57,7 +56,7 @@ const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteProduct, isFetchi
             <div className="item__delete centered-row">
                 <button 
                     type="button" 
-                    onClick={() => deleteProduct(product._id)} 
+                    onClick={() => deleteHandler(product._id)} 
                     disabled={isFetching}
                 >
                     <DeleteIcon />

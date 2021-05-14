@@ -1,29 +1,27 @@
-import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { userGroups } from '../../../../assets/helpers/helpers';
+import { FC } from 'react';
 
+import { userGroups } from '../../../../assets/helpers/helpers';
+import { ChangePagesItemType } from '../../../../types/common';
 import { ChangeUsersPageType, UserPermissionType } from '../../../../types/stateTypes';
 import DeleteIcon from '../../../common/Icons/DeleteIcon';
 
 type ChangeUsersItemType = {
-    deleteUser: (id: string) => void;
-    isFetching: boolean;
-}
+    user: ChangeUsersPageType;
+} & ChangePagesItemType;
 
-const ChangeUsersItem: FC<ChangeUsersPageType & ChangeUsersItemType> = ({_id, login, email, name, permissions, phone, deleteUser, isFetching}) => {
-    const dispatch = useDispatch();
+const ChangeUsersItem: FC<ChangeUsersItemType> = ({user, deleteHandler, isFetching}) => {
 
     return (
         <div className="changeBlock__items_item">
-            <div className="item__login centered-row">{login}</div>
-            <div className="item__email centered-row">{email}</div>
-            <div className="item__name centered-row">{name}</div>
-            <div className="item__permissions centered-row">{userGroups[permissions as UserPermissionType]}</div>
-            <div className="item__phone centered-row">{phone}</div>
+            <div className="item__login centered-row">{user.login}</div>
+            <div className="item__email centered-row">{user.email}</div>
+            <div className="item__name centered-row">{user.name}</div>
+            <div className="item__permissions centered-row">{userGroups[user.permissions as UserPermissionType]}</div>
+            <div className="item__phone centered-row">{user.phone}</div>
             <div className="item__delete centered-row">
                 <button 
                     type="button" 
-                    onClick={() => deleteUser(_id)} 
+                    onClick={() => deleteHandler(user._id)} 
                     disabled={isFetching}
                 >
                     <DeleteIcon />

@@ -101,16 +101,16 @@ const ChangeProducts: FC = () => {
                                     key={item._id} 
                                     product={item}
                                     isFetching={isFetching} 
-                                    deleteProduct={deleteProductHandler} 
+                                    deleteHandler={deleteProductHandler} 
                                 />
                             ))
                         ) : (
                             products.map(item => (
                                 <ChangeProductsItem 
-                                    key={item._id} 
+                                    key={item._id}
                                     product={item}
                                     isFetching={isFetching} 
-                                    deleteProduct={deleteProductHandler} 
+                                    deleteHandler={deleteProductHandler} 
                                 />
                             ))
                         ) : (

@@ -70,8 +70,8 @@ const ChangeUsers: FC = () => {
                             users.filter(item => item.login.includes(searchStr)).map(item => (
                                 <ChangeUsersItem 
                                     key={item._id} 
-                                    {...item} 
-                                    deleteUser={deleteUserHandler} 
+                                    user={item}
+                                    deleteHandler={deleteUserHandler} 
                                     isFetching={isFetching} 
                                 />
                             ))
@@ -79,8 +79,8 @@ const ChangeUsers: FC = () => {
                             users.map(item => (
                                 <ChangeUsersItem 
                                     key={item._id} 
-                                    {...item} 
-                                    deleteUser={deleteUserHandler} 
+                                    user={item}
+                                    deleteHandler={deleteUserHandler} 
                                     isFetching={isFetching} 
                                 />
                             ))
