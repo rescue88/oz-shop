@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { ChangeDiscountsPageType, ProductItemType } from './stateTypes';
 
 // both for admin or default apps
 export type AppType = {
@@ -16,4 +17,16 @@ export type NavbarType = {
     pageName: string;
     pageLink: string;
     NavIcon: FC;
+}
+
+// all admin panel table items types
+export type ChangePagesItemType = {
+    isFetching: boolean;
+    deleteHandler: (id: string) => void;
+}
+
+// add/update form types
+export type AddUpdateFormType = {
+    header: string;
+    closeForm: () => void;
 }
