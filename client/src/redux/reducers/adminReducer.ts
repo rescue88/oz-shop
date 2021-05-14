@@ -113,7 +113,6 @@ export const getDiscounts = () => async (dispatch: Function) => {
 
     if(data && data.success) {
         dispatch(setDiscounts(data.discounts));
-        dispatch(setSnackbar(true, 'success', data.message));
     }
 }
 
