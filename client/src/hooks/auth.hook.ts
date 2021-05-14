@@ -5,6 +5,7 @@ import { signIn } from '../redux/reducers/authReducer';
 import { getUserData } from '../redux/reducers/userReducer';
 import { StorageItemType } from './../types/common';
 import { getStorageItem, setStorageItem } from './../assets/helpers/helpers';
+import { getDiscounts } from '../redux/reducers/adminReducer';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export const useAuth = () => {
 
     const login = useCallback(async (jwtToken: string, id: string) => {
         await dispatch(getUserData(id));
+        await dispatch(getDiscounts());
 
         dispatch(signIn());
 

@@ -4,6 +4,7 @@ import { authAPI } from './../../api/auth-api';
 import { AuthStateType } from './../../types/stateTypes';
 import { LoginResponse, DefaultResponse } from './../../types/reduxTypes';
 import { getUserData } from './userReducer';
+import { getDiscounts } from './adminReducer';
 
 /* ACTIONS */
 const SIGN_IN: string = 'authReducer/SIGN_IN';
@@ -48,6 +49,8 @@ export const login = (login: string, password: string) => async (dispatch: Funct
         setStorageItem(data.userId, data.token);
         // set user data
         await dispatch(getUserData(data.userId));
+        // set discounts
+        await dispatch(getDiscounts());
         // set auth data
         dispatch(signIn());
         // show a success message
