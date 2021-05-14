@@ -12,7 +12,7 @@ export type AuthStateType = {
     isAuth: boolean;
 }
 
-// admin reducer initial state
+// admin reducer initial state(users)
 export type ChangeUsersPageType = {
     _id: string;
     login: string;
@@ -21,8 +21,17 @@ export type ChangeUsersPageType = {
     permissions: string;
     phone: string
 }
+// admin reducer initial state(discounts)
+export type ChangeDiscountsPageType = {
+    image: any;
+    _id: string;
+    name: string;
+    description: string;
+    percent: number;
+}
 export type AdminStateType = {
-    changeUsers: Array<ChangeUsersPageType> | []
+    changeUsers: Array<ChangeUsersPageType>
+    changeDiscounts: Array<ChangeDiscountsPageType>
 }
 
 // user roles
