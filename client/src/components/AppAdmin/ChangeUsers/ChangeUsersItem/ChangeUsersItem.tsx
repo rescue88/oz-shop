@@ -1,5 +1,4 @@
 import { FC } from 'react';
-
 import { userGroups } from '../../../../assets/helpers/helpers';
 import { ChangePagesItemType } from '../../../../types/common';
 import { ChangeUsersPageType, UserPermissionType } from '../../../../types/stateTypes';
@@ -10,7 +9,6 @@ type ChangeUsersItemType = {
 } & ChangePagesItemType;
 
 const ChangeUsersItem: FC<ChangeUsersItemType> = ({user, deleteHandler, isFetching}) => {
-
     return (
         <div className="changeBlock__items_item">
             <div className="item__login centered-row">{user.login}</div>

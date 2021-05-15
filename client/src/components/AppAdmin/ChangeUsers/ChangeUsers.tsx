@@ -85,7 +85,7 @@ const ChangeUsers: FC = () => {
                                 />
                             ))
                         ) : (
-                            Array(10).fill(0).map(item => <ChangePageLoader />)
+                            Array(10).fill(0).map((item, idx) => <ChangePageLoader key={idx} />)
                         )
                     }
                 </div>

@@ -15,7 +15,7 @@ type UserFavoritesItemType = {
 const UserFavoritesItem: FC<UserFavoritesItemType> = ({_id, image, name, price, amount, isLoading, deleteHandler}) => {
     return (
         <div className="userAdds__favorites_item item space-betw-row">
-            <NavLink to={`/app/product/${_id}`} className="centered-row">
+            <NavLink to={`/app/products/${_id}`} className="centered-row">
                 <div className="item__image">
                     <img src={image.data ? convertBuffer(image.data.data) : defaultProductPhoto} alt="" />
                 </div>

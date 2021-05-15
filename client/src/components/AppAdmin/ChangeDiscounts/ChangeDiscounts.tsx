@@ -64,13 +64,6 @@ const ChangeDiscounts: FC = () => {
                         </div>
                     </Tooltip>
                 </div>
-                {/* <div className="changeBlock__header changeProducts">
-                    {
-                        discountTableKeys.map(item => (
-                            <div key={item} className="changeBlock__header_item centered-row">{item}</div>
-                        ))
-                    }
-                </div> */}
                 <div className="changeBlock__items changeDiscounts centered-col">
                     {
                         discounts.length ? searchStr ? (
