@@ -17,7 +17,7 @@ const ProductSchema = new Schema({
     },
     category: {
         type: Types.ObjectId,
-        ref: "categories"
+        ref: "Category"
     },
     price: {
         type: Number,
@@ -42,10 +42,8 @@ const ProductSchema = new Schema({
         default: Date.now
     },
     discounts: {
-        type: [{
-            type: Types.ObjectId,
-            ref: "Discount"
-        }],
+        type: Types.ObjectId,
+        ref: "Discount"
     },
 });
 
