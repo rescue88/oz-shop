@@ -9,8 +9,11 @@ const Discount = require('./../../models/Discount.model');
 // remove unnecessary data before sending a response
 const deleteUnnecessaryInfo = (doc, modelName = '') => {
     delete doc.__v;
+    
     if(modelName === 'user') {
         delete doc.password;
+    }
+    if(modelName === 'user' || modelName === 'product') {
         delete doc._id;
     }
 

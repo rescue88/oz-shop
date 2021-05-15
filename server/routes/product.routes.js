@@ -2,7 +2,6 @@ const { Router } = require('express');
 const formidable = require('formidable');
 const fs = require('fs');
 
-const User = require('./../models/User.model');
 const Product = require('./../models/Product.model');
 const { productById, deleteUnnecessaryInfo, categoryByLabel } = require('./helpers/helpers');
 
@@ -39,6 +38,21 @@ router.get(
                 success: false
             });
         }
+    }
+);
+
+// get product by id
+router.get(
+    '/:id',
+    productById,
+    async(req, res) => {
+        const product = deleteUnnecessaryInfo(req.product._doc, 'product');
+
+        return res.status(200).json({
+            message: 'Інформацію про продукт успішно отримано',
+            success: true,
+            product
+        });
     }
 );
 
