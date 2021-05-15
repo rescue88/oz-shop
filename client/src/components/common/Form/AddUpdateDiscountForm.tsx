@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ValidateDescription, ValidateDiscountPercent, ValidateName } from '../../../assets/validators/validators';
-import { createDiscount } from '../../../redux/reducers/adminReducer';
+import { createDiscount, updateDiscount } from '../../../redux/reducers/adminReducer';
 import { AddUpdateFormType } from '../../../types/common';
 import { ChangeDiscountsPageType } from '../../../types/stateTypes';
 import MySimpleTextarea from '../Input/MySimpleTextarea';
@@ -56,7 +56,7 @@ const AddUpdateDiscountForm: FC<AddUpdateDiscountFormType> = ({discount, closeFo
                 if(!discount) {
                     await dispatch(createDiscount(formData));
                 } else {
-                    console.log("updating");
+                    await dispatch(updateDiscount(discount._id, formData));
                 }
 
                 setSubmitting(false);
