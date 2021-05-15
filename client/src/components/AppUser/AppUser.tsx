@@ -10,6 +10,7 @@ import UserPage from './UserPage/UserPage';
 import ProductsPage from './ProductsPage/ProductsPage';
 import CartPage from './CartPage/CartPage';
 import DiscountPage from './DiscountPage/DiscountPage';
+import SingleProductPage from './SingleProductPage/SingleProductPage';
 
 const AppUser: FC<AppType> = ({isAuth}) => {
     return (
@@ -21,15 +22,17 @@ const AppUser: FC<AppType> = ({isAuth}) => {
                         <Switch>
                             <Route exact path="/app" render={() => <Home />} />
                             <Route exact path="/app/products" render={() => <ProductsPage />} />
+                            <Route path="/app/products/:productId" render={() => <SingleProductPage />} />
                             <Route exact path="/app/cart" render={() => <CartPage />} />
                             <Route exact path="/app/discounts" render={() => <DiscountPage />} />
-                            <Route exact path="/app/profile" render={() => <UserPage />} />
+                            <Route path="/app/profile" render={() => <UserPage />} />
                             <Redirect exact to="/app" />
                         </Switch>
                     ) : (
                         <Switch>
                             <Route exact path="/app" render={() => <Home />} />
                             <Route exact path="/app/products" render={() => <ProductsPage />} />
+                            <Route exact path="/app/products/:productId" render={() => <SingleProductPage />} />
                             <Route exact path="/app/cart" render={() => <CartPage />} />
                             <Route exact path="/app/discounts" render={() => <DiscountPage />} />
                             <Route exact path="/app/login" render={() => <Login />} />
