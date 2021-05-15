@@ -87,8 +87,8 @@ router.post(
 
 // update discount
 router.put(
-    '/update',
-    discountById,
+    '/update/:id',
+    discountById,    
     async(req, res) => {
         let form = new formidable.IncomingForm();
         form.parse(req, async (err, fields, files) => {
@@ -131,9 +131,24 @@ router.put(
 
 // delete discount
 router.delete(
-    '/delete',
+    '/delete/:id',
+    discountById,
     async(req, res) => {
+        try {
+            const discount = req.discount;
 
+            await discount.remove();
+
+            return res.status(200).json({
+                message: "Знижку успішно видалено",
+                success: true
+            });
+        } catch(e) {
+            return res.status(400).json({
+                message: `Не вдалося видалити знижку; ${e.message}`,
+                success: false
+            });
+        }
     }
 );
 

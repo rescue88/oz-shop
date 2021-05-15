@@ -149,11 +149,6 @@ router.delete(
 
             await product.remove();
 
-            let products = await User.find({});
-            for(let i = 0; i < products.length; i++) {
-                if(products[i].favorites.includes(product._id));
-            }
-
             return res.status(200).json({
                 message: 'Товар успішно видалено',
                 success: true
