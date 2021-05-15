@@ -33,21 +33,8 @@
             }
     
             &__ratePrice {
-                &_rate {
-                    padding: 0.5rem 1rem;
-                    font-size: 1.4rem;
-                    border-radius: 0.7rem;
-                    background: $primary-color;
-                    color: black;
-                    svg {
-                        width: 2rem;
-                        height: 1.5rem;
-                        fill: black;
-                    }
-                }
-    
                 &_price {
-                    font-size: 2rem;
+                    font-size: 3rem;
                     letter-spacing: 0.1rem;
                 }
             }
@@ -75,37 +62,6 @@
             &_wishlist,
             &_cart {
                 width: 50%;
-                padding: 1.5rem 0;
-                background: none;
-                font-size: 1.6rem;
-                text-transform: uppercase;
-                color: black;
-                cursor: pointer;
-                opacity: 0.9;
-                transition: opacity 0.3s;
-
-                &:hover {
-                    opacity: 1;
-                }
-
-                svg {
-                    width: 1.5rem;
-                    height: 1.5rem;
-                    margin-right: 0.7rem;
-                    fill: black;
-                }
-            }
-
-            &_wishlist {
-                background: $additional-color;
-                &:disabled {
-                    text-decoration: line-through;
-                    opacity: .65;
-                }
-            }
-
-            &_cart {
-                background: $primary-color;
             }
         }
     }

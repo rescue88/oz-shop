@@ -1,8 +1,10 @@
-// common
+// common global Components
 @import './header';
 @import './footer';
 @import './navbar';
 @import './loader';
+// common local components
+@import './common/common';
 // userApp
 @import './form';
 @import './user/user';
