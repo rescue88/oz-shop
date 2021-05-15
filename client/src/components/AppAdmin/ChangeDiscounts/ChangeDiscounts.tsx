@@ -5,23 +5,18 @@ import MySimpleTextInput from '../../common/Input/MySimpleTextInput';
 import AddIcon from '../../common/Icons/AddIcon';
 import MyDialogWindow from '../../common/MyDialogWindow';
 import AddUpdateDiscountForm from '../../common/Form/AddUpdateDiscountForm';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ChangeDiscountsPageType, StateType } from '../../../types/stateTypes';
 import ChangeDiscountsItem from './ChangeDiscountsItem/ChangeDiscountItem';
 import ChangePageLoader from '../../common/Loader/ChangePageLoader';
-
-const discountTableKeys = [
-    'Зображення',
-    'Назва',
-    'Опис',
-    'Знижка',
-];
+import { deleteDiscount } from '../../../redux/reducers/adminReducer';
 
 const ChangeDiscounts: FC = () => {
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const [openForm, setOpenForm] = useState<boolean>(false);
     const [searchStr, setSearchStr] = useState<string>('');
-    const discounts: Array<ChangeDiscountsPageType> = useSelector((state: StateType) => state.admin.changeDiscounts)
+    const dispatch = useDispatch();
+    const discounts: Array<ChangeDiscountsPageType> = useSelector((state: StateType) => state.admin.changeDiscounts);
 
     const changeSearchStrHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchStr(event.currentTarget.value.toLocaleLowerCase());
@@ -31,8 +26,12 @@ const ChangeDiscounts: FC = () => {
         setOpenForm(prev => !prev);
     }
 
-    const deleteHandler = (id: string) => {
+    const deleteDiscountHandler = async (id: string) => {
+        setIsFetching(true);
 
+        await(dispatch(deleteDiscount(id)));
+
+        setIsFetching(false);
     }
 
     return (
@@ -65,14 +64,14 @@ const ChangeDiscounts: FC = () => {
                         </div>
                     </Tooltip>
                 </div>
-                <div className="changeBlock__header changeProducts">
+                {/* <div className="changeBlock__header changeProducts">
                     {
                         discountTableKeys.map(item => (
                             <div key={item} className="changeBlock__header_item centered-row">{item}</div>
                         ))
                     }
-                </div>
-                <div className="changeBlock__items changeProducts">
+                </div> */}
+                <div className="changeBlock__items changeDiscounts centered-col">
                     {
                         discounts.length ? searchStr ? (
                             discounts.filter(item => item.name.toLowerCase().includes(searchStr)).map(item => (
@@ -80,7 +79,7 @@ const ChangeDiscounts: FC = () => {
                                     key={item._id} 
                                     discount={item}
                                     isFetching={isFetching}
-                                    deleteHandler={deleteHandler}
+                                    deleteHandler={deleteDiscountHandler}
                                 />
                             ))
                         ) : (
@@ -89,7 +88,7 @@ const ChangeDiscounts: FC = () => {
                                     key={item._id}
                                     discount={item}
                                     isFetching={isFetching}
-                                    deleteHandler={deleteHandler}
+                                    deleteHandler={deleteDiscountHandler}
                                 />
                             ))
                         ) : (
