@@ -29,6 +29,10 @@ export type GetProductsResponse = {
     products: Array<ProductItemType>
 } & DefaultResponse;
 
+export type GetSingleProductResponse = {
+    product: ProductItemType;
+} & DefaultResponse;
+
 // add to favorites server response
 export type FavoritesResponse = {
     productId: string;

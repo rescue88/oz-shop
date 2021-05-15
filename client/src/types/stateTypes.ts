@@ -79,10 +79,11 @@ export type ProductItemType = {
     producer: string;
     size: string;
     created: string;
-    discounts: Array<string>;
+    discounts: string;
 }
 
 export type ProductStateType = {
     products: Array<ProductItemType>;
+    singleProduct: ProductItemType | null;
     filters: any;
 }
