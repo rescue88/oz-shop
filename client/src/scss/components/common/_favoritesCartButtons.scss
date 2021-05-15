@@ -1,0 +1,33 @@
+.wishlistBtn, .cartBtn {
+    padding: 1.5rem 1rem;
+    background: none;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    color: black;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.7rem;
+        fill: black;
+    }
+}
+
+.wishlistBtn {
+    background: $additional-color;
+    &:disabled {
+        text-decoration: line-through;
+        opacity: .65;
+    }
+}
+
+.cartBtn {
+    background: $primary-color;
+}

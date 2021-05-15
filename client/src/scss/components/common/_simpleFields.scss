@@ -1,0 +1,48 @@
+.textInput, .textarea {
+    padding: 1rem 0;
+    color: $secondary-color;
+    transition: all .3s;
+    &:hover:not(.fieldError) {
+        border-color: $secondary-color;
+    }
+
+    &:focus:not(.fieldError) {
+        border-color: $green-dark;
+    }
+}
+
+.textInput {
+    padding: 1rem 1.5rem;
+    font-size: 1.6rem;
+    border: 1px solid rgba(0, 0, 0, 0);
+    background: $foreground-back;
+    border-radius: .7rem;
+}
+
+.textareaContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.textarea {
+    width: 25rem;
+    min-height: 10rem;
+    font-size: 1.3rem;
+    border-bottom: 3px solid rgba(0, 0, 0, 0);
+    background: $def-back;
+    &::placeholder {
+        color: currentColor;
+        opacity: .5;
+    }
+
+    &__error {
+        padding: .5rem 0;
+        font-size: 1.2rem;
+        color: rgba(244, 67, 54, .75);
+        background: $def-back;
+    }
+}
+
+.fieldError {
+    border-color: $danger-color;
+}
