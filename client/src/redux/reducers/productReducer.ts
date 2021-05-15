@@ -1,14 +1,17 @@
-import { GetProductsResponse } from '../../types/reduxTypes';
+import { GetProductsResponse, GetSingleProductResponse } from '../../types/reduxTypes';
 import { ProductItemType, ProductStateType } from '../../types/stateTypes';
 import { productAPI } from './../../api/product-api';
 import { setSnackbar } from './snackbarReducer';
 
 /* ACTIONS */
 const SET_PRODUCTS: string = 'productReducer/SET_PRODUCTS';
+const SET_SINGLE_PRODUCT: string = 'productReducer/SET_SINGLE_PRODUCT';
+
 
 /* INITIAL STATE */
 const productState: ProductStateType = {
     products: [],
+    singleProduct: null,
     filters: null
 }
 
@@ -16,6 +19,13 @@ const productState: ProductStateType = {
 export const setProducts = (payload: Array<ProductItemType>) => {
     return {
         type: SET_PRODUCTS,
+        payload
+    }
+}
+
+export const setSingleProduct = (payload: ProductItemType) => {
+    return {
+        type: SET_SINGLE_PRODUCT,
         payload
     }
 }
@@ -33,6 +43,18 @@ export const getProducts = () => async (dispatch: Function) => {
     }
 }
 
+export const getSingleProduct = (productId: string) => async (dispatch: Function) => {
+    const data: GetSingleProductResponse = await productAPI.getSingleProduct(productId).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(setSingleProduct(data.product));
+    }
+}
+
 /* REDUCER */
 export const productReducer = (state: ProductStateType = productState, action: any) => {
     switch(action.type) {
@@ -41,6 +63,11 @@ export const productReducer = (state: ProductStateType = productState, action: a
                 ...state,
                 products: action.payload
             } as ProductStateType;
+        case SET_SINGLE_PRODUCT:
+            return {
+                ...state,
+                singleProduct: action.payload
+            }
         default:
             return state;
     }
