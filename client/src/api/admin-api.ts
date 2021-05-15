@@ -1,4 +1,3 @@
-import { createDiscount } from '../redux/reducers/adminReducer';
 import { axiosInstance } from './api';
 
 export const adminAPI = {
@@ -31,6 +30,14 @@ export const adminAPI = {
     },
     async createDiscount(discountData: FormData) {
         const response = await axiosInstance.post<any>('discount/create', discountData);
+        return response.data;
+    },
+    async updateDiscount(discountId: string, discountData: FormData) {
+        const response = await axiosInstance.put<any>(`discount/update/${discountId}`, discountData);
+        return response.data;
+    },
+    async deleteDiscount(discountId: string) {
+        const response = await axiosInstance.delete<any>(`discount/delete/${discountId}`);
         return response.data;
     }
 }

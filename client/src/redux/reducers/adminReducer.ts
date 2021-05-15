@@ -129,6 +129,32 @@ export const createDiscount = (discountData: FormData) => async (dispatch: Funct
     }
 }
 
+export const updateDiscount = (discountId: string, discountData: FormData) => async (dispatch: Function) => {
+    const data: DefaultResponse = await adminAPI.updateDiscount(discountId, discountData).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(getDiscounts());
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
+export const deleteDiscount = (discountId: string) => async (dispatch: Function) => {
+    const data: DefaultResponse = await adminAPI.deleteDiscount(discountId).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(getDiscounts());
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
 /* REDUCER */
 export const adminReducer = (state: AdminStateType = adminState, action: any) => {
     switch(action.type) {
