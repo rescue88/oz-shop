@@ -1,12 +1,16 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const RatingSchema = new Schema({
     user: {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'User'
     },
+    product: {
+        type: Types.ObjectId,
+        ref: 'Product'
+    },
     mark: {
-        type: number,
+        type: Number,
         min: 1,
         max: 10,
     },
@@ -14,7 +18,8 @@ const RatingSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    updated: Date
 });
+
+RatingSchema.index({user: 1, product: 1}, {unique: true});
 
 module.exports = model('Rating', RatingSchema);

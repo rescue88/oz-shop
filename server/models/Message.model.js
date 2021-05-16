@@ -1,19 +1,26 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const MessageSchema = new Schema({
     user: {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'User'
+    },
+    product: {
+        type: Types.ObjectId,
+        ref: 'Product'
     },
     text: {
         type: String,
-        required: 'Message text is required'
+        required: "Текст повідомлення - обов'язкове поле"
+    },
+    positive: {
+        type: Boolean,
+        required: "Тип відгуку - обов'язкове поле"
     },
     created: {
         type: Date,
         default: Date.now
     },
-    updated: Date
 });
 
 module.exports = model('Message', MessageSchema);
