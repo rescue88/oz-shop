@@ -1,3 +1,4 @@
+// all sm or larger forms
 .form {
     width: 50rem;
     padding: 3rem 0;
@@ -73,8 +74,46 @@
 
 // styles for large forms
 .formContainer {
-    width: 100%;
     & > div {
         margin: 0 5rem;
+    }
+}
+
+.ratingForm, .formContainer {
+    width: 100%;
+}
+
+// styles for small ratin form
+.ratingForm {
+    &__input {
+        width: 100%;
+        padding: .7rem 0;
+        padding-left: 25%;
+        background: none;
+        font-size: 1.6rem;
+        border-bottom: 1px solid $additional-color;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        svg {
+            width: 2rem;
+            height: 2rem;
+            margin-right: 1rem;
+            fill: $primary-color;
+        }
+
+        &:hover {
+            background: $secondary-color;
+        }
+
+        &:disabled {
+            background: rgba(244, 67, 54, .25);
+            cursor: default;
+        }
+
+        // &_label {
+        //     width: 15rem;
+        // }
     }
 }
