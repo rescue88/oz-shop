@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { convertBuffer } from '../../../../assets/helpers/helpers';
+import { addToFavoritesHelper, convertBuffer } from '../../../../assets/helpers/helpers';
 import { ProductItemType } from '../../../../types/stateTypes';
 import defaultProduct from './../../../../assets/images/defaultProduct.png';
 import ProductTabAvailable from './ProductTabAvailable';
@@ -12,7 +13,17 @@ type ProductTabType = {
 }
 
 const Product: FC<ProductTabType> = ({product}) => {
+    const [isFetching, setIsFetching] = useState<boolean>(false);
     const isAvailable = Boolean(product.amount);
+    const dispatch = useDispatch();
+
+    const addToFavoritesHandler = async () => {
+        setIsFetching(true);
+
+        await addToFavoritesHelper(dispatch, product);
+
+        setIsFetching(false);
+    }
 
     return (
         <div className="singleProduct__content_product product">
@@ -24,7 +35,11 @@ const Product: FC<ProductTabType> = ({product}) => {
                 <div className="product__content_description">
                     {product.description}
                 </div>
-                <ProductTabButtons />
+                <ProductTabButtons 
+                    isFetching={isFetching}
+                    productId={product._id}
+                    addToFavorites={addToFavoritesHandler} 
+                />
                 <div className="product__content_characteristics">
                     <div>Кількість на складі: <span>{product.amount}</span></div>
                     <div>Категорія: <span>{product.category}</span></div>
