@@ -5,6 +5,7 @@ const User = require('./../../models/User.model');
 const Category = require('./../../models/Category.model');
 const Product = require('./../../models/Product.model');
 const Discount = require('./../../models/Discount.model');
+const Rating = require('./../../models/Rating.model');
 
 // remove unnecessary data before sending a response
 const deleteUnnecessaryInfo = (doc, modelName = '') => {
@@ -156,6 +157,19 @@ const discountById = async (req, res, next) => {
     }
 }
 
+// retrieve product's rating
+const retrieveProductRating = async (productId) => {
+    let rating = await Rating.find({product: productId}, {_id: 0, mark: 1});
+    if(!rating.length) return 0; 
+    // if only 1 mark, return it
+    else if(rating.length === 1) return rating[0].mark;
+    // get an average rating
+    else {
+        rating = (rating.reduce((sum, plus) => sum + plus.mark, 0) / rating.length).toFixed(1);
+        return rating;
+    }
+}
+
 module.exports = {
     deleteUnnecessaryInfo,
     parseDateUkr,
@@ -164,5 +178,6 @@ module.exports = {
     categoryByLabel,
     productById,
     retrieveFavorites,
-    discountById
+    discountById,
+    retrieveProductRating
 };
