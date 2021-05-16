@@ -56,7 +56,6 @@ export const getUserData = (id: string) => async (dispatch: Function) => {
         dispatch(setSnackbar(true, 'error', message));
     });
 
-    // console.log(data);
     if(data && data.success) {
         dispatch(setUserData(data.user));
     }
