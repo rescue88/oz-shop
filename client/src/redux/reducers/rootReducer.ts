@@ -6,6 +6,7 @@ import { userReducer } from './userReducer';
 import { snackbarReducer } from './snackbarReducer';
 import { productReducer } from './productReducer';
 import { discountReducer } from './discountReducer';
+import { ratingReducer } from './ratingReducer';
 
 export const rootReducer = combineReducers({
     auth: authReducer,
@@ -13,5 +14,6 @@ export const rootReducer = combineReducers({
     user: userReducer,
     snackbar: snackbarReducer,
     product: productReducer,
-    discount: discountReducer
+    discount: discountReducer,
+    rating: ratingReducer
 });
