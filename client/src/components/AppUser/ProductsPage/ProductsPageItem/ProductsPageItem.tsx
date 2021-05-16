@@ -2,15 +2,16 @@ import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { getStorageItem } from '../../../../assets/helpers/helpers';
-import { addToFavorites } from '../../../../redux/reducers/userReducer';
+import { addToFavoritesHelper } from '../../../../assets/helpers/helpers';
 import { ProductItemType, StateType } from '../../../../types/stateTypes';
 import Rating from '../../../common/Rating/Rating';
 import defaultProduct from './../../../../assets/images/defaultProduct.png';
 
-const ProductsPageItem: FC<ProductItemType> = ({
-    _id, name, description, image, price, amount, discounts
-}) => {
+type ProductsPageItemType = {
+    product: ProductItemType
+}
+
+const ProductsPageItem: FC<ProductsPageItemType> = ({product}) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch();
     const {favorites} = useSelector((state: StateType) => state.user);
@@ -18,27 +19,26 @@ const ProductsPageItem: FC<ProductItemType> = ({
     const addToFavoritesHandler = async () => {
         setIsLoading(true);
 
-        const userId = getStorageItem()!.userId;
-        await dispatch(addToFavorites(userId, {_id, image, name, price, amount}));
+        await addToFavoritesHelper(dispatch, product);
 
         setIsLoading(false);
     }
 
     return (
         <div className={`itemContainer ${isLoading ? 'disable-clicks' : ''}`}>
-            <NavLink className="item" to={`/app/products/${_id}`}>
+            <NavLink className="item" to={`/app/products/${product._id}`}>
                 <div className="item__picture centered-row">
                     <img src={defaultProduct} alt="product" />
                 </div>
                 <div className="item__ratePrice space-betw-row">
                     <Rating rating={4} />
                     <div className="item__ratePrice_price">
-                        ₴{price}
+                        ₴{product.price}
                     </div>
                 </div>
                 <div className="item__name">
-                    <div className="item__name_header">{name}</div>
-                    <div className="item__name_subheader">{description}</div>
+                    <div className="item__name_header">{product.name}</div>
+                    <div className="item__name_subheader">{product.description}</div>
                 </div>
             </NavLink>
             <div className="itemContainer__buttons">
@@ -46,7 +46,7 @@ const ProductsPageItem: FC<ProductItemType> = ({
                     className="itemContainer__buttons_wishlist wishlistBtn" 
                     type="button" 
                     onClick={addToFavoritesHandler}
-                    disabled={favorites.map(item => item._id).includes(_id) ? true : false}
+                    disabled={favorites.map(item => item._id).includes(product._id) ? true : false}
                 >
                     <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 

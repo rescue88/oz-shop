@@ -28,7 +28,7 @@ const ProductPage: FC = () => {
                 <div className="productsPage__content_items space-betw-row">
                     {
                         products.length 
-                            ? products.map(item => <ProductsPageItem key={item._id} {...item} />)
+                            ? products.map(item => <ProductsPageItem key={item._id} product={item} />)
                             : Array(6).fill(0).map((item, idx) => <ProductItemLoader key={idx} /> )
                     }
                 </div>
