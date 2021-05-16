@@ -23,4 +23,6 @@ const MessageSchema = new Schema({
     },
 });
 
+MessageSchema.index({user: 1, product: 1}, {unique: true});
+
 module.exports = model('Message', MessageSchema);
