@@ -71,6 +71,7 @@ export type ProductItemType = {
     amount: number;
     producer: string;
     size: string;
+    rating: number;
     created: string;
     discounts: string;
 }
