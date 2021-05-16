@@ -1,7 +1,7 @@
 // show product rating styles
 .rating {
-    max-width: 6rem;
-    font-size: 2.5rem;
+    max-width: 9rem;
+    font-size: 2rem;
     padding: .5rem 1rem;
     background: $primary-color;
     border-radius: .7rem;
@@ -14,8 +14,8 @@
     }
 
     svg {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2rem;
+        height: 2rem;
         margin-left: .5rem;
         fill: black;
     }
