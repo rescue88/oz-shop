@@ -1,10 +1,15 @@
-import { FC, useEffect, useCallback } from 'react';
+import { FC, useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, useParams } from 'react-router-dom';
+import { getStorageItem } from '../../../assets/helpers/helpers';
 
 import { clearSingleProduct, getSingleProduct } from '../../../redux/reducers/productReducer';
+import { clearRating, getOwnRating } from '../../../redux/reducers/ratingReducer';
 import { StateType } from '../../../types/stateTypes';
+import AddUpdateRatingForm from '../../common/Form/AddUpdateRatingForm';
+import StarSolidIcon from '../../common/Icons/StarSolidIcon';
 import ProductTabLoader from '../../common/Loader/ProductTabLoader';
+import MyDialogWindow from '../../common/MyDialogWindow';
 import Rating from '../../common/Rating/Rating';
 import Comments from './Comments/Comments';
 import Product from './Product/ProductTab';
@@ -15,11 +20,20 @@ type ProductPageParamType = {
 }
 
 const SingleProductPage: FC = () => {
+    const [openForm, setOpenForm] = useState<boolean>(false);
     const productId = useParams<ProductPageParamType>().productId;
     const dispatch = useDispatch();
     const {singleProduct} = useSelector((state: StateType) => state.product);
+    const {rating} = useSelector((state: StateType) => state.rating);
+
+    const toggleOpenFormHandler = () => {
+        setOpenForm(prev => !prev);
+    }
 
     const getProductHandler = useCallback(async () => {
+        const userId: string = getStorageItem()!.userId;
+        await dispatch(getOwnRating(userId, productId));
+
         await dispatch(getSingleProduct(productId));
     }, [dispatch, productId]);
 
@@ -29,6 +43,7 @@ const SingleProductPage: FC = () => {
         // do smth when component is unmounted
         return () => {
             dispatch(clearSingleProduct());
+            dispatch(clearRating());
         }
     }, []);
 
@@ -37,10 +52,29 @@ const SingleProductPage: FC = () => {
             {
                 singleProduct ? (
                     <>
+                        <MyDialogWindow 
+                            open={openForm}
+                            dialogWidth='xs'
+                            onClose={toggleOpenFormHandler}
+                            Content={
+                                <AddUpdateRatingForm
+                                    rating={rating}
+                                    productId={singleProduct._id}
+                                    header={singleProduct.name}
+                                    closeForm={toggleOpenFormHandler}
+                                />
+                            }
+                        />
                         <div className="singleProduct__header">{singleProduct.name}</div>
                         <div className="singleProduct__rateDate space-betw-row">
-                            <Rating rating={4} />
-                            <div className="singleProduct__rateDate_data">
+                            <div className="singleProduct__rateDate_rate centered-row">
+                                <div onClick={toggleOpenFormHandler}><Rating rating={4} /></div>
+                                <div className="ownRating centered-row">
+                                    <StarSolidIcon />
+                                    {rating ? rating: 'Вашу оцінку ще не додано'}
+                                </div>
+                            </div>
+                            <div className="singleProduct__rateDate_date">
                                 Створено: {singleProduct.created}
                             </div>
                         </div>
