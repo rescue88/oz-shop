@@ -1,6 +1,7 @@
 import { StorageItemType } from './../../types/common';
 import { OZshop } from "../../types/reduxTypes";
-import { UserPermissionType } from '../../types/stateTypes';
+import { ProductItemType, UserPermissionType } from '../../types/stateTypes';
+import { addToFavorites } from '../../redux/reducers/userReducer';
 
 type UserGroupsType = {
     [key in UserPermissionType]: string;
@@ -41,4 +42,11 @@ export const convertBuffer = (image: any): string => {
     bytes.forEach((b) => binary += String.fromCharCode(b));
     
     return `data:image/*;base64, ${btoa(binary)}`;
+}
+
+export const addToFavoritesHelper = async (dispatch: any, favorite: ProductItemType) => {
+    const userId = getStorageItem()!.userId;
+    const {_id, image, name, price, amount} = favorite;
+
+    await dispatch(addToFavorites(userId, {_id, image, name, price, amount}));
 }
