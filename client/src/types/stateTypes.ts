@@ -6,6 +6,7 @@ export type StateType = {
     snackbar: SnackbarStateType;
     product: ProductStateType;
     discount: DiscountStateType;
+    rating: RatingStateType;
 }
 
 // auth reducer initial state
@@ -91,4 +92,9 @@ export type DiscountItemType = {
 
 export type DiscountStateType = {
     discounts: Array<DiscountItemType>
+}
+
+// rating state type
+export type RatingStateType = {
+    rating: number | null;
 }

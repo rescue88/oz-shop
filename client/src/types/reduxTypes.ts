@@ -42,3 +42,8 @@ export type FavoritesResponse = {
 export type GetDiscountsResponse = {
     discounts: Array<DiscountItemType>
 } & DefaultResponse;
+
+// add/update rating
+export type RatingResponse = {
+    rating: number | null;
+} & DefaultResponse;
