@@ -9,6 +9,7 @@
         }
 
         &__content {
+            flex-grow: 1;
             & > div:not(:last-child) {
                 margin-bottom: 2rem;
             }

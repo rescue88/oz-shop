@@ -35,6 +35,9 @@ const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteHandler, isFetchi
                 }
             />
             <div className="item__image centered-row">
+                {
+                    console.log(product)
+                }
                 <img 
                     className="centered-row" 
                     src={product.image.data ? convertBuffer(product.image.data.data): defaultProductPhoto} 

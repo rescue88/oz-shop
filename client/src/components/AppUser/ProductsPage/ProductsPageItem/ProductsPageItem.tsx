@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { addToFavoritesHelper } from '../../../../assets/helpers/helpers';
+import { addToFavoritesHelper, convertBuffer } from '../../../../assets/helpers/helpers';
 import { ProductItemType, StateType } from '../../../../types/stateTypes';
 import Rating from '../../../common/Rating/Rating';
 import defaultProduct from './../../../../assets/images/defaultProduct.png';
@@ -28,7 +28,7 @@ const ProductsPageItem: FC<ProductsPageItemType> = ({product}) => {
         <div className={`itemContainer ${isLoading ? 'disable-clicks' : ''}`}>
             <NavLink className="item" to={`/app/products/${product._id}`}>
                 <div className="item__picture centered-row">
-                    <img src={defaultProduct} alt="product" />
+                    <img src={product.image.data ? convertBuffer(product.image.data.data) : defaultProduct} alt="product" />
                 </div>
                 <div className="item__ratePrice space-betw-row">
                     <Rating rating={product.rating} />
