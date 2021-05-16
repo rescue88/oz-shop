@@ -25,7 +25,8 @@ const UserFavorites: FC = () => {
             {
                 favorites.length ? (
                     favorites.map(item => (
-                        <UserFavoritesItem 
+                        <UserFavoritesItem
+                            key={item._id} 
                             {...item}
                             isLoading={isLoading}
                             deleteHandler={deleteFavoriteHandler}
