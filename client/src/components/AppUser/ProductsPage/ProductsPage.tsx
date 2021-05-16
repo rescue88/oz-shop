@@ -1,24 +1,34 @@
-import { useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../../../redux/reducers/productReducer';
-import { StateType } from '../../../types/stateTypes';
-import ProductItemLoader from '../../common/Loader/ProductItemLoader';
 
+import { addToFavoritesHelper } from '../../../assets/helpers/helpers';
+import { getProducts } from '../../../redux/reducers/productReducer';
+import { ProductItemType, StateType } from '../../../types/stateTypes';
+import ProductItemLoader from '../../common/Loader/ProductItemLoader';
 import ProductsPageFilters from './ProductsPageFilters/ProductsPageFilters';
 import ProductsPageItem from './ProductsPageItem/ProductsPageItem';
 
 const ProductPage: FC = () => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch();
-    const products = useSelector((state: StateType) => state.product.products);
+    const {products} = useSelector((state: StateType) => state.product);
 
-    const getProductsHandler = async () => {
+    const getProductsHandler = useCallback(async () => {
         await dispatch(getProducts());
-    }
+    }, [dispatch]);
+
+    const addToFavoritesHandler = useCallback(async (product: ProductItemType) => {
+        setIsLoading(true);
+
+        await addToFavoritesHelper(dispatch, product);
+
+        setIsLoading(false);
+    }, [dispatch]);
 
     useEffect(() => {
         getProductsHandler();
-    }, []);
+    }, [addToFavoritesHandler]);
 
     return (
         <div className="productsPage">
@@ -28,7 +38,14 @@ const ProductPage: FC = () => {
                 <div className="productsPage__content_items space-betw-row">
                     {
                         products.length 
-                            ? products.map(item => <ProductsPageItem key={item._id} product={item} />)
+                            ? products.map(item => (
+                                <ProductsPageItem 
+                                    key={item._id} 
+                                    product={item}
+                                    isLoading={isLoading}
+                                    addToFavorites={addToFavoritesHandler}
+                                />
+                            ))
                             : Array(6).fill(0).map((item, idx) => <ProductItemLoader key={idx} /> )
                     }
                 </div>

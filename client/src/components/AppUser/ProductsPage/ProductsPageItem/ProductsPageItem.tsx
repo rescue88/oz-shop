@@ -1,31 +1,24 @@
-import { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { addToFavoritesHelper, convertBuffer } from '../../../../assets/helpers/helpers';
+import { convertBuffer } from '../../../../assets/helpers/helpers';
 import { ProductItemType, StateType } from '../../../../types/stateTypes';
 import Rating from '../../../common/Rating/Rating';
 import defaultProduct from './../../../../assets/images/defaultProduct.png';
 
 type ProductsPageItemType = {
-    product: ProductItemType
+    product: ProductItemType;
+    isLoading: boolean;
+    addToFavorites: (product: ProductItemType) => void;
 }
 
-const ProductsPageItem: FC<ProductsPageItemType> = ({product}) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const dispatch = useDispatch();
+const ProductsPageItem: FC<ProductsPageItemType> = ({product, isLoading, addToFavorites}) => {
     const {favorites} = useSelector((state: StateType) => state.user);
-
-    const addToFavoritesHandler = async () => {
-        setIsLoading(true);
-
-        await addToFavoritesHelper(dispatch, product);
-
-        setIsLoading(false);
-    }
+    const {isAuth} = useSelector((state: StateType) => state.auth);
 
     return (
-        <div className={`itemContainer ${isLoading ? 'disable-clicks' : ''}`}>
+        <div className={`itemContainer ${isLoading ? 'disable-click' : ''}`}>
             <NavLink className="item" to={`/app/products/${product._id}`}>
                 <div className="item__picture centered-row">
                     <img src={product.image.data ? convertBuffer(product.image.data.data) : defaultProduct} alt="product" />
@@ -45,8 +38,8 @@ const ProductsPageItem: FC<ProductsPageItemType> = ({product}) => {
                 <button 
                     className="itemContainer__buttons_wishlist wishlistBtn" 
                     type="button" 
-                    onClick={addToFavoritesHandler}
-                    disabled={favorites.map(item => item._id).includes(product._id) ? true : false}
+                    onClick={() => addToFavorites(product)}
+                    disabled={favorites.map(item => item._id).includes(product._id) || !isAuth}
                 >
                     <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 
