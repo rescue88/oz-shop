@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { getStorageItem } from '../../../assets/helpers/helpers';
+import { getSingleProduct } from '../../../redux/reducers/productReducer';
 
 import { addRating, updateRating } from '../../../redux/reducers/ratingReducer';
 import { AddUpdateFormType } from '../../../types/common';
@@ -43,6 +44,8 @@ const AddUpdateRatingForm: React.FC<AddUpdateRatingFormType> = ({productId, rati
         setIsFetching(false);
 
         closeForm();
+
+        dispatch(getSingleProduct(productId));
     }
 
     return (
