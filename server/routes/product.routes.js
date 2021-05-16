@@ -2,9 +2,8 @@ const { Router } = require('express');
 const formidable = require('formidable');
 const fs = require('fs');
 
-const Rating = require('./../models/Rating.model');
 const Product = require('./../models/Product.model');
-const { productById, deleteUnnecessaryInfo, categoryByLabel, parseDateUkr, retrieveProductRating } = require('./helpers/helpers');
+const { productById, deleteUnnecessaryInfo, categoryByLabel, parseDateUkr, retrieveProductRating, categoryLabelById } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -23,14 +22,18 @@ router.get(
                 });
             }
 
+            // write an average rating into every product
             for(let i = 0; i < products.length; i++) {
-                products[i]._doc.rating = await retrieveProductRating(products[i]._doc._id)
+                products[i]._doc.rating = await retrieveProductRating(products[i]._doc._id);
+                if(!products[i]._doc.image.data) {
+                    products[i]._doc.image.data = null;
+                }
             }
 
             return res.status(200).json({
                 message: 'Товари завантажено успішно!',
                 success: true,
-                products: products
+                products    
             });
         } catch(e) {
             return res.json({
@@ -52,6 +55,8 @@ router.get(
             product.created = parseDateUkr(product.created, 'PP');
             // get product average rating
             product.rating = await retrieveProductRating(req.product._id);
+            // get a category label
+            product.category = await categoryLabelById(product.category);
 
             return res.status(200).json({
                 message: 'Інформацію про продукт успішно отримано',
