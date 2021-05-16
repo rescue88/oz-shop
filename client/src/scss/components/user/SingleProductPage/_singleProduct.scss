@@ -13,7 +13,6 @@
 
     &__rateDate {
         font-size: 1.4rem;
-        font-weight: 300;
         &_rate {
             .ownRating {
                 margin-left: 1rem;
@@ -25,6 +24,9 @@
                     fill: $primary-color;
                 }
             }
+        }
+        &_date {
+            font-weight: 300;
         }
     }
 
