@@ -1,8 +1,8 @@
-import { FC, useState, useEffect, useCallback } from 'react';
+import { FC, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, useParams } from 'react-router-dom';
 
-import { getSingleProduct } from '../../../redux/reducers/productReducer';
+import { clearSingleProduct, getSingleProduct } from '../../../redux/reducers/productReducer';
 import { StateType } from '../../../types/stateTypes';
 import ProductTabLoader from '../../common/Loader/ProductTabLoader';
 import Rating from '../../common/Rating/Rating';
@@ -15,21 +15,21 @@ type ProductPageParamType = {
 }
 
 const SingleProductPage: FC = () => {
-    const [isFetching, setIsFetching] = useState<boolean>()
     const productId = useParams<ProductPageParamType>().productId;
     const dispatch = useDispatch();
     const {singleProduct} = useSelector((state: StateType) => state.product);
 
     const getProductHandler = useCallback(async () => {
-        setIsFetching(true);
-
         await dispatch(getSingleProduct(productId));
-
-        setIsFetching(false);
-    }, []);
+    }, [dispatch, productId]);
 
     useEffect(() => {
         getProductHandler();
+
+        // do smth when component is unmounted
+        return () => {
+            dispatch(clearSingleProduct());
+        }
     }, []);
 
     return (
