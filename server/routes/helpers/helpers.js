@@ -51,6 +51,17 @@ const userById = async (req, res, next) => {
     }
 }
 
+// get a label name by category id
+const categoryLabelById = async (id) => {
+    try {
+        const category = await Category.findById(id);
+
+        return category._doc.label;
+    } catch(e) {
+        return "Не визначено";
+    }
+}
+
 // find category in a route by name(not a middleware)
 const categoryByName = async (name) => {
     try {
@@ -174,6 +185,7 @@ module.exports = {
     deleteUnnecessaryInfo,
     parseDateUkr,
     userById,
+    categoryLabelById,
     categoryByName,
     categoryByLabel,
     productById,
