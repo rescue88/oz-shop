@@ -1,31 +1,23 @@
 import { getStorageItem } from './../../assets/helpers/helpers';
-import { DefaultResponse, GetDiscountsResponse, GetUsersResponse } from './../../types/reduxTypes';
-import { AdminStateType, ChangeDiscountsPageType, ChangeUsersPageType } from '../../types/stateTypes';
+import { DefaultResponse, GetUsersResponse } from './../../types/reduxTypes';
+import { AdminStateType, ChangeUsersPageType } from '../../types/stateTypes';
 import { adminAPI } from './../../api/admin-api';
 import { setSnackbar } from './snackbarReducer';
 import { getProducts } from './productReducer';
+import { getDiscounts } from './discountReducer';
 
 /* ACTIONS */
 const SET_USERS: string = 'adminReducer/changeUsers/SET_USERS';
-const SET_DISCOUNTS: string = 'adminReducer/changeUsers/SET_DISCOUNTS';
 
 /* INITIAL STATE */
 const adminState: AdminStateType = {
     changeUsers: [],
-    changeDiscounts: [],
 }
 
 /* ACTION CREATORS */
 export const setUsers = (payload: Array<ChangeUsersPageType>) => {
     return {
         type: SET_USERS,
-        payload
-    }
-}
-
-export const setDiscounts = (payload: Array<ChangeDiscountsPageType>) => {
-    return {
-        type: SET_DISCOUNTS,
         payload
     }
 }
@@ -104,18 +96,6 @@ export const deleteProduct = (id: string) => async (dispatch: Function) => {
 }
 
 // discounts logic
-export const getDiscounts = () => async (dispatch: Function) => {
-    const data: GetDiscountsResponse = await adminAPI.getDiscounts().catch(error => {
-        const {message} = error.response.data;
-        // show a tip or an error
-        dispatch(setSnackbar(true, 'error', message));
-    });
-
-    if(data && data.success) {
-        dispatch(setDiscounts(data.discounts));
-    }
-}
-
 export const createDiscount = (discountData: FormData) => async (dispatch: Function) => {
     const data: DefaultResponse = await adminAPI.createDiscount(discountData).catch(error => {
         const {message} = error.response.data;
@@ -162,11 +142,6 @@ export const adminReducer = (state: AdminStateType = adminState, action: any) =>
             return {
                 ...state,
                 changeUsers: [...action.payload]
-            }
-        case SET_DISCOUNTS:
-            return {
-                ...state,
-                changeDiscounts: [...action.payload]
             }
         default:
             return state;

@@ -3,7 +3,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import { convertBuffer } from '../../../../assets/helpers/helpers';
 import { ChangePagesItemType } from '../../../../types/common';
-import { ChangeDiscountsPageType } from '../../../../types/stateTypes';
+import { DiscountItemType } from '../../../../types/stateTypes';
 import AddUpdateDiscountForm from '../../../common/Form/AddUpdateDiscountForm';
 import EditIcon from '../../../common/Icons/EditIcon';
 import DeleteIcon from '../../../common/Icons/DeleteIcon';
@@ -11,7 +11,7 @@ import MyDialogWindow from '../../../common/MyDialogWindow';
 import defaultProductPhoto from './../../../../assets/images/defaultProduct.png';
 
 type ChangeDiscountsItemType = {
-    discount: ChangeDiscountsPageType;
+    discount: DiscountItemType;
 } & ChangePagesItemType;
 
 const ChangeDiscountsItem: FC<ChangeDiscountsItemType> = ({discount, isFetching, deleteHandler}) => {

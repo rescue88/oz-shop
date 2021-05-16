@@ -5,6 +5,7 @@ export type StateType = {
     user: UserStateType;
     snackbar: SnackbarStateType;
     product: ProductStateType;
+    discount: DiscountStateType;
 }
 
 // auth reducer initial state
@@ -21,17 +22,8 @@ export type ChangeUsersPageType = {
     permissions: string;
     phone: string
 }
-// admin reducer initial state(discounts)
-export type ChangeDiscountsPageType = {
-    image: any;
-    _id: string;
-    name: string;
-    description: string;
-    percent: number;
-}
 export type AdminStateType = {
     changeUsers: Array<ChangeUsersPageType>
-    changeDiscounts: Array<ChangeDiscountsPageType>
 }
 
 // user roles
@@ -86,4 +78,17 @@ export type ProductStateType = {
     products: Array<ProductItemType>;
     singleProduct: ProductItemType | null;
     filters: any;
+}
+
+// discounts
+export type DiscountItemType = {
+    image: any;
+    _id: string;
+    name: string;
+    description: string;
+    percent: number;
+}
+
+export type DiscountStateType = {
+    discounts: Array<DiscountItemType>
 }

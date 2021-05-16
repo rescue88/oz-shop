@@ -5,11 +5,13 @@ import { adminReducer } from './adminReducer';
 import { userReducer } from './userReducer';
 import { snackbarReducer } from './snackbarReducer';
 import { productReducer } from './productReducer';
+import { discountReducer } from './discountReducer';
 
 export const rootReducer = combineReducers({
     auth: authReducer,
     admin: adminReducer,
     user: userReducer,
     snackbar: snackbarReducer,
-    product: productReducer
+    product: productReducer,
+    discount: discountReducer
 });

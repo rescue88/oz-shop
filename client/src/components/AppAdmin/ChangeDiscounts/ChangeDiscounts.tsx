@@ -6,7 +6,7 @@ import AddIcon from '../../common/Icons/AddIcon';
 import MyDialogWindow from '../../common/MyDialogWindow';
 import AddUpdateDiscountForm from '../../common/Form/AddUpdateDiscountForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeDiscountsPageType, StateType } from '../../../types/stateTypes';
+import { StateType } from '../../../types/stateTypes';
 import ChangeDiscountsItem from './ChangeDiscountsItem/ChangeDiscountItem';
 import ChangePageLoader from '../../common/Loader/ChangePageLoader';
 import { deleteDiscount } from '../../../redux/reducers/adminReducer';
@@ -16,7 +16,7 @@ const ChangeDiscounts: FC = () => {
     const [openForm, setOpenForm] = useState<boolean>(false);
     const [searchStr, setSearchStr] = useState<string>('');
     const dispatch = useDispatch();
-    const discounts: Array<ChangeDiscountsPageType> = useSelector((state: StateType) => state.admin.changeDiscounts);
+    const {discounts} = useSelector((state: StateType) => state.discount);
 
     const changeSearchStrHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchStr(event.currentTarget.value.toLocaleLowerCase());

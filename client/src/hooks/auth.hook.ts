@@ -5,7 +5,7 @@ import { signIn } from '../redux/reducers/authReducer';
 import { getUserData } from '../redux/reducers/userReducer';
 import { StorageItemType } from './../types/common';
 import { getStorageItem, setStorageItem } from './../assets/helpers/helpers';
-import { getDiscounts } from '../redux/reducers/adminReducer';
+import { getDiscounts } from '../redux/reducers/discountReducer';
 
 export const useAuth = () => {
     const dispatch = useDispatch();

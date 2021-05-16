@@ -1,4 +1,4 @@
-import { UserStateType, ChangeUsersPageType, ProductItemType, ChangeDiscountsPageType } from './stateTypes';
+import { UserStateType, ChangeUsersPageType, ProductItemType, DiscountItemType } from './stateTypes';
 
 // local storage name for storing id and token
 export const OZshop: string = 'OZshop';
@@ -40,5 +40,5 @@ export type FavoritesResponse = {
 
 // get discounts response
 export type GetDiscountsResponse = {
-    discounts: Array<ChangeDiscountsPageType>
+    discounts: Array<DiscountItemType>
 } & DefaultResponse;

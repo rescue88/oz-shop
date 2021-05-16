@@ -4,7 +4,7 @@ import { authAPI } from './../../api/auth-api';
 import { AuthStateType } from './../../types/stateTypes';
 import { LoginResponse, DefaultResponse } from './../../types/reduxTypes';
 import { getUserData } from './userReducer';
-import { getDiscounts } from './adminReducer';
+import { getDiscounts } from './discountReducer';
 
 /* ACTIONS */
 const SIGN_IN: string = 'authReducer/SIGN_IN';

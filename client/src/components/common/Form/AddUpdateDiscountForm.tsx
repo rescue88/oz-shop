@@ -5,13 +5,13 @@ import { useDispatch } from 'react-redux';
 import { ValidateDescription, ValidateDiscountPercent, ValidateName } from '../../../assets/validators/validators';
 import { createDiscount, updateDiscount } from '../../../redux/reducers/adminReducer';
 import { AddUpdateFormType } from '../../../types/common';
-import { ChangeDiscountsPageType } from '../../../types/stateTypes';
+import { DiscountItemType } from '../../../types/stateTypes';
 import MySimpleTextarea from '../Input/MySimpleTextarea';
 import MySubmitButton from '../MySubmitButton';
 import MyTextField from '../MyTextField';
 
 type AddUpdateDiscountFormType = {
-    discount?: ChangeDiscountsPageType;
+    discount?: DiscountItemType;
 } & AddUpdateFormType;
 
 const AddUpdateDiscountForm: FC<AddUpdateDiscountFormType> = ({discount, closeForm, header}) => {

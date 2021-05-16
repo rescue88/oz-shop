@@ -24,10 +24,6 @@ export const adminAPI = {
         return response.data;
     },
     // discounts
-    async getDiscounts() {
-        const response = await axiosInstance.get<any>('discount/');
-        return response.data;
-    },
     async createDiscount(discountData: FormData) {
         const response = await axiosInstance.post<any>('discount/create', discountData);
         return response.data;

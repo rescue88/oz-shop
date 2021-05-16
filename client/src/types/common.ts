@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { ChangeDiscountsPageType, ProductItemType } from './stateTypes';
 
 // both for admin or default apps
 export type AppType = {
