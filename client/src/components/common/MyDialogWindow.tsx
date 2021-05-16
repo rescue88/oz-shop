@@ -5,7 +5,7 @@ import { DialogContent } from '@material-ui/core';
 import { dialogWindow } from './useStyles';
 
 type MyDialogWindowType = {
-    dialogWidth: 'sm' | 'md' | 'lg' | 'xl';
+    dialogWidth: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     Content: ReactNode;
     open: boolean;
     onClose: () => void;
