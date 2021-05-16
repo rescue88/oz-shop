@@ -26,13 +26,13 @@ const ChangeUsers: FC = () => {
         setSearchStr(event.currentTarget.value.toLocaleLowerCase());
     }
 
-    const getUsersHandler =  async () => {
+    const getUsersHandler = useCallback(async () => {
         setIsFetching(true);
 
         await dispatch(getUsers());
 
         setIsFetching(false);
-    }
+    }, [dispatch]);
 
     const deleteUserHandler = useCallback(async (id: string) => {
         setIsFetching(true);
@@ -40,7 +40,7 @@ const ChangeUsers: FC = () => {
         await dispatch(deleteUser(id));
 
         setIsFetching(false);
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         getUsersHandler();

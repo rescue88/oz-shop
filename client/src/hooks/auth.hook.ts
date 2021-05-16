@@ -19,7 +19,7 @@ export const useAuth = () => {
 
         setStorageItem(id, jwtToken);
         setReady(true);
-    }, []);
+    }, [dispatch]);
 
     // auto save data from local storage into local state
     useEffect(() => {

@@ -42,7 +42,7 @@ const ChangeProducts: FC = () => {
         await dispatch(getProducts());
 
         setIsFetching(false);
-    }, []);
+    }, [dispatch]);
 
     const deleteProductHandler = useCallback(async (id: string) => {
         setIsFetching(true);
@@ -50,7 +50,7 @@ const ChangeProducts: FC = () => {
         await dispatch(deleteProduct(id));
 
         setIsFetching(false);
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         getProductsHandler();

@@ -122,7 +122,7 @@ export const userReducer = (state: UserStateType = userState, action: any) => {
         case DELETE_FAVORITES:
             return {
                 ...state,
-                favorites: [...state.favorites.filter(item => item._id != action.payload)]
+                favorites: [...state.favorites.filter(item => item._id !== action.payload)]
             }
         default:
             return state;

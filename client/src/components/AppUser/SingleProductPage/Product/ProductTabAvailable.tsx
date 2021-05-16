@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-type ProductTabAvailable = {
+type ProductTabAvailableType = {
     available: boolean;
 }
 
-const ProductTabAvailable: FC<ProductTabAvailable> = ({available}) => {
+const ProductTabAvailable: FC<ProductTabAvailableType> = ({available}) => {
     return (
         <div className={`product__content_available centered-row ${available ? 'active' : 'disable'}`}>
             <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
