@@ -6,6 +6,7 @@ import { setSnackbar } from './snackbarReducer';
 /* ACTIONS */
 const SET_PRODUCTS: string = 'productReducer/SET_PRODUCTS';
 const SET_SINGLE_PRODUCT: string = 'productReducer/SET_SINGLE_PRODUCT';
+const CLEAR_SINGLE_PRODUCT: string = 'productReducer/CLEAR_SINGLE_PRODUCT';
 
 
 /* INITIAL STATE */
@@ -27,6 +28,12 @@ export const setSingleProduct = (payload: ProductItemType) => {
     return {
         type: SET_SINGLE_PRODUCT,
         payload
+    }
+}
+
+export const clearSingleProduct = () => {
+    return {
+        type: CLEAR_SINGLE_PRODUCT
     }
 }
 
@@ -67,6 +74,11 @@ export const productReducer = (state: ProductStateType = productState, action: a
             return {
                 ...state,
                 singleProduct: action.payload
+            }
+        case CLEAR_SINGLE_PRODUCT:
+            return {
+                ...state,
+                singleProduct: null
             }
         default:
             return state;
