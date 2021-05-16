@@ -14,7 +14,6 @@ const ratingState: RatingStateType = {
 
 /* ACTION CREATORS */
 export const setRating = (payload: number) => {
-    console.log(payload)
     return {
         type: SET_RATING,
         payload
