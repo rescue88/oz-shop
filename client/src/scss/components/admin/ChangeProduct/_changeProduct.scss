@@ -3,6 +3,9 @@
     .changeBlock__items_item > div {
         &:nth-child(1) {
             flex-basis: 17%;
+            img {
+                width: 90%;
+            }
         }
 
         &:nth-child(2) {
