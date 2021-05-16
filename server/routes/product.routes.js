@@ -3,7 +3,7 @@ const formidable = require('formidable');
 const fs = require('fs');
 
 const Product = require('./../models/Product.model');
-const { productById, deleteUnnecessaryInfo, categoryByLabel } = require('./helpers/helpers');
+const { productById, deleteUnnecessaryInfo, categoryByLabel, parseDateUkr } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -46,7 +46,8 @@ router.get(
     '/:id',
     productById,
     async(req, res) => {
-        const product = deleteUnnecessaryInfo(req.product._doc, 'product');
+        let product = deleteUnnecessaryInfo(req.product._doc, 'product');
+        product.created = parseDateUkr(product.created, 'PP');
 
         return res.status(200).json({
             message: 'Інформацію про продукт успішно отримано',
