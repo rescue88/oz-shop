@@ -11,7 +11,7 @@ import StarSolidIcon from '../../common/Icons/StarSolidIcon';
 import ProductTabLoader from '../../common/Loader/ProductTabLoader';
 import MyDialogWindow from '../../common/MyDialogWindow';
 import Rating from '../../common/Rating/Rating';
-import Comments from './Comments/Comments';
+import CommentsTab from './Comments/CommentsTab';
 import Product from './Product/ProductTab';
 import SingleProductPageNav from './SingleProductPageNav';
 
@@ -81,7 +81,7 @@ const SingleProductPage: FC = () => {
                         <SingleProductPageNav productId={productId} />
                         <div className="singleProduct__content">
                             <Route exact path={`/app/products/${productId}`} render={() => <Product product={singleProduct} />} />
-                            <Route exact path={`/app/products/${productId}/comments/`} render={() => <Comments />} />
+                            <Route exact path={`/app/products/${productId}/comments/`} render={() => <CommentsTab />} />
                         </div>
                     </>
                 ) : (
