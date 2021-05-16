@@ -12,8 +12,6 @@ const deleteUnnecessaryInfo = (doc, modelName = '') => {
     
     if(modelName === 'user') {
         delete doc.password;
-    }
-    if(modelName === 'user' || modelName === 'product') {
         delete doc._id;
     }
 
