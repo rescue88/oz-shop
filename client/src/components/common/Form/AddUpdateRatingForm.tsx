@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+
 import { getStorageItem } from '../../../assets/helpers/helpers';
 import { getSingleProduct } from '../../../redux/reducers/productReducer';
-
 import { addRating, updateRating } from '../../../redux/reducers/ratingReducer';
 import { AddUpdateFormType } from '../../../types/common';
 import StarSolidIcon from '../Icons/StarSolidIcon';
@@ -20,7 +20,7 @@ const ratings = {
     6: 'вцілому непогано',
     5: 'нижче середнього',
     4: 'погана якість',
-    3: 'усе сподобалось',
+    3: 'майже не відповідає х-м',
     2: 'жахливо',
     1: 'найгірший стан',
 }
