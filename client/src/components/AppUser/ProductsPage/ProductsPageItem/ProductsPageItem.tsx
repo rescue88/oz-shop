@@ -31,7 +31,7 @@ const ProductsPageItem: FC<ProductsPageItemType> = ({product}) => {
                     <img src={defaultProduct} alt="product" />
                 </div>
                 <div className="item__ratePrice space-betw-row">
-                    <Rating rating={4} />
+                    <Rating rating={product.rating} />
                     <div className="item__ratePrice_price">
                         ₴{product.price}
                     </div>

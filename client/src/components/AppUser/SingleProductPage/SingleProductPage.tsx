@@ -68,7 +68,7 @@ const SingleProductPage: FC = () => {
                         <div className="singleProduct__header">{singleProduct.name}</div>
                         <div className="singleProduct__rateDate space-betw-row">
                             <div className="singleProduct__rateDate_rate centered-row">
-                                <div onClick={toggleOpenFormHandler}><Rating rating={4} /></div>
+                                <div onClick={toggleOpenFormHandler}><Rating rating={singleProduct.rating} /></div>
                                 <div className="ownRating centered-row">
                                     <StarSolidIcon />
                                     {rating ? rating: 'Вашу оцінку ще не додано'}
