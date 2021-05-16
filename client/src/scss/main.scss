@@ -102,10 +102,18 @@ label {
     align-items: center;
 }
 
+// disable events while smth is loading
 .disable-click {
-    opacity: .5;
     cursor: not-allowed;
     pointer-events: none;
+}
+// tell that no info is available
+.disabled {
+    background: $additional-color;
+}
+
+.disable-click, .disabled {
+    opacity: .5;
 }
 
 .opacity {
