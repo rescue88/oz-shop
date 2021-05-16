@@ -2,8 +2,9 @@ const { Router } = require('express');
 const formidable = require('formidable');
 const fs = require('fs');
 
+const Rating = require('./../models/Rating.model');
 const Product = require('./../models/Product.model');
-const { productById, deleteUnnecessaryInfo, categoryByLabel, parseDateUkr } = require('./helpers/helpers');
+const { productById, deleteUnnecessaryInfo, categoryByLabel, parseDateUkr, retrieveProductRating } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -12,7 +13,7 @@ router.get(
     '/',
     async (req, res) => {
         try {
-            let products = await Product.find({});
+            let products = await Product.find({}, {__v: 0});
 
             // check if no product documnts in db
             if(!products.length) {
@@ -22,10 +23,9 @@ router.get(
                 });
             }
 
-            // mapping to delete props like __v
-            products = products.map(item => {
-                return deleteUnnecessaryInfo(item._doc, '');
-            });
+            for(let i = 0; i < products.length; i++) {
+                products[i]._doc.rating = await retrieveProductRating(products[i]._doc._id)
+            }
 
             return res.status(200).json({
                 message: 'Товари завантажено успішно!',
@@ -46,14 +46,24 @@ router.get(
     '/:id',
     productById,
     async(req, res) => {
-        let product = deleteUnnecessaryInfo(req.product._doc, 'product');
-        product.created = parseDateUkr(product.created, 'PP');
+        try {
+            let product = deleteUnnecessaryInfo(req.product._doc, 'product');
+            // parse product creation date into understandable form
+            product.created = parseDateUkr(product.created, 'PP');
+            // get product average rating
+            product.rating = await retrieveProductRating(req.product._id);
 
-        return res.status(200).json({
-            message: 'Інформацію про продукт успішно отримано',
-            success: true,
-            product
-        });
+            return res.status(200).json({
+                message: 'Інформацію про продукт успішно отримано',
+                success: true,
+                product
+            });
+        } catch(e) {
+            return res.status(400).json({
+                message: 'Не вдалося отримати інформацію про продукт',
+                success: false
+            });
+        }
     }
 );
 

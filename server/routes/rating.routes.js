@@ -1,7 +1,8 @@
 const { Router } = require('express');
 
 const Rating = require('./../models/Rating.model');
-const { deleteUnnecessaryInfo } = require('./helpers/helpers');
+const Product = require('./../models/Product.model');
+const { deleteUnnecessaryInfo, saveRatingToProduct } = require('./helpers/helpers');
 
 const router = Router();
 
