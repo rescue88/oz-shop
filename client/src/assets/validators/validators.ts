@@ -74,11 +74,16 @@ export const ValidateName = (name: string): string => {
 
 export const ValidateDescription = (description: string): string => {
     let error : string = '';
+    const wordsLen: Array<number> = description.split(" ").map(item => item.length);
+
     if(!description) {
         error = "Опис товару обов'язковий";
     } else if(!validator.isLength(description, {min: 100, max: 400})) {
         error = "Довжина опису від 100 до 400 символів";
+    } else if(Math.max(...wordsLen) > 15) {
+        error = 'Максимальна кількість символів у одному слові - 15';
     }
+
     return error;
 }
 
@@ -159,6 +164,22 @@ export const ValidateDiscountPercent = (percent: string): string => {
         error = 'Введіть чило';
     } else if(Number(percent) < 5 || Number(percent) > 50) {
         error = 'Введіть значення від 5 до 50';
+    }
+
+    return error;
+}
+
+export const ValidateComment = (comment: string): string => {
+    let error = '';
+
+    const wordsLen: Array<number> = comment.split(" ").map(item => item.length);
+
+    if(!comment) {
+        error = 'Введіть коментар';
+    } else if(comment.length < 10 || comment.length > 250) {
+        error = 'Розмір коментаря від 10 до 400 символів';
+    } else if(Math.max(...wordsLen) > 15) {
+        error = 'Одне слово - не більше 15 символів';
     }
 
     return error;
