@@ -1,4 +1,4 @@
-import { UserStateType, ChangeUsersPageType, ProductItemType, DiscountItemType } from './stateTypes';
+import { UserStateType, ChangeUsersPageType, ProductItemType, DiscountItemType, CommentProductType, CommentUserType } from './stateTypes';
 
 // local storage name for storing id and token
 export const OZshop: string = 'OZshop';
@@ -46,4 +46,13 @@ export type GetDiscountsResponse = {
 // add/update rating
 export type RatingResponse = {
     rating: number | null;
+} & DefaultResponse;
+
+// comments responses
+export type CommentProductResponseType = {
+    comments: Array<CommentProductType>;
+} & DefaultResponse;
+
+export type CommentUserResponseType = {
+    comments: Array<CommentUserType>;
 } & DefaultResponse;
