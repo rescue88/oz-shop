@@ -81,7 +81,7 @@ const SingleProductPage: FC = () => {
                         <SingleProductPageNav productId={productId} />
                         <div className="singleProduct__content">
                             <Route exact path={`/app/products/${productId}`} render={() => <Product product={singleProduct} />} />
-                            <Route exact path={`/app/products/${productId}/comments/`} render={() => <CommentsTab />} />
+                            <Route exact path={`/app/products/${productId}/comments/`} render={() => <CommentsTab productId={productId} />} />
                         </div>
                     </>
                 ) : (
