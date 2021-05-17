@@ -40,11 +40,7 @@ const ProductSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
-    },
-    discounts: {
-        type: Types.ObjectId,
-        ref: "Discount"
-    },
+    }
 });
 
 module.exports = model("Product", ProductSchema);

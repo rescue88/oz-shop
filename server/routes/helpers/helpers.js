@@ -7,18 +7,6 @@ const Product = require('./../../models/Product.model');
 const Discount = require('./../../models/Discount.model');
 const Rating = require('./../../models/Rating.model');
 
-// remove unnecessary data before sending a response
-const deleteUnnecessaryInfo = (doc, modelName = '') => {
-    delete doc.__v;
-    
-    if(modelName === 'user') {
-        delete doc.password;
-        delete doc._id;
-    }
-
-    return doc;
-}
-
 // parsing date in a ua format: Day Month Year
 const parseDateUkr = (date, template) => {
     return format(date, template, {locale: ua})
@@ -29,9 +17,9 @@ const userById = async (req, res, next) => {
     try {
         let user;
         if(Object.keys(req.query).length) {
-            user = await User.findById(req.query.id);
+            user = await User.findOne({_id: req.query.id}, {__v: 0, password: 0});
         } else {
-            user = await User.findById(req.params.id);
+            user = await User.findOne({_id: req.params.id}, {__v: 0, password: 0});
         }
 
         if(!user) {
@@ -52,11 +40,11 @@ const userById = async (req, res, next) => {
 }
 
 // get a label name by category id
-const categoryLabelById = async (id) => {
+const categoryLabelById = async (_id) => {
     try {
-        const category = await Category.findById(id);
+        const category = await Category.findById(_id);
 
-        return category._doc.label;
+        return category.label;
     } catch(e) {
         return "Не визначено";
     }
@@ -95,7 +83,7 @@ const categoryByLabel = async (label) => {
 // find product by id
 const productById = async (req, res, next) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const product = await Product.findOne({_id: req.params.id}, {__v: 0});
 
         if(!product) {
             return res.status(400).json({
@@ -181,8 +169,14 @@ const retrieveProductRating = async (productId) => {
     }
 }
 
+// retrieve comment authors data
+const retrieveCommentAuthor = async (userId) => {
+    const user = await User.findOne({_id: userId}, {_id: 0, avatar: 1, login: 1});
+
+    return user._doc;
+}
+
 module.exports = {
-    deleteUnnecessaryInfo,
     parseDateUkr,
     userById,
     categoryLabelById,
@@ -191,5 +185,6 @@ module.exports = {
     productById,
     retrieveFavorites,
     discountById,
-    retrieveProductRating
+    retrieveProductRating,
+    retrieveCommentAuthor
 };

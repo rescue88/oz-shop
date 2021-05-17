@@ -1,8 +1,6 @@
 const { Router } = require('express');
 
 const Rating = require('./../models/Rating.model');
-const Product = require('./../models/Product.model');
-const { deleteUnnecessaryInfo, saveRatingToProduct } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -40,7 +38,7 @@ router.get(
     async (req, res) => {
         const {userId, productId} = req.query;
 
-        let rating = await Rating.findOne({user: userId, product: productId});
+        let rating = await Rating.findOne({user: userId, product: productId}, {__v: 0});
         if(!rating) {
             return res.status(200).json({
                 message: 'Ви ще не залишили рейтинг для даного товару',
@@ -48,8 +46,6 @@ router.get(
                 rating: null
             });
         }
-
-        rating = deleteUnnecessaryInfo(rating._doc, 'rating');
 
         return res.status(200).json({
             message: 'Ваш рейтинг для даного товару успішно отримано',

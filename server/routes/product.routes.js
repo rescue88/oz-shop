@@ -16,9 +16,9 @@ router.get(
 
             // check if no product documnts in db
             if(!products.length) {
-                return res.status(400).json({
+                return res.status(200).json({
                     message: 'Товари ще не додано',
-                    success: false,
+                    success: true,
                 });
             }
 
@@ -50,7 +50,7 @@ router.get(
     productById,
     async(req, res) => {
         try {
-            let product = deleteUnnecessaryInfo(req.product._doc, 'product');
+            let product = req.product._doc;
             // parse product creation date into understandable form
             product.created = parseDateUkr(product.created, 'PP');
             // get product average rating
@@ -161,7 +161,7 @@ router.put(
                 });
             } catch(e) {
                 return res.status(400).json({
-                    message: 'Не вдалося оновити продукт',
+                    message: `Не вдалося оновити продукт; ${e.message}`,
                     success: false
                 });
             }

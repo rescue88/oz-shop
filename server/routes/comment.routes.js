@@ -1,16 +1,18 @@
 const { Router } = require('express');
 
+const User = require('./../models/User.model');
 const Message = require('./../models/Message.model');
-const { parseDateUkr } = require('./helpers/helpers');
+const { parseDateUkr, retrieveCommentAuthor } = require('./helpers/helpers');
 
 const router = Router();
 
-// get all comments
+// get current product comments
 router.get(
-    '/',
+    '/product',
     async (req, res) => {
         try {
-            let comments = await Message.find({}, {__v: 0});
+            const {productId} = req.query;
+            let comments = await Message.find({product: productId}, {__v: 0});
 
             if(!comments.length) {
                 return res.status(200).json({
@@ -19,11 +21,14 @@ router.get(
                 });
             }
 
-            // get ua-parsed date
-            comments = comments.map(item => {
-                item._doc.created = parseDateUkr(item._doc.created, 'PP');
-                return item;
-            });
+            for(let i = 0; i < comments.length; i++) {
+                // find comment author
+                let user = await retrieveCommentAuthor(comments[i].user);
+                // combine two documents
+                comments[i] = Object.assign(comments[i]._doc, user)
+                // parse date
+                comments[i].created = parseDateUkr(comments[i].created, 'PP');
+            }
 
             return res.status(200).json({
                 message: 'Коментарі успішно завантажено',

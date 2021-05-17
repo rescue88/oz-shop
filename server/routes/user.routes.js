@@ -34,8 +34,8 @@ router.get(
     async (req, res) => {
         try {
             let user = req.profile;
-            // preparing user data for sending
-            user = deleteUnnecessaryInfo(user._doc, 'user');
+
+            // prepare data for sending
             user.created = parseDateUkr(user.created, 'PP');
             user.favorites = req.favorites;
 
@@ -143,7 +143,7 @@ router.post(
             });
         } catch(e) {
             res.status(400).json({
-                message: "Не вдалося додати до заміток",
+                message: `Не вдалося додати до заміток; ${e.message}`,
                 success: false
             });
         }
@@ -182,5 +182,30 @@ router.delete(
         }
     }
 );
+
+// remove all favorites in one click
+router.delete(
+    '/favorites/delete/all',
+    userById,
+    async (req, res) => {
+        try {
+            let user = req.profile;
+            // get rid of favorites
+            user.favorites = [];
+
+            await user.save();
+
+            return res.status(200).json({
+                message: 'Усі замітки успішно видалено',
+                success: true
+            });
+        } catch(e) {
+            return res.status(200).json({
+                message: `Не вдалося видалити замітки; ${e.message}`,
+                success: false
+            });
+        }
+    }
+)
 
 module.exports = router;
