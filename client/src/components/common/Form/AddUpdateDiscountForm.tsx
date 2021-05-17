@@ -92,7 +92,7 @@ const AddUpdateDiscountForm: FC<AddUpdateDiscountFormType> = ({discount, closeFo
                             <Field validate={ValidateName} name="name" placeholder="Введіть назву знижки" type="text" as={MyTextField} />
                         </div>
                         <div className="form__input">
-                            <Field validate={ValidateDescription} name="description" placeholder="Введіть опис знижки" type="textarea" as={MySimpleTextarea} />
+                            <Field validate={ValidateDescription} name="description" placeholder="Введіть опис знижки" label="Опис знижки" type="textarea" as={MySimpleTextarea} />
                         </div>
                         <div className="form__input">
                             <label htmlFor="percent">Відсоток знижки</label>

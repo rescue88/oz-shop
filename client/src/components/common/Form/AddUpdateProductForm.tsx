@@ -108,7 +108,7 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, cl
                                     <Field width={250} validate={ValidateName} name="name" placeholder="Введіть ім'я продукту" type="text" as={MyTextField} />
                                 </div>
                                 <div className="form__input">
-                                    <Field validate={ValidateDescription} name="description" placeholder="Введіть опис продукту" type="textarea" as={MySimpleTextarea} />
+                                    <Field validate={ValidateDescription} name="description" placeholder="Введіть опис продукту" label="Опис продукту" type="textarea" as={MySimpleTextarea} />
                                 </div>
 
                             </div>

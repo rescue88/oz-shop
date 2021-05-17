@@ -65,7 +65,7 @@ export const ValidateRepeatPassword = (password: string, repeatPassword: string)
 export const ValidateName = (name: string): string => {
     let error: string = '';
     if(!name) {
-        error = "Назва товару обов'язкова";
+        error = "Назва - обов'язкове поле";
     } else if(!validator.isLength(name, {min: 7, max: 35})) {
         error = "Довжина назви від 7 до 35 символів";
     }
@@ -77,11 +77,11 @@ export const ValidateDescription = (description: string): string => {
     const wordsLen: Array<number> = description.split(" ").map(item => item.length);
 
     if(!description) {
-        error = "Опис товару обов'язковий";
+        error = "Опис обов'язкове - поле";
     } else if(!validator.isLength(description, {min: 100, max: 400})) {
         error = "Довжина опису від 100 до 400 символів";
     } else if(Math.max(...wordsLen) > 15) {
-        error = 'Максимальна кількість символів у одному слові - 15';
+        error = 'Максимум символів для одного слова - 15';
     }
 
     return error;
@@ -149,7 +149,7 @@ export const ValidateProductProducer = (producer: string): string => {
     } else if(words.length > 2) {
         error = 'Не більше 2 слів';
     } else if(producer.length > 40) {
-        error = 'Максимальна кількість символів - 40';
+        error = 'Одне слово - не більше 15 символів';
     }
 
     return error;
