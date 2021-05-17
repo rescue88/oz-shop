@@ -28,6 +28,10 @@ router.get(
                 comments[i] = Object.assign(comments[i]._doc, user)
                 // parse date
                 comments[i].created = parseDateUkr(comments[i].created, 'PP');
+
+                if(!comments[i].avatar.data) {
+                    comments[i].avatar.data = null;
+                }
             }
 
             return res.status(200).json({
