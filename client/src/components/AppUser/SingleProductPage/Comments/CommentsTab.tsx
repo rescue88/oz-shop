@@ -1,7 +1,8 @@
 import { FC, useState, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { createComment } from '../../../../redux/reducers/commentReducer';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { clearProductComments, createComment, getProductComments } from '../../../../redux/reducers/commentReducer';
+import { StateType } from '../../../../types/stateTypes';
 import CommentsTabForm from './CommentsTabForm';
 import CommentsTabItem from './CommentsTabItem';
 
@@ -12,9 +13,13 @@ export type CommentsTabType = {
 const CommentsTab: FC<CommentsTabType> = ({productId}) => {
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const comments = useSelector((state: StateType) => state.comment.product);
 
     const getCommentsHandler = useCallback(async () => {
         setIsFetching(true);
+
+        await dispatch(getProductComments(productId));
+
         setIsFetching(false);
     }, [dispatch]);
 
@@ -32,7 +37,11 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
     }, [dispatch]);
 
     useEffect(() => {
+        getCommentsHandler();
 
+        return () => {
+            dispatch(clearProductComments());
+        }
     }, [addCommentHandler]);
 
     return (
@@ -44,7 +53,13 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
             />
             <div className="commentsItems">
                 {
-                    Array(5).fill(0).map((item, idx) => (<CommentsTabItem key={idx} />))
+                    comments.length ? (
+                        comments.map(item => (
+                            <CommentsTabItem comment={item} />
+                        ))
+                    ) : (
+                        <div>Коментарі поки не додано</div>
+                    )
                 }
             </div>
         </div>
