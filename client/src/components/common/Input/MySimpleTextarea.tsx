@@ -1,18 +1,24 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { FieldAttributes, useField } from 'formik';
 
-const MySimpleTextarea: FC<FieldAttributes<{}>> = ({...props}) => {
+type MySimpleTextareaType = {
+    label: string;
+    width?: boolean;
+} & FieldAttributes<{}>;
+
+const MySimpleTextarea: FC<MySimpleTextareaType> = ({width, label, ...props}) => {
     const [field, meta] = useField<{}>(props);
     const errorText = meta.error && meta.touched ? meta.error : '';
 
     return (
         <div>
             <div className="textarea__input">
-                <label htmlFor="description">Опис товару</label>
+                <label htmlFor={field.name}>{label}</label>
                 {/* @ts-ignore */}
                 <textarea 
-                    className={`textarea ${errorText ? `fieldError`: ''}`}
+                    className={`textarea ${errorText ? `fieldError`: ''} ${width ? 'commentsForm__textarea' : ''}`}
                     id={field.name}
+                    maxLength={400}
                     {...props}
                     {...field}
                 />
