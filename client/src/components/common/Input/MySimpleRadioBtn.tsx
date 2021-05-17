@@ -5,14 +5,14 @@ type MySimpleRadioBtnType = {
     label: string;
 } & FieldAttributes<{}>;
 
-const MySimpleRadioBtn: FC<MySimpleRadioBtnType> = ({label, ...props}) => {
+const MySimpleRadioBtn: FC<MySimpleRadioBtnType> = ({id, label, disabled, ...props}) => {
     const [field] = useField<{}>(props);
 
     return (
         <div className="radioContainer">
-            <label>{label}</label>
             {/* @ts-ignore */}
-            <input type="radio" {...field} />
+            <input id={id} type="radio" className="radioContainer__input" {...field} disabled={disabled} />
+            <label className="radioContainer__text" htmlFor={id}>{label}</label>
         </div>
     );
 }
