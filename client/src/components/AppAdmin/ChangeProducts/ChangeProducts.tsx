@@ -88,14 +88,19 @@ const ChangeProducts: FC = () => {
                 </div>
                 <div className="changeBlock__header changeProducts">
                     {
-                        productTableKeys.map(item => (
+                        products ? productTableKeys.map(item => (
                             <div key={item} className="changeBlock__header_item centered-row">{item}</div>
-                        ))
+                        )) : null
                     }
                 </div>
                 <div className="changeBlock__items changeProducts">
                     {
-                        products.length ? searchStr ? ( 
+                        isFetching && (
+                            Array(10).fill(0).map((item, idx) => <ChangePageLoader key={idx} />)
+                        )
+                    }
+                    {
+                        products ? searchStr && products ? ( 
                             products.filter(item => item.name.toLowerCase().includes(searchStr)).map(item => (
                                 <ChangeProductsItem 
                                     key={item._id} 
@@ -114,7 +119,7 @@ const ChangeProducts: FC = () => {
                                 />
                             ))
                         ) : (
-                            Array(10).fill(0).map((item, idx) => <ChangePageLoader key={idx} />)
+                            <div style={{fontSize: '2rem'}}>Товари ще не додано</div>
                         )
                     }
                 </div>

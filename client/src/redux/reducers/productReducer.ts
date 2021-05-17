@@ -42,7 +42,7 @@ export const getProducts = () => async (dispatch: Function) => {
     const data: GetProductsResponse = await productAPI.getProducts().catch(error => {
         const {message} = error.response.data;
         // show a tip or an error
-        dispatch(setSnackbar(true, 'error', message));
+        dispatch(setSnackbar(true, 'warning', message));
     });
 
     if(data && data.success) {

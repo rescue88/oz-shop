@@ -1,8 +1,9 @@
 import { FC, useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { createComment } from '../../../../redux/thunks/commentReducer';
+import { createComment } from '../../../../redux/reducers/commentReducer';
 
 import CommentsTabForm from './CommentsTabForm';
+import CommentsTabItem from './CommentsTabItem';
 
 export type CommentsTabType = {
     productId: string;
@@ -41,6 +42,11 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
                 isFetching={isFetching} 
                 productId={productId} 
             />
+            <div className="commentsItems">
+                {
+                    Array(5).fill(0).map((item, idx) => (<CommentsTabItem key={idx} />))
+                }
+            </div>
         </div>
     );
 }
