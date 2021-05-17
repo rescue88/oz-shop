@@ -1,6 +1,8 @@
 import { Field, Form, Formik } from 'formik';
 import { FC } from 'react';
-import { ValidateDescription } from '../../../../assets/validators/validators';
+
+import { ValidateComment } from '../../../../assets/validators/validators';
+import MySimpleRadioBtn from '../../../common/Input/MySimpleRadioBtn';
 import MySimpleTextarea from '../../../common/Input/MySimpleTextarea';
 import MySubmitButton from '../../../common/MySubmitButton';
 
@@ -15,6 +17,7 @@ const CommentsTabForm: FC = () => {
                 onSubmit={async (data, {setSubmitting, resetForm}) => {
                     setSubmitting(true);
 
+                    console.log(data);
                     
 
                     setSubmitting(false);
@@ -23,18 +26,27 @@ const CommentsTabForm: FC = () => {
                 }}
             >
                 {
-                    ({isSubmitting}) => (
+                    ({isSubmitting, values}) => (
                         <Form>
-                            <div>
+                            <div className="form__input">
                                 <Field 
-                                    validate={ValidateDescription} 
+                                    width={true}
+                                    label="Заповнити відгук"
+                                    validate={ValidateComment} 
                                     name="text" 
                                     placeholder="Напишіть відгук..." 
                                     type="textarea"
                                     as={MySimpleTextarea}
                                 /> 
                             </div>
-                            <div>
+                            <div className="commentsForm__radio">
+                                <MySimpleRadioBtn 
+                                    name="positive"
+                                    value="hi"
+                                    label="Позитивний"
+                                />  
+                            </div>
+                            <div className="form__submit commentsForm__submit">
                                 <MySubmitButton 
                                     disabled={isSubmitting}
                                     text='Залишити коментар'
