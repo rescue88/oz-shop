@@ -13,4 +13,8 @@ export const commentAPI = {
         const response = await axiosInstance.put<any>('comment/update', { userId, productId, text, positive });
         return response.data;
     },
+    async removeComment(userId: string, productId: string) {
+        const response = await axiosInstance.delete<any>(`comment/delete?user=${userId}&product=${productId}`);
+        return response.data;
+    }
 }

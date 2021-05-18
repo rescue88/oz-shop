@@ -50,10 +50,7 @@ export const getProductComments = (productId: string) => async (dispatch: Functi
         dispatch(setSnackbar(true, 'error', message));
     });
 
-    console.log(data);
-
     if(data && data.success) {
-        console.log(data.comments);
         dispatch(setProductComments(data.comments));
     }
 }
@@ -70,6 +67,7 @@ export const createComment = (userId: string, productId: string, text: string, p
     });
 
     if(data && data.success) {
+        dispatch(getProductComments(productId));
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }
@@ -86,8 +84,20 @@ export const updateComment = (userId: string, productId: string, text: string, p
     }
 }
 
-/* REDUCER */
+export const deleteComment = (userId: string, productId: string) => async (dispatch: Function) => {
+    const data: DefaultResponse = await commentAPI.removeComment(userId, productId).catch(error => {
+        console.log("hete");
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
 
+    if(data && data.success) {
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
+/* REDUCER */
 export const commentReducer = (state: CommentStateType = commentState, action: any) => {
     switch(action.type) {
         case SET_PRODUCT_COMMENTS:
