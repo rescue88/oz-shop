@@ -1,8 +1,9 @@
 import { FC, useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearProductComments, createComment, getProductComments } from '../../../../redux/reducers/commentReducer';
+import { clearProductComments, createComment, deleteComment, getProductComments } from '../../../../redux/reducers/commentReducer';
 import { StateType } from '../../../../types/stateTypes';
+import CommentProductTabLoader from '../../../common/Loader/CommentProductTabLoader';
 import CommentsTabForm from './CommentsTabForm';
 import CommentsTabItem from './CommentsTabItem';
 
@@ -36,13 +37,22 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
         setIsFetching(false);
     }, [dispatch]);
 
+    const deleteCommentHandler = useCallback(async (user: string, product: string) => {
+        setIsFetching(true);
+
+        await dispatch(deleteComment(user, product));
+
+        setIsFetching(false);
+    }, [dispatch]);
+
+    // get comments at the beginning and after changes
     useEffect(() => {
         getCommentsHandler();
 
         return () => {
             dispatch(clearProductComments());
         }
-    }, [addCommentHandler]);
+    }, [addCommentHandler, deleteCommentHandler]);
 
     return (
         <div className="singleProduct__content_comments">
@@ -53,12 +63,18 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
             />
             <div className="commentsItems">
                 {
-                    comments.length ? (
+                    isFetching ? (
+                        Array(5).fill(0).map((item, idx) => <CommentProductTabLoader key={idx} />)
+                    ) : comments.length ? (
                         comments.map(item => (
-                            <CommentsTabItem comment={item} />
+                            <CommentsTabItem 
+                                key={item._id}
+                                comment={item} 
+                                deleteHandler={deleteCommentHandler}
+                            />
                         ))
                     ) : (
-                        <div>Коментарі поки не додано</div>
+                        <div style={{fontSize: '1.6rem', fontWeight: 300}}>Коментарі ще не додано</div>
                     )
                 }
             </div>
