@@ -17,7 +17,8 @@ router.get(
             if(!comments.length) {
                 return res.status(200).json({
                     message: 'Жодного коментаря ще не додано',
-                    success: true
+                    success: true,
+                    comments: []
                 });
             }
 
@@ -84,6 +85,7 @@ router.post(
     }
 );
 
+// update your comment
 router.put(
     '/update',
     async (req, res) => {
@@ -115,10 +117,35 @@ router.put(
     }
 );
 
-router.put(
+// delete comment
+router.delete(
     '/delete',
     async (req, res) => {
-        
+        try {
+            const {user, product} = req.query;
+            console.log(user, product);
+
+            const comment = await Message.findOne({user, product});
+
+            if(!comment) {
+                return res.status(400).json({
+                    message: 'Помилка, даного коментаря не існує',
+                    success: false
+                });
+            }
+
+            await comment.remove();
+
+            return res.status(200).json({
+                message: 'Відгук успішно видалено!',
+                success: true
+            });
+        } catch(e) {
+            return res.status(200).json({
+                message: `Не вдалося видалити коментар; ${e.message}`,
+                success: false
+            });
+        }
     }
 );
 
