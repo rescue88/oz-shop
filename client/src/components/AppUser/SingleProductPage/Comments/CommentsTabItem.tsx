@@ -1,57 +1,84 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 import { NavLink } from 'react-router-dom';
 
 import defaultAva from './../../../../assets/images/defaultAva.png';
 import { convertBuffer, getStorageItem } from '../../../../assets/helpers/helpers';
-import { CommentProductType } from '../../../../types/stateTypes';
+import { CommentProductType, StateType } from '../../../../types/stateTypes';
 import HeaderNavProfileIcon from '../../../Header/HeaderNav/Icons/HeaderNavProfileIcon';
 import EditIcon from '../../../common/Icons/EditIcon';
 import DeleteIcon from '../../../common/Icons/DeleteIcon';
+import { useSelector } from 'react-redux';
+import { Field } from 'formik';
+import MySimpleTextarea from '../../../common/Input/MySimpleTextarea';
+import { ValidateComment } from '../../../../assets/validators/validators';
+import CommentsTabForm from './CommentsTabForm';
 
 type CommentsTabItemType = {
     comment: CommentProductType;
     deleteHandler: (user: string, product: string) => void;
-    updateHandler?: (user: string, product: string, text: string, positive: boolean) => void;
+    updateHandler: (user: string, product: string, text: string, positive: boolean) => void;
 }
 
-const CommentsTabItem: FC<CommentsTabItemType> = ({comment, deleteHandler}) => {
-    const userId: string | undefined = getStorageItem()?.userId;
+const CommentsTabItem: FC<CommentsTabItemType> = ({comment, deleteHandler, updateHandler}) => {
+    const [editMode, setEditMode] = useState<boolean>(false);
+    // const [editModeState, setEditModeState] = 
+    const {userId} = getStorageItem()!;
+    const {permissions} = useSelector((state: StateType) => state.user);
+    
+    const toggleEditModeHandler = () => {
+        setEditMode(prev => !prev);
+    }
 
     return (
-        <div className={`commentsItems__item ${comment.positive ? 'positive': 'negative'}`}>
+        <div className={`commentItem ${comment.positive ? 'positive': 'negative'}`}>
             {
                 userId === comment.user ? (
-                    <NavLink to='/app/profile' className="commentsItems__item_image">
+                    <NavLink to='/app/profile' className="commentItem__image">
                         <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="" />
                     </NavLink>
                 ) : (
-                    <div className="commentsItems__item_image">
+                    <div className="commentItem__image">
                         <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="" />
                     </div>
                 )
             }
-            <div className="commentsItems__item_info">
-                <div className="login">{comment.login} {userId === comment.user ? <HeaderNavProfileIcon /> : null }</div>
-                <div className="date">{comment.created}</div>
-                <div className="text">{comment.text}</div>
+            <div className="commentItem__content">
+                <div className="commentItem__content_login">{comment.login} {userId === comment.user ? <HeaderNavProfileIcon /> : null }</div>
+                <div className="commentItem__content_date">{comment.created}</div>
+                {
+                    editMode ? (
+                        <CommentsTabForm 
+                            text={comment.text}
+                            toggleEditMode={toggleEditModeHandler}
+                            addOrUpdateComment={updateHandler}
+                            productId={comment.product}
+                        />
+                    ) : (
+                        <div className="commentItem__content_text">{comment.text}</div>
+                    )
+                }
             </div>
-            {
-                userId === comment.user ? (
-                    <div className="commentsItems__item_settings centered-col">
-                        <div className="editComment">
-                            <Tooltip title="Змінити коментар" arrow>
-                                <button type="button"><EditIcon /></button>
-                            </Tooltip>
-                        </div>
-                        <div className="deleteComment">
-                            <Tooltip title="Видалити коментар" arrow>
-                                <button type="button" onClick={() => deleteHandler(userId, comment.product)}><DeleteIcon /></button>
-                            </Tooltip>
-                        </div>
-                    </div>
-                ) : null
-            }
+                <div className="commentItem__settings centered-col">
+                    {
+                        userId === comment.user ? (
+                            <div className="editComment">
+                                <Tooltip title="Змінити коментар" arrow>
+                                    <button type="button" onClick={toggleEditModeHandler}><EditIcon /></button>
+                                </Tooltip>
+                            </div>
+                        ) : null
+                    }
+                    {
+                        userId === comment.user || permissions === 'admin' ? (
+                            <div className="deleteComment">
+                                <Tooltip title="Видалити коментар" arrow>
+                                    <button type="button" onClick={() => deleteHandler(comment.user, comment.product)}><DeleteIcon /></button>
+                                </Tooltip>
+                            </div>
+                        ) : null
+                    }
+                </div>
         </div>
     );
 }

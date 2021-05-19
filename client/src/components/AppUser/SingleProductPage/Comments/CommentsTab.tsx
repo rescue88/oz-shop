@@ -1,7 +1,7 @@
 import { FC, useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { clearProductComments, createComment, deleteComment, getProductComments } from '../../../../redux/reducers/commentReducer';
+import { clearProductComments, createComment, deleteComment, getProductComments, updateComment } from '../../../../redux/reducers/commentReducer';
 import { StateType } from '../../../../types/stateTypes';
 import CommentProductTabLoader from '../../../common/Loader/CommentProductTabLoader';
 import CommentsTabForm from './CommentsTabForm';
@@ -24,16 +24,19 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
         setIsFetching(false);
     }, [dispatch]);
 
-    const addCommentHandler = useCallback(async (productId: string, userId: string, text: string, positive: boolean) => {
+    const addCommentHandler = useCallback(async (userId: string, productId: string, text: string, positive: boolean) => {
         setIsFetching(true);
 
-        await dispatch(createComment(productId, userId, text, positive));
+        await dispatch(createComment(userId, productId, text, positive));
 
         setIsFetching(false);
     }, [dispatch]);
 
-    const updateCommentHandler = useCallback(async () => {
+    const updateCommentHandler = useCallback(async (userId: string, productId: string, text: string, positive: boolean) => {
         setIsFetching(true);
+
+        await dispatch(updateComment(userId, productId, text, positive));
+
         setIsFetching(false);
     }, [dispatch]);
 
@@ -52,13 +55,12 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
         return () => {
             dispatch(clearProductComments());
         }
-    }, [addCommentHandler, deleteCommentHandler]);
+    }, [addCommentHandler, updateCommentHandler, deleteCommentHandler]);
 
     return (
         <div className="singleProduct__content_comments">
             <CommentsTabForm 
-                addHandler={addCommentHandler} 
-                isFetching={isFetching} 
+                addOrUpdateComment={addCommentHandler}  
                 productId={productId} 
             />
             <div className="commentsItems">
@@ -70,11 +72,12 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
                             <CommentsTabItem 
                                 key={item._id}
                                 comment={item} 
+                                updateHandler={updateCommentHandler}
                                 deleteHandler={deleteCommentHandler}
                             />
                         ))
                     ) : (
-                        <div style={{fontSize: '1.6rem', fontWeight: 300}}>Коментарі ще не додано</div>
+                        <div className="no-items">Коментарі ще не додано</div>
                     )
                 }
             </div>
