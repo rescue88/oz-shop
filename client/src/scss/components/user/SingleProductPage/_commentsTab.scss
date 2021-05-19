@@ -5,6 +5,10 @@
             padding-left: 1rem;
             font-size: 1.4rem;
             background: $foreground-back;
+
+            &.update {
+                background: $def-back;
+            }
         }
 
         &__radio {
@@ -19,88 +23,6 @@
 
         .textarea__error {
             background: $foreground-back;
-        }
-    }
-
-    .commentsItems {
-        // if comment is positive
-        .positive {
-            border-right-color: $primary-color;
-        }
-        // if coment if negative
-        .negative {
-            border-right-color: $danger-color;
-        }
-        // user's own comment style
-        .own {
-            border: 3px solid $secondary-color;
-        }
-        &__item {
-            padding: 1rem;
-            background: $foreground-back;
-            border-right-width: 3px;
-            border-right-style: solid;
-            border-bottom: 1px solid $additional-color;
-            
-            display: flex;
-            &_image {
-                width: 11rem;
-                height: 11rem;
-            }
-            &_info {
-                width: calc(100% - 14rem);
-                margin: 0 1rem;
-                font-size: 1.4rem;
-                .login {
-                    padding-bottom: .3rem;
-                    font-size: 1.6rem;
-                    color: $primary-color;
-                    display: flex;
-                    align-items: center;
-                    svg {
-                        width: 2rem;
-                        height: 2rem;
-                        margin-left: 1rem;
-                        fill: $secondary-color;
-                    }
-                }
-
-                .date {
-                    padding-bottom: .7rem;
-                }
-
-                .text {
-                    font-weight: 300;
-                }
-            }
-            &_settings {
-                width: 3rem;
-                .editComment,
-                .deleteComment {
-                    button {
-                        background: none;
-                        cursor: pointer;
-                        svg {
-                            width: 2.5rem;
-                            height: 2.5rem;
-                            margin: 1rem 0;
-                        }
-                    }
-                }
-
-                .editComment {
-                    svg:hover {
-                        fill: $secondary-color;
-                    }
-                }
-
-                .deleteComment {
-                    svg:hover {
-                        fill: $danger-color;
-                    }
-                }
-
-            }
         }
     }
 }
