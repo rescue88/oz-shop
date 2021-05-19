@@ -8,6 +8,7 @@ export type StateType = {
     discount: DiscountStateType;
     rating: RatingStateType;
     comment: CommentStateType;
+    cart: CartStateType;
 }
 
 // auth reducer initial state
@@ -123,4 +124,11 @@ export type CommentUserType = {
 export type CommentStateType = {
     product: Array<CommentProductType>;
     user: Array<CommentUserType>;
+}
+
+// cart
+export type CartStateType = {
+    items: any;
+    totalPrice: number;
+    totalCount: number;
 }
