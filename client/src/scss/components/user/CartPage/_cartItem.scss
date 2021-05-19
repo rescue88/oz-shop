@@ -21,7 +21,7 @@
         }
     
         &__name {
-            width: 30rem;
+            width: 25rem;
             font-size: 1.6rem;
         }
     
@@ -49,16 +49,26 @@
                 }
             }
         }
+
+        &__price {
+            padding: 0 1rem;
+            font-size: 2.4rem;
+            font-weight: bold;
+        }
     
         &__delete {
             width: 5rem;
+            &:hover {
+                fill: $danger-color;
+                svg {
+                    fill: $danger-color;
+                }
+            }
+
             svg {
                 width: 2rem;
                 height: 2rem;
                 fill: $additional-color;
-                &:hover {
-                    fill: $danger-color;
-                }
             }
         }
     }

@@ -1,5 +1,37 @@
 .cart {
     &__buttons {
-        
+        &_back,
+        &_pay {
+            padding: 1.5rem 2rem;
+            font-size: 2rem;
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 5rem;
+            transition: all .3s;
+        }
+        &_back {
+            color: $additional-color;
+            border-color: $additional-color;
+            svg {
+                width: 2rem;
+                height: 2rem;
+                margin-right: 1rem;
+                fill: $additional-color;
+                transform: scaleX(-1);
+            }
+
+            &:hover {
+                background: $secondary-color;
+                color: black;
+                svg {
+                    fill: black;
+                }
+            }
+        }
+
+        &_pay {
+            background: $gradient;
+            border-color: $primary-color;
+        }
     }
 }
