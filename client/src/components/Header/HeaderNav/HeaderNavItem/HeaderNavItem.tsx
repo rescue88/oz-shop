@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { StateType } from '../../../../types/stateTypes';
 
 type HeaderNavItemType = {
     Icon: FC;
@@ -6,7 +8,7 @@ type HeaderNavItemType = {
 }
 
 const HeaderNavItem: FC<HeaderNavItemType> = ({Icon, name}) => {
-    const itemsCount = 0;
+    const { totalCount } = useSelector(({cart}: StateType) => cart);
 
     return (
         <div className={`header__bar_item centered-col`}>
@@ -18,7 +20,7 @@ const HeaderNavItem: FC<HeaderNavItemType> = ({Icon, name}) => {
             </div>
             {
                 name === 'Корзина' && (
-                    <div className={`cart-items centered-row ${itemsCount > 0 && 'active-cart'}`}>{itemsCount}</div>
+                    <div className={`cart-items centered-row ${totalCount > 0 && 'active-cart'}`}>{totalCount}</div>
                 )
             }
         </div>
