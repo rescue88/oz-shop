@@ -1,0 +1,65 @@
+.cart {
+    .cartItem {
+        padding: 1rem;
+        background: $foreground-back;
+        border-top: 1px solid $additional-color;
+        display: flex;
+        align-items: center;
+    
+        & > div:not(:first-child) {
+            margin-left: 1rem;
+        }
+        svg {
+            transition: all .3s;
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+        &__image {
+            width: 15rem;
+            height: 15rem;
+        }
+    
+        &__name {
+            width: 30rem;
+            font-size: 1.6rem;
+        }
+    
+        &__amount {
+            flex-grow: 1;
+            svg {
+                width: 3rem;
+                height: 3rem;
+            }
+    
+            &_number {
+                font-size: 3.5rem;
+                margin: 0 1.5rem;
+            }
+    
+            .minusBtn {
+                svg {
+                    fill: $danger-color;
+                }
+            }
+    
+            .plusBtn {
+                svg {
+                    fill: $primary-color;
+                }
+            }
+        }
+    
+        &__delete {
+            width: 5rem;
+            svg {
+                width: 2rem;
+                height: 2rem;
+                fill: $additional-color;
+                &:hover {
+                    fill: $danger-color;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+.cart {
+    &__sum {
+        margin: 1.5rem 0;
+        font-size: 2rem;
+        font-weight: 300;
+        span {
+            font-weight: bold;
+            font-size: 2.2rem;
+        }
+        span.price {
+            color: $primary-color;
+        }
+    }
+}
