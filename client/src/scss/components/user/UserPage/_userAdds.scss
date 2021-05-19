@@ -31,12 +31,8 @@
         font-size: 1.4rem;
     }
 
+    // favorite products
     &__favorites {
-        &_warning {
-            font-size: 2rem;
-            font-weight: 300;
-        }
-
         &_item {
             &:not(:last-child) {
                 border-bottom: 1px solid $additional-color;
