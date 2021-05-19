@@ -8,6 +8,7 @@ import { productReducer } from './productReducer';
 import { discountReducer } from './discountReducer';
 import { ratingReducer } from './ratingReducer';
 import { commentReducer } from './commentReducer';
+import { cartReducer } from './cartReducer';
 
 export const rootReducer = combineReducers({
     auth: authReducer,
@@ -17,5 +18,6 @@ export const rootReducer = combineReducers({
     product: productReducer,
     discount: discountReducer,
     rating: ratingReducer,
-    comment: commentReducer
+    comment: commentReducer,
+    cart: cartReducer,
 });
