@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { StateType } from '../../../../types/stateTypes';
+import CartRegularIcon from '../../../common/Icons/CartRegularIcon';
+import HeartIcon from '../../../common/Icons/HeartIcon';
 
 type ProductTabButtonsType = {
     productId: string;
@@ -16,19 +18,21 @@ const ProductTabButtons: FC<ProductTabButtonsType> = ({productId, isFetching, ad
         <div className="product__content_buttons">
             <div>
                 <button 
-                    className="wishlistBtn borderRadius" 
+                    className="wishlistBtn borderRadius centered-row" 
                     type="button"
                     onClick={addToFavorites}
                     disabled={isFetching || favorites.map(item => item._id).includes(productId)}
                 >
+                    <HeartIcon />
                     До заміток
                 </button>
             </div>
             <div>
                 <button 
-                    className="cartBtn borderRadius" 
+                    className="cartBtn borderRadius centered-row" 
                     type="button"
                 >
+                    <CartRegularIcon />
                     До корзини
                 </button>
             </div>
