@@ -9,27 +9,31 @@ import MySubmitButton from '../../../common/MySubmitButton';
 import { CommentsTabType } from './CommentsTab';
 
 type CommentsTabFormType = {
-    isFetching: boolean;
-    addHandler: (productId: string, userId: string, text: string, positive: boolean) => void;
+    text?: string;
+    toggleEditMode?: () => void;
+    addOrUpdateComment: (productId: string, userId: string, text: string, positive: boolean) => void;
 } & CommentsTabType;
 
-const CommentsTabForm: FC<CommentsTabFormType> = ({isFetching, productId, addHandler}) => {
-    return (
+const CommentsTabForm: FC<CommentsTabFormType> = ({text, productId, addOrUpdateComment, toggleEditMode}) => {
+  return (
         <div className="commentsForm">
             <Formik
                 initialValues={{
-                    'text': '',
+                    'text': text ? text : '',
                     'positive': 'positive'
                 }}
                 onSubmit={async (data, {setSubmitting, resetForm}) => {
                     setSubmitting(true);
 
                     const userId: string = getStorageItem()!.userId;
-                    await addHandler(userId, productId, data.text, Boolean(data.positive));
+                    await addOrUpdateComment(userId, productId, data.text, Boolean(data.positive));
 
                     setSubmitting(false);
 
                     resetForm();
+                    if(text) {
+                        toggleEditMode!();
+                    }
                 }}
             >
                 {
@@ -37,6 +41,7 @@ const CommentsTabForm: FC<CommentsTabFormType> = ({isFetching, productId, addHan
                         <Form>
                             <div className="form__input">
                                 <Field 
+                                    updateComment={text ? true : false}
                                     width={true}
                                     label="Заповнити відгук"
                                     validate={ValidateComment} 
@@ -53,7 +58,7 @@ const CommentsTabForm: FC<CommentsTabFormType> = ({isFetching, productId, addHan
                                     name="positive"
                                     value="positive"
                                     label="Позитивний"
-                                    disabled={isFetching}
+                                    disabled={isSubmitting}
                                 />
                                 <MySimpleRadioBtn 
                                     type="radio"
@@ -61,13 +66,13 @@ const CommentsTabForm: FC<CommentsTabFormType> = ({isFetching, productId, addHan
                                     name="positive"
                                     value=""
                                     label="Негативний"
-                                    disabled={isFetching}
+                                    disabled={isSubmitting}
                                 />
                             </div>
                             <div className="form__submit commentsForm__submit">
                                 <MySubmitButton 
                                     disabled={isSubmitting}
-                                    text='Залишити коментар'
+                                    text={text ? 'Оновити коментар' : 'Залишити коментар'}
                                 />
                             </div>
                         </Form>
