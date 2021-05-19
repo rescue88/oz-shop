@@ -102,22 +102,23 @@ export type RatingStateType = {
 }
 
 // comment reducer
-type commentIdsType = {
+type commentCommonPropsType = {
     _id: string;
     product: string;
     user: string;
+    text: string;
+    positive: boolean;
+    created: string;
 }
 export type CommentProductType = {
     avatar: any;
     login: string;
-    text: string;
-    positive: boolean;
-    created: string;
-} & commentIdsType;
+} & commentCommonPropsType;
 
 export type CommentUserType = {
-
-} & commentIdsType;
+    image: any;
+    name: string;
+} & commentCommonPropsType;
 
 export type CommentStateType = {
     product: Array<CommentProductType>;
