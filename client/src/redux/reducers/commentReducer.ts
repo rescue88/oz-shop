@@ -56,7 +56,15 @@ export const getProductComments = (productId: string) => async (dispatch: Functi
 }
 
 export const getUserComments = (userId: string) => async (dispatch: Function) => {
-    // const data: CommentUserResponseType =
+    const data: CommentUserResponseType = await commentAPI.getUserComments(userId).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(setUserComments(data.comments));
+    }
 }
 
 export const createComment = (userId: string, productId: string, text: string, positive: boolean) => async (dispatch: Function) => {
@@ -80,6 +88,7 @@ export const updateComment = (userId: string, productId: string, text: string, p
     });
     
     if(data && data.success) {
+        dispatch(getProductComments(productId));
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }
@@ -93,6 +102,8 @@ export const deleteComment = (userId: string, productId: string) => async (dispa
     });
 
     if(data && data.success) {
+        dispatch(getProductComments(productId));
+        dispatch(getUserComments(userId));
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }

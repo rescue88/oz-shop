@@ -1,8 +1,13 @@
+import { getUserComments } from '../redux/reducers/commentReducer';
 import { axiosInstance } from './api';
 
 export const commentAPI = {
     async getProductComments(productId: string) {
         const response = await axiosInstance.get<any>(`comment/product?productId=${productId}`);
+        return response.data;
+    },
+    async getUserComments(userId: string) {
+        const response = await axiosInstance.get<any>(`comment/own?user=${userId}`);
         return response.data;
     },
     async createComment(userId: string, productId: string, text: string, positive: boolean) {
