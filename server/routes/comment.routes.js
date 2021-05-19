@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 const User = require('./../models/User.model');
 const Message = require('./../models/Message.model');
-const { parseDateUkr, retrieveCommentAuthor } = require('./helpers/helpers');
+const { parseDateUkr, retrieveCommentAuthor, retriveProductComment } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -53,7 +53,39 @@ router.get(
 router.get(
     '/own',
     async (req, res) => {
-        
+        try {
+            const {user} = req.query;
+
+            let comments = await Message.find({user}, {__v: 0});
+
+            if(!comments.length) {
+                return res.status(200).json({
+                    message: 'Ви ще не залишили коментарів',
+                    success: true,
+                    comments: []
+                });
+            }
+
+            for(let i = 0; i < comments.length; i++) {
+                // find product
+                let product = await retriveProductComment(comments[i].product);
+                // combine two documents
+                comments[i] = Object.assign(comments[i]._doc, product);
+                // parse data
+                comments[i].created = parseDateUkr(comments[i].created, 'PP');
+            }
+
+            return res.status(200).json({
+                message: 'Власні коментарі успішно отримано',
+                success: true,
+                comments
+            });
+        } catch(e) {
+            return res.status(400).json({
+                message: `Не вдалося отримати коментарі; ${e.message}`,
+                success: false
+            });
+        }
     }
 );
 
@@ -123,7 +155,6 @@ router.delete(
     async (req, res) => {
         try {
             const {user, product} = req.query;
-            console.log(user, product);
 
             const comment = await Message.findOne({user, product});
 

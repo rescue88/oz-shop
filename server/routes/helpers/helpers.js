@@ -176,6 +176,12 @@ const retrieveCommentAuthor = async (userId) => {
     return user._doc;
 }
 
+const retriveProductComment = async (productId) => {
+    const product = await Product.findOne({_id: productId}, {_id: 0, image: 1, name: 1});
+
+    return product._doc;
+}
+
 module.exports = {
     parseDateUkr,
     userById,
@@ -186,5 +192,6 @@ module.exports = {
     retrieveFavorites,
     discountById,
     retrieveProductRating,
-    retrieveCommentAuthor
+    retrieveCommentAuthor,
+    retriveProductComment
 };
