@@ -1,0 +1,84 @@
+.commentItem {
+    padding: 1rem;
+    background: $foreground-back;
+    border-right-width: 3px;
+    border-right-style: solid;
+    border-bottom: 1px solid $additional-color;
+
+    display: flex;
+    // if comment is positive
+    &.positive {
+        border-right-color: $primary-color;
+    }
+    // if coment if negative
+    &.negative {
+        border-right-color: $danger-color;
+    }
+    // user's own comment style
+    .own {
+        border: 3px solid $secondary-color;
+    }
+
+    &__image {
+        width: 11rem;
+        height: 11rem;
+    }
+
+    &__content {
+        width: calc(100% - 14rem);
+        margin: 0 1rem;
+        font-size: 1.4rem;
+        &_name, &_login {
+            padding-bottom: .3rem;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            svg {
+                width: 2rem;
+                height: 2rem;
+                margin-left: 1rem;
+                fill: $secondary-color;
+            }
+        }
+
+        &_login, &_name span {
+            color: $primary-color;
+        }
+
+        &_date {
+            padding-bottom: .7rem;
+        }
+
+        &_text {
+            font-weight: 300;
+        }
+    }
+
+    &__settings {
+        width: 3rem;
+        .editComment,
+        .deleteComment {
+            button {
+                background: none;
+                cursor: pointer;
+                svg {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    margin: 1rem 0;
+                }
+            }
+        }
+
+        .editComment {
+            svg:hover {
+                fill: $secondary-color;
+            }
+        }
+
+        .deleteComment {
+            svg:hover {
+                fill: $danger-color;
+            }
+        }
+    }
+}
