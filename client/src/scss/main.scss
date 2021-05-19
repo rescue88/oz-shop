@@ -127,6 +127,19 @@ label {
     border-radius: .7rem;
 }
 
+
+.header,
+.no-items {
+    font-size: 2rem;
+    text-align: center;
+}
+.header { 
+    font-weight: bold;
+}
+.no-items {
+    font-weight: 300;
+}
+
 // skeleton styles
 // app container
 .main-container {
