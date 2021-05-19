@@ -33,7 +33,7 @@ const UserFavorites: FC = () => {
                         />
                     ))
                 ) : (
-                    <div className="userAdds__favorites_warning">Вкладка з доданими товарами порожня</div>
+                    <div className="no-items">Вкладка з доданими товарами порожня</div>
                 )
             }
         </div>
