@@ -1,6 +1,8 @@
 import { FC } from 'react';
+
 import CartRegularIcon from '../../common/Icons/CartRegularIcon';
 import DeleteIcon from '../../common/Icons/DeleteIcon';
+import NavIcon from '../Navbar/NavIcon/NavIcon';
 import CartPageItem from './CartPageItem';
 
 const CartPage: FC = () => {
@@ -11,7 +13,7 @@ const CartPage: FC = () => {
                     <CartRegularIcon />
                     Корзина
                 </div>
-                <button className="cart__head_clear">
+                <button className="cart__head_clear high-opacity">
                     <DeleteIcon />
                     Очистити корзину
                 </button>
@@ -25,8 +27,12 @@ const CartPage: FC = () => {
                 <div className="cart__sum_amount">Загальна кількість товарів: <span>7</span></div>
                 <div className="cart__sum_money">Сума замовлення: <span className="price">₴900</span></div>
             </div>
-            <div className="cart__buttons">
-                there will be two buttons
+            <div className="cart__buttons space-betw-row">
+                <button className="cart__buttons_back high-opacity centered-row">
+                    <NavIcon />
+                    До товарів
+                </button>
+                <button className="cart__buttons_pay opacity">Оплатити зараз</button>
             </div>
         </div>
     );

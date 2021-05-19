@@ -21,7 +21,10 @@ const CartPageItem: FC = () => {
                     <PlusIcon />
                 </button>
             </div>
-            <button className="cartItem__delete opacity"><CloseIcon /></button>
+            <div className="cartItem__price">
+                ₴600
+            </div>
+            <button className="cartItem__delete high-opacity"><CloseIcon /></button>
         </div>
     );
 }
