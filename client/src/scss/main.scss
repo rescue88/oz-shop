@@ -42,6 +42,11 @@ body::before {
     z-index: -2;
 }
 
+button {
+    background: none;
+    cursor: pointer;
+}
+
 ul {
     display: flex;
 }
