@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
+import { NavLink } from 'react-router-dom';
 
 import defaultAva from './../../../../assets/images/defaultAva.png';
 import { convertBuffer, getStorageItem } from '../../../../assets/helpers/helpers';
@@ -19,9 +20,17 @@ const CommentsTabItem: FC<CommentsTabItemType> = ({comment, deleteHandler}) => {
 
     return (
         <div className={`commentsItems__item ${comment.positive ? 'positive': 'negative'}`}>
-            <div className="commentsItems__item_image">
-                <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="" />
-            </div>
+            {
+                userId === comment.user ? (
+                    <NavLink to='/app/profile' className="commentsItems__item_image">
+                        <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="" />
+                    </NavLink>
+                ) : (
+                    <div className="commentsItems__item_image">
+                        <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="" />
+                    </div>
+                )
+            }
             <div className="commentsItems__item_info">
                 <div className="login">{comment.login} {userId === comment.user ? <HeaderNavProfileIcon /> : null }</div>
                 <div className="date">{comment.created}</div>
