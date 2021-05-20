@@ -28,6 +28,7 @@ router.get(
                 if(!products[i]._doc.image.data) {
                     products[i]._doc.image.data = null;
                 }
+                products[i]._doc.category = await categoryLabelById(products[i]._doc.category);
             }
 
             return res.status(200).json({
