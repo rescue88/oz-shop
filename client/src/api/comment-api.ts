@@ -1,4 +1,3 @@
-import { getUserComments } from '../redux/reducers/commentReducer';
 import { axiosInstance } from './api';
 
 export const commentAPI = {
