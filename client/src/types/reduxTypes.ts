@@ -2,6 +2,8 @@ import { UserStateType, ChangeUsersPageType, ProductItemType, DiscountItemType, 
 
 // local storage name for storing id and token
 export const OZshop: string = 'OZshop';
+// local storage name for storing user's cart
+export const OZshopCart: string = 'OZshopCart';
 
 // get a message with a mistake description
 export type DefaultResponse = {
