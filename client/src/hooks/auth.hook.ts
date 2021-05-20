@@ -15,7 +15,6 @@ export const useAuth = () => {
 
     const login = useCallback(async (jwtToken: string, id: string) => {
         await dispatch(getUserData(id));
-        await dispatch(getDiscounts());
 
         dispatch(signIn());
 
@@ -23,22 +22,30 @@ export const useAuth = () => {
         setReady(true);
     }, [dispatch]);
 
-    // auto save data from local storage into local state
-    useEffect(() => {
-        const data: StorageItemType = getStorageItem();
-        const cartData: CartStateType | null = getStorageCart();
+    const initialize = useCallback(async () => {
+        // get all available discounts 
+        await dispatch(getDiscounts());
 
+        const cartData: CartStateType | null = getStorageCart();
         // if user has some products in a local storage, load them into state
         if(cartData !== null) {
             dispatch(insertWholeCartData(cartData));
         }
+
+        const data: StorageItemType = getStorageItem();
         // if user has token in a local storage, give him all necessary data
         if(data && data.token) {
-            login(data.token, data.userId);
-        } else {
-            setReady(true);
+            await login(data.token, data.userId);
         }
-    }, [login]);
+
+        // set app into ready
+        setReady(true);
+    }, [dispatch, login]);
+
+    // auto save data from local storage into local state
+    useEffect(() => {
+        initialize();
+    }, [initialize]);
 
     return { login, ready }
 }
