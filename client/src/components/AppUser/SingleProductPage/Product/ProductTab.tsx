@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addToFavoritesHelper, convertBuffer } from '../../../../assets/helpers/helpers';
-import { ProductItemType } from '../../../../types/stateTypes';
+import { addToCartHelper, addToFavoritesHelper, convertBuffer } from '../../../../assets/helpers/helpers';
+import { CartProdutType, ProductItemType } from '../../../../types/stateTypes';
 import defaultProduct from './../../../../assets/images/defaultProduct.png';
 import ProductTabAvailable from './ProductTabAvailable';
 import ProductTabButtons from './ProductTabButtons';
@@ -25,6 +25,18 @@ const Product: FC<ProductTabType> = ({product}) => {
         setIsFetching(false);
     }
 
+    const addToCartHandler = () => {
+        const obj: CartProdutType = {
+            _id: product._id,
+            image: product.image,
+            name: product.name,
+            price: product.price,
+            amount: product.amount
+        }
+
+        addToCartHelper(dispatch, obj);
+    }
+
     return (
         <div className="singleProduct__content_product product">
             <div className="product__image">
@@ -38,7 +50,8 @@ const Product: FC<ProductTabType> = ({product}) => {
                 <ProductTabButtons 
                     isFetching={isFetching}
                     productId={product._id}
-                    addToFavorites={addToFavoritesHandler} 
+                    addToFavorites={addToFavoritesHandler}
+                    addToCart={addToCartHandler} 
                 />
                 <div className="product__content_characteristics">
                     <div>Кількість на складі: <span>{product.amount}</span></div>

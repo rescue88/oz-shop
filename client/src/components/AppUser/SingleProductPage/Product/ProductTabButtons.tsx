@@ -8,11 +8,13 @@ type ProductTabButtonsType = {
     productId: string;
     isFetching: boolean;
     addToFavorites: () => void;
-    addToCart?: () => void;
+    addToCart: () => void;
 }
 
-const ProductTabButtons: FC<ProductTabButtonsType> = ({productId, isFetching, addToFavorites}) => {
+const ProductTabButtons: FC<ProductTabButtonsType> = ({productId, isFetching, addToFavorites, addToCart}) => {
     const {favorites} = useSelector((state: StateType) => state.user);
+    const {isAuth} = useSelector((state: StateType) => state.auth);
+    const cartItems = useSelector((state: StateType) => state.cart.items);
 
     return (
         <div className="product__content_buttons">
@@ -21,7 +23,7 @@ const ProductTabButtons: FC<ProductTabButtonsType> = ({productId, isFetching, ad
                     className="wishlistBtn borderRadius centered-row" 
                     type="button"
                     onClick={addToFavorites}
-                    disabled={isFetching || favorites.map(item => item._id).includes(productId)}
+                    disabled={isAuth || isFetching || favorites.map(item => item._id).includes(productId)}
                 >
                     <HeartIcon />
                     До заміток
@@ -31,6 +33,8 @@ const ProductTabButtons: FC<ProductTabButtonsType> = ({productId, isFetching, ad
                 <button 
                     className="cartBtn borderRadius centered-row" 
                     type="button"
+                    onClick={addToCart}
+                    disabled={isFetching || cartItems.map(item => item._id).includes(productId)}
                 >
                     <CartRegularIcon />
                     До корзини

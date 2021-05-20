@@ -2,9 +2,9 @@ import { useState, useCallback, useEffect } from 'react';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addToFavoritesHelper } from '../../../assets/helpers/helpers';
+import { addToCartHelper, addToFavoritesHelper } from '../../../assets/helpers/helpers';
 import { getProducts } from '../../../redux/reducers/productReducer';
-import { ProductItemType, StateType } from '../../../types/stateTypes';
+import { CartProdutType, ProductItemType, StateType } from '../../../types/stateTypes';
 import ProductItemLoader from '../../common/Loader/ProductItemLoader';
 import ProductsPageFilters from './ProductsPageFilters/ProductsPageFilters';
 import ProductsPageItem from './ProductsPageItem/ProductsPageItem';
@@ -26,6 +26,10 @@ const ProductPage: FC = () => {
         setIsLoading(false);
     }, [dispatch]);
 
+    const addProductToCartHandler = (product: CartProdutType) => {
+        addToCartHelper(dispatch, product);
+    }
+
     useEffect(() => {
         getProductsHandler();
     }, [addToFavoritesHandler]);
@@ -44,6 +48,7 @@ const ProductPage: FC = () => {
                                     product={item}
                                     isLoading={isLoading}
                                     addToFavorites={addToFavoritesHandler}
+                                    addToCart={addProductToCartHandler}
                                 />
                             ))
                             : Array(6).fill(0).map((item, idx) => <ProductItemLoader key={idx} /> )
