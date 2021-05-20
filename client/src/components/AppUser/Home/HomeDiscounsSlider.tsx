@@ -40,7 +40,7 @@ const HomeDiscounsSlider: FC<HomeDiscounsSliderType> = ({discounts}) => {
                         <Slider {...sliderSettings} >
                             {
                                 discounts.map(item => (
-                                    <NavLink to="/app" className="slider__item">
+                                    <NavLink key={item._id} to="/app" className="slider__item">
                                         <img src={item.image.data ? convertBuffer(item.image.data.data) : defaultSliderImg} alt="available discount" />
                                     </NavLink>
                                 ))
