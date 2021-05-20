@@ -22,7 +22,7 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
         await dispatch(getProductComments(productId));
 
         setIsFetching(false);
-    }, [dispatch]);
+    }, [dispatch, productId]);
 
     const addCommentHandler = useCallback(async (userId: string, productId: string, text: string, positive: boolean) => {
         setIsFetching(true);

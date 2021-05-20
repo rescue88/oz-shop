@@ -19,7 +19,7 @@ const UserComments: FC = () => {
         await dispatch(getUserComments(userId));
 
         setIsFetching(false);
-    }, [dispatch]);
+    }, [dispatch, userId]);
 
     const deleteCommentHandler = useCallback(async (productId: string) => {
         setIsFetching(true);
@@ -27,11 +27,11 @@ const UserComments: FC = () => {
         await dispatch(deleteComment(userId, productId));
 
         setIsFetching(false);
-    }, [dispatch]);
+    }, [dispatch, userId]);
 
     useEffect(() => {
         getComments();
-
+        
         return () => {
             dispatch(clearUserComments());
         }

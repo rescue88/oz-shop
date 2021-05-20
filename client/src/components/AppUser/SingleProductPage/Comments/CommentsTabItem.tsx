@@ -9,9 +9,6 @@ import HeaderNavProfileIcon from '../../../Header/HeaderNav/Icons/HeaderNavProfi
 import EditIcon from '../../../common/Icons/EditIcon';
 import DeleteIcon from '../../../common/Icons/DeleteIcon';
 import { useSelector } from 'react-redux';
-import { Field } from 'formik';
-import MySimpleTextarea from '../../../common/Input/MySimpleTextarea';
-import { ValidateComment } from '../../../../assets/validators/validators';
 import CommentsTabForm from './CommentsTabForm';
 
 type CommentsTabItemType = {
