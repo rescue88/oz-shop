@@ -128,7 +128,9 @@ export type CommentStateType = {
 
 // cart
 export type CartStateType = {
-    items: Array<CartProdutType>;
+    items: {
+        [key: string]: Array<CartProdutType>
+    };
     totalPrice: number;
     totalCount: number;
 }

@@ -7,7 +7,7 @@ const ADD_PRODUCT_TO_CART = 'cartReducer/ADD_PRODUCT_TO_CART';
 
 /* INITIAL STATE */
 const cartState: CartStateType = {
-    items: [],
+    items: {},
     totalPrice: 0,
     totalCount: 0,
 };
@@ -50,12 +50,23 @@ export const cartReducer = (state: CartStateType = cartState, action: any) => {
                 totalCount: action.payload
             }
         case ADD_PRODUCT_TO_CART:
+            const newItems = {
+                ...state.items,
+                [action.payload._id]: !state.items[action.payload._id]
+                    ? [action.payload]
+                    : [...state.items[action.payload._id], action.payload]
+            }
+
+            const allProducts = [].concat.apply([], Object.values(newItems));
+            const totalCount = allProducts.length;
+            // @ts-ignore
+            const totalPrice = allProducts.reduce((sum, next) => sum + next.price, 0);
+
             return {
                 ...state,
-                items: [
-                    ...state.items,
-                    action.payload
-                ]
+                items: newItems,
+                totalCount,
+                totalPrice
             }
         default:
             return state;
