@@ -1,12 +1,12 @@
+import { removeStorageCart, setStorageCart } from "../../assets/helpers/helpers";
 import { CartProdutType, CartStateType } from "../../types/stateTypes";
 
 /* ACTIONS */
-const SET_TOTAL_PRICE = 'cartReducer/SET_TOTAL_PRICE';
-const SET_TOTAL_COUNT = 'cartReducer/SET_TOTAL_COUNT';
 const ADD_PRODUCT_TO_CART = 'cartReducer/ADD_PRODUCT_TO_CART';
 const DECREASE_PRODUCT_AMOUNT = 'cartReducer/DECREASE_PRODUCT_AMOUNT';
 const CLEAR_CART = 'cartReducer/CLEAR_CART';
 const DELETE_PRODUCT_FROM_CART = 'cartReducer/DELETE_PRODUCT_FROM_CART';
+const INSERT_WHOLE_CART_DATA = 'cartReducer/INSERT_WHOLE_CART_DATA';
 
 /* INITIAL STATE */
 const cartState: CartStateType = {
@@ -16,20 +16,6 @@ const cartState: CartStateType = {
 };
 
 /* ACTION CREATORS */
-export const setTotalPrice = (payload: number) => {
-    return {
-        type: SET_TOTAL_PRICE,
-        payload
-    }
-}
-
-export const setTotalCount = (payload: number) => {
-    return {
-        type: SET_TOTAL_COUNT,
-        payload
-    }
-}
-
 export const addProductToCart = (payload: CartProdutType) => {
     return {
         type: ADD_PRODUCT_TO_CART,
@@ -57,21 +43,16 @@ export const deleteProductFromCart = (payload: string) => {
     }
 }
 
-/* THUNKS */
+export const insertWholeCartData = (payload: CartStateType) => {
+    return {
+        type: INSERT_WHOLE_CART_DATA,
+        payload
+    }
+}
 
 /* REDUCER */
 export const cartReducer = (state: CartStateType = cartState, action: any) => {
     switch(action.type) {
-        case SET_TOTAL_PRICE:
-            return {
-                ...state,
-                totalPrice: action.payload
-            }
-        case SET_TOTAL_COUNT:
-            return {
-                ...state,
-                totalCount: action.payload
-            }
         case ADD_PRODUCT_TO_CART: {
             const newItems = {
                 ...state.items,
@@ -85,23 +66,31 @@ export const cartReducer = (state: CartStateType = cartState, action: any) => {
             // @ts-ignore
             const totalPrice = allProducts.reduce((sum, next) => sum + next.price, 0);
 
-            return {
+            // create returning object to be able to write it into local storage
+            const returnObj: CartStateType = {
                 ...state,
                 items: newItems,
                 totalCount,
                 totalPrice
             }
+            setStorageCart(returnObj);
+
+            return returnObj;
         }
         case DECREASE_PRODUCT_AMOUNT: {
             const newItems = {...state.items}
             const deletedItem = newItems[action.payload].pop();
 
-            return {
+             // create returning object to be able to write it into local storage
+             const returnObj: CartStateType = {
                 ...state,
                 items: newItems,
                 totalCount: state.totalCount - 1,
                 totalPrice: state.totalPrice - deletedItem!.price
             }
+            setStorageCart(returnObj);
+
+            return returnObj;
         }
         case DELETE_PRODUCT_FROM_CART: {
             // make items copy
@@ -113,19 +102,28 @@ export const cartReducer = (state: CartStateType = cartState, action: any) => {
             const deleteItemCount = deletedItem.length;
             const deletedItemPrice = deletedItem.reduce((sum, next) => sum + next.price, 0);
 
-            return {
+            // create returning object to be able to write it into local storage
+            const returnObj: CartStateType = {
                 ...state,
                 items: newItems,
                 totalCount: state.totalCount - deleteItemCount,
                 totalPrice: state.totalPrice - deletedItemPrice 
             }
+            setStorageCart(returnObj);
+
+            return returnObj;
         }
         case CLEAR_CART:
+            removeStorageCart();
             return {
                 ...state,
                 items: {},
                 totalCount: 0,
                 totalPrice: 0
+            }
+        case INSERT_WHOLE_CART_DATA:
+            return {
+                ...action.payload
             }
         default:
             return state;
