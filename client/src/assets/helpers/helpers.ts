@@ -1,7 +1,8 @@
 import { StorageItemType } from './../../types/common';
 import { OZshop } from "../../types/reduxTypes";
-import { ProductItemType, UserPermissionType } from '../../types/stateTypes';
+import { CartProdutType, ProductItemType, UserPermissionType } from '../../types/stateTypes';
 import { addToFavorites } from '../../redux/reducers/userReducer';
+import { addProductToCart } from '../../redux/reducers/cartReducer';
 
 type UserGroupsType = {
     [key in UserPermissionType]: string;
@@ -49,4 +50,8 @@ export const addToFavoritesHelper = async (dispatch: any, favorite: ProductItemT
     const {_id, image, name, price, amount} = favorite;
 
     await dispatch(addToFavorites(userId, {_id, image, name, price, amount}));
+}
+
+export const addToCartHelper = async (dispatch: any, product: CartProdutType) => {
+    dispatch(addProductToCart(product));
 }
