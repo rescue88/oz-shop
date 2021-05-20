@@ -128,7 +128,16 @@ export type CommentStateType = {
 
 // cart
 export type CartStateType = {
-    items: any;
+    items: Array<CartProdutType>;
     totalPrice: number;
     totalCount: number;
+}
+
+// product props that are needed in a cart
+export type CartProdutType = {
+    _id: string;
+    image: any;
+    name: string;
+    price: number;
+    amount: number;
 }

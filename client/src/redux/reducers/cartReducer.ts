@@ -1,4 +1,4 @@
-import { CartStateType } from "../../types/stateTypes";
+import { CartProdutType, CartStateType } from "../../types/stateTypes";
 
 /* ACTIONS */
 const SET_TOTAL_PRICE = 'cartReducer/SET_TOTAL_PRICE';
@@ -13,21 +13,21 @@ const cartState: CartStateType = {
 };
 
 /* ACTION CREATORS */
-const setTotalPrice = (payload: number) => {
+export const setTotalPrice = (payload: number) => {
     return {
         type: SET_TOTAL_PRICE,
         payload
     }
 }
 
-const setTotalCount = (payload: number) => {
+export const setTotalCount = (payload: number) => {
     return {
         type: SET_TOTAL_COUNT,
         payload
     }
 }
 
-const addProductToCart = (payload: any) => {
+export const addProductToCart = (payload: CartProdutType) => {
     return {
         type: ADD_PRODUCT_TO_CART,
         payload
@@ -50,15 +50,12 @@ export const cartReducer = (state: CartStateType = cartState, action: any) => {
                 totalCount: action.payload
             }
         case ADD_PRODUCT_TO_CART:
-            const id: string = action.payload.id;
             return {
                 ...state,
-                items: {
-                    [id]: [
-                        ...state.items[id],
-                        action.payload
-                    ]
-                }
+                items: [
+                    ...state.items,
+                    action.payload
+                ]
             }
         default:
             return state;
