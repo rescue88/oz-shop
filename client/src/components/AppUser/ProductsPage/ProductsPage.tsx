@@ -32,7 +32,7 @@ const ProductPage: FC = () => {
 
     useEffect(() => {
         getProductsHandler();
-    }, [addToFavoritesHandler]);
+    }, [getProductsHandler, addToFavoritesHandler]);
 
     return (
         <div className="productsPage">

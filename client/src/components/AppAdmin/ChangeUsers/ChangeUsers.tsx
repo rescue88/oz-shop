@@ -44,7 +44,7 @@ const ChangeUsers: FC = () => {
 
     useEffect(() => {
         getUsersHandler();
-    }, [deleteUserHandler]);
+    }, [getUsersHandler, deleteUserHandler]);
     
     return (
         <div className="changeContainer">

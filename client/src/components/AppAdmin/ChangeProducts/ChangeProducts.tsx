@@ -54,7 +54,7 @@ const ChangeProducts: FC = () => {
 
     useEffect(() => {
         getProductsHandler();
-    }, [deleteProductHandler]);
+    }, [getProductsHandler, deleteProductHandler]);
 
     return (
         <div className="changeContainer">

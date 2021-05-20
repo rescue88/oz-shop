@@ -35,7 +35,7 @@ const UserComments: FC = () => {
         return () => {
             dispatch(clearUserComments());
         }
-    }, [deleteCommentHandler]);
+    }, [getComments, deleteCommentHandler, dispatch]);
 
     return (
         <div className="userAdds__comments">

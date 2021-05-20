@@ -55,7 +55,7 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
         return () => {
             dispatch(clearProductComments());
         }
-    }, [addCommentHandler, updateCommentHandler, deleteCommentHandler]);
+    }, [getCommentsHandler, addCommentHandler, updateCommentHandler, deleteCommentHandler, dispatch]);
 
     return (
         <div className="singleProduct__content_comments">

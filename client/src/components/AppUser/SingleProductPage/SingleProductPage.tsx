@@ -45,7 +45,7 @@ const SingleProductPage: FC = () => {
             dispatch(clearSingleProduct());
             dispatch(clearRating());
         }
-    }, []);
+    }, [getProductHandler, dispatch]);
 
     return (
         <div className="singleProduct">
