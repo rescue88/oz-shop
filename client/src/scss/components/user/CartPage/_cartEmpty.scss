@@ -1,0 +1,23 @@
+.cartEmpty {
+    width: 85%;
+    padding: 1.5rem 2rem;
+    margin: 0 auto;
+    background: $foreground-back;
+    text-align: center;
+    &__header {
+        font-size: 3rem;
+        font-weight: 700;
+        svg {
+            width: 3.5rem;
+            height: 3.5rem;
+            margin-right: 1rem;
+            fill: $danger-color;
+        }
+    }
+
+    &__info {
+        margin: 2rem 0;
+        font-size: 2rem;
+        font-weight: 300;
+    }
+}
