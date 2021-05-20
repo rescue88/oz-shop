@@ -1,0 +1,54 @@
+.homePage {
+    // slider with discounts
+    .slider {
+        width: 80%;
+        min-width: 0;
+        height: 30rem;
+        margin: 0 auto;
+
+        .slider__item {
+            height: 300px;
+            padding: 0 1rem;
+            &:focus {
+                outline: none;
+                border: none;
+            }
+        }
+    }
+    // slider buttons
+    .arrowNext,
+    .arrowPrev {
+        position: absolute;
+        top: calc(50% - 25px);
+        height: 50px;
+        width: 50px;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        svg {
+            width: 75%;
+            height: 75%;
+        }
+
+        &:hover svg {
+            fill: $secondary-color;
+        }
+
+        &:active {
+            transform: scale(1.1);
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .arrowPrev {
+        left: -5rem;
+    }
+
+    .arrowNext {
+        right: -5rem;
+    }
+}
