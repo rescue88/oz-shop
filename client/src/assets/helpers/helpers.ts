@@ -3,6 +3,7 @@ import { OZshop } from "../../types/reduxTypes";
 import { CartProdutType, ProductItemType, UserPermissionType } from '../../types/stateTypes';
 import { addToFavorites } from '../../redux/reducers/userReducer';
 import { addProductToCart } from '../../redux/reducers/cartReducer';
+import { setSnackbar } from '../../redux/reducers/snackbarReducer';
 
 type UserGroupsType = {
     [key in UserPermissionType]: string;
@@ -54,4 +55,5 @@ export const addToFavoritesHelper = async (dispatch: any, favorite: ProductItemT
 
 export const addToCartHelper = async (dispatch: any, product: CartProdutType) => {
     dispatch(addProductToCart(product));
+    dispatch(setSnackbar(true, 'success', "Товар успішно додано до корзини"));
 }
