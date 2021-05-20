@@ -16,7 +16,7 @@ const App: FC = () => {
 
   const isAuth = useSelector((state: StateType) => state.auth.isAuth);
   const userPerm = useSelector((state: StateType) => state.user.permissions);
-  // TODO:　make a preloader
+  
   if(!ready) {
     return <Loader />
   }
