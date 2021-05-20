@@ -12,6 +12,11 @@
         opacity: 1;
     }
 
+    &:disabled {
+        text-decoration: line-through;
+        opacity: .65;
+    }
+
     svg {
         width: 1.5rem;
         height: 1.5rem;
@@ -22,10 +27,6 @@
 
 .wishlistBtn {
     background: $additional-color;
-    &:disabled {
-        text-decoration: line-through;
-        opacity: .65;
-    }
 }
 
 .cartBtn {
