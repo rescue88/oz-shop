@@ -9,12 +9,14 @@
         & > div:not(:first-child) {
             margin-left: 1rem;
         }
+
         svg {
             transition: all .3s;
-            &:hover {
+            &:active {
                 transform: scale(1.1);
             }
         }
+
         &__image {
             width: 15rem;
             height: 15rem;
@@ -35,6 +37,13 @@
             &_number {
                 font-size: 3.5rem;
                 margin: 0 1.5rem;
+            }
+
+            .minusBtn:disabled,
+            .plusBtn:disabled {
+                svg {
+                    fill: $additional-color;
+                }
             }
     
             .minusBtn {
