@@ -34,7 +34,7 @@ const ProductTabButtons: FC<ProductTabButtonsType> = ({productId, isFetching, ad
                     className="cartBtn borderRadius centered-row" 
                     type="button"
                     onClick={addToCart}
-                    disabled={isFetching || cartItems.map(item => item._id).includes(productId)}
+                    disabled={isFetching || cartItems.hasOwnProperty(productId)}
                 >
                     <CartRegularIcon />
                     До корзини

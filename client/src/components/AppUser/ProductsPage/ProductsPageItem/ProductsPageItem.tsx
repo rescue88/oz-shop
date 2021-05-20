@@ -64,7 +64,7 @@ const ProductsPageItem: FC<ProductsPageItemType> = ({product, isLoading, addToFa
                     className="itemContainer__buttons_cart cartBtn" 
                     type="button"
                     onClick={addToCartHandler}
-                    disabled={cartItems.map(item => item._id).includes(product._id) || isLoading}
+                    disabled={cartItems.hasOwnProperty(product._id) || isLoading}
                 >
                     <CartRegularIcon />
                     В корзину
