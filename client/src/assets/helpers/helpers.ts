@@ -1,6 +1,6 @@
 import { StorageItemType } from './../../types/common';
-import { OZshop } from "../../types/reduxTypes";
-import { CartProdutType, ProductItemType, UserPermissionType } from '../../types/stateTypes';
+import { OZshop, OZshopCart } from "../../types/reduxTypes";
+import { CartProdutType, CartStateType, ProductItemType, UserPermissionType } from '../../types/stateTypes';
 import { addToFavorites } from '../../redux/reducers/userReducer';
 import { addProductToCart } from '../../redux/reducers/cartReducer';
 import { setSnackbar } from '../../redux/reducers/snackbarReducer';
@@ -56,4 +56,27 @@ export const addToFavoritesHelper = async (dispatch: any, favorite: ProductItemT
 export const addToCartHelper = async (dispatch: any, product: CartProdutType) => {
     dispatch(addProductToCart(product));
     dispatch(setSnackbar(true, 'success', "Товар успішно додано до корзини"));
+}
+
+// helpers to work with a cart in local storage
+export const getStorageCart = (): CartStateType | null => {
+    const data: CartStateType = JSON.parse(localStorage.getItem(OZshopCart) || 'null');
+
+    if(data && data.items) {
+        return data;
+    }
+
+    return null;
+}
+
+export const setStorageCart = (cart: CartStateType): void => {
+    localStorage.setItem(OZshopCart, JSON.stringify({
+        items: cart.items,
+        totalCount: cart.totalCount,
+        totalPrice: cart.totalPrice
+    } as CartStateType));
+}
+
+export const removeStorageCart = (): void => {
+    localStorage.removeItem(OZshopCart);
 }
