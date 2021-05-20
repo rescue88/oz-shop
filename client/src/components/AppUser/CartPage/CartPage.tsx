@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductToCart, clearCart, deacreaseProductAmount, deleteProductFromCart } from '../../../redux/reducers/cartReducer';
+import { NavLink } from 'react-router-dom';
 
+import { addProductToCart, clearCart, deacreaseProductAmount, deleteProductFromCart } from '../../../redux/reducers/cartReducer';
 import { StateType } from '../../../types/stateTypes';
 import CartRegularIcon from '../../common/Icons/CartRegularIcon';
 import DeleteIcon from '../../common/Icons/DeleteIcon';
 import NavIcon from '../Navbar/NavIcon/NavIcon';
+import CartPageEmpty from './CartPageEmpty';
 import CartPageItem from './CartPageItem';
 
 const CartPage: FC = () => {
@@ -61,15 +63,15 @@ const CartPage: FC = () => {
                             <div className="cart__sum_money">Сума замовлення: <span className="price">₴{totalPrice}</span></div>
                         </div>
                         <div className="cart__buttons space-betw-row">
-                            <button className="cart__buttons_back high-opacity centered-row">
+                            <NavLink to="/app/products" className="cart__buttons_back high-opacity centered-row">
                                 <NavIcon />
                                 До товарів
-                            </button>
+                            </NavLink>
                             <button className="cart__buttons_pay opacity">Оплатити зараз</button>
                         </div>
                     </div>
                 ) : (
-                    <div>Корзина порожня</div>
+                    <CartPageEmpty />
                 )
             }
         </>
