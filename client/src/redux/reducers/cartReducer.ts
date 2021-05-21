@@ -109,7 +109,13 @@ export const cartReducer = (state: CartStateType = cartState, action: any) => {
                 totalCount: state.totalCount - deleteItemCount,
                 totalPrice: state.totalPrice - deletedItemPrice 
             }
-            setStorageCart(returnObj);
+            
+            // if user deleted last product in a cart
+            if(!Object.keys(newItems).length) {
+                removeStorageCart();
+            } else {
+                setStorageCart(returnObj);
+            }
 
             return returnObj;
         }
