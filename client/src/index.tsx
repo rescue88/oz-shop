@@ -8,6 +8,8 @@ import './scss/main.scss';
 import App from './App';
 import { theme } from './theme';
 import store from './redux/store';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 ReactDOM.render(
   <React.StrictMode>
