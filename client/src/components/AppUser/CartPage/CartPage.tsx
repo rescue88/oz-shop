@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -6,13 +6,20 @@ import { addProductToCart, clearCart, deacreaseProductAmount, deleteProductFromC
 import { StateType } from '../../../types/stateTypes';
 import CartRegularIcon from '../../common/Icons/CartRegularIcon';
 import DeleteIcon from '../../common/Icons/DeleteIcon';
+import MyDialogWindow from '../../common/MyDialogWindow';
 import NavIcon from '../Navbar/NavIcon/NavIcon';
+import CartForm from './CartForm';
 import CartPageEmpty from './CartPageEmpty';
 import CartPageItem from './CartPageItem';
 
 const CartPage: FC = () => {
+    const [openForm, setOpenForm] = useState<boolean>(false);
     const dispatch = useDispatch();
     const {items: cartItems, totalCount, totalPrice} = useSelector((state: StateType) => state.cart);
+
+    const toggleOpenFormHandler = () => {
+        setOpenForm(prev => !prev);
+    }
 
     const increaseProductAmountHandler = (productId: string) => {
         dispatch(addProductToCart(cartItems[productId][0]));
@@ -35,6 +42,19 @@ const CartPage: FC = () => {
             {
                 Object.keys(cartItems).length ? (
                     <div className="cart">
+                        <MyDialogWindow 
+                            dialogWidth="sm"
+                            open={openForm}
+                            onClose={toggleOpenFormHandler}
+                            Content={(
+                                <CartForm 
+                                    // extract all product id's
+                                    products={Object.keys(cartItems).map(item => Array(cartItems[item].length).fill(item)).flat()} 
+                                    price={totalPrice} 
+                                    closeForm={toggleOpenFormHandler}
+                                />
+                            )}
+                        />
                         <div className="cart__head">
                             <div className="cart__head_header">
                                 <CartRegularIcon />
@@ -67,7 +87,7 @@ const CartPage: FC = () => {
                                 <NavIcon />
                                 До товарів
                             </NavLink>
-                            <button className="cart__buttons_pay opacity">Оплатити зараз</button>
+                            <button className="cart__buttons_pay opacity" onClick={toggleOpenFormHandler}>Оплатити зараз</button>
                         </div>
                     </div>
                 ) : (
