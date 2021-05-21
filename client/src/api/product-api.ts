@@ -8,5 +8,9 @@ export const productAPI = {
     async getSingleProduct(productId: string) {
         const response = await axiosInstance.get<any>(`product/${productId}`);
         return response.data;
+    },
+    async getLatestProducts() {
+        const response = await axiosInstance.get<any>('product/latest');
+        return response.data;
     }
 }
