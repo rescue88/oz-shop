@@ -50,6 +50,7 @@ export type UserStateType = {
     phone: string | null;
     created: number | null;
     favorites: Array<UserFavoritesType>;
+    orders: Array<OrderUserItemType>;
 }
 
 // material ui snakcbar types
@@ -160,8 +161,19 @@ export type OrderItemType = {
     _id: string;
     user: string;
     products: Array<string>;
+    name: string;
+    email: string;
+    phone: string;
     price: number;
     deliveryAddress: string;
     status: OrderStatusType;
     created: string;
+}
+
+export type OrderUserItemType = {
+    _id: string;
+    amount: number;
+    price: number;
+    created: string;
+    status: OrderStatusType;
 }
