@@ -3,7 +3,7 @@ const formidable = require('formidable');
 const fs = require('fs');
 
 const Product = require('./../models/Product.model');
-const { productById, deleteUnnecessaryInfo, categoryByLabel, parseDateUkr, retrieveProductRating, categoryLabelById } = require('./helpers/helpers');
+const { productById, categoryByLabel, parseDateUkr, retrieveProductRating, categoryLabelById } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -45,6 +45,42 @@ router.get(
     }
 );
 
+// get newest products to dispaly them on the home page
+router.get(
+    '/latest',
+    async (req, res) => {
+        try {
+            let products = await Product.find({}, {image: 1, name: 1, price: 1}).sort({created: 'desc'}).limit(10);
+            if(!products.length) {
+                return res.status(400).json({
+                    message: 'Здається, товари ще не додано',
+                    success: true
+                });
+            }
+
+            return res.status(200).json({
+                message: 'Успішно отримано найновіші продукти',
+                success: true,
+                products
+            });
+        } catch(e) {
+            return res.status(400).json({
+                message: `Не вдалося отримати найновіші товари; ${e.message}`,
+                success: false
+            });
+        }
+    }
+);
+
+// router.get(
+//     '/rating',
+//     async (req, res) => {
+//         try {
+//             let products = await Product.find({}, {image: 0}).sort({rating: 'desc'})
+//         }
+//     }
+// )
+
 // get product by id
 router.get(
     '/:id',
@@ -72,20 +108,6 @@ router.get(
         }
     }
 );
-
-router.get(
-    '/latest',
-    async (req, res) => {
-        try {
-
-        } catch(e) {
-            return res.status(400).json({
-                message: 'Не вдалося отримати найновіші товари',
-                success: false
-            });
-        }
-    }
-)
 
 // add new product
 router.post(
