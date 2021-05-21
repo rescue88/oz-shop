@@ -78,9 +78,17 @@ export type ProductItemType = {
     discounts: string;
 }
 
+export type ProductLatestItemType = {
+    _id: string;
+    name: string;
+    image: any;
+    price: number;
+}
+
 export type ProductStateType = {
     products: Array<ProductItemType>;
     singleProduct: ProductItemType | null;
+    latestProducts: Array<ProductLatestItemType>;
     filters: any;
 }
 
@@ -103,7 +111,7 @@ export type RatingStateType = {
 }
 
 // comment reducer
-type commentCommonPropsType = {
+type CommentCommonPropsType = {
     _id: string;
     product: string;
     user: string;
@@ -114,12 +122,12 @@ type commentCommonPropsType = {
 export type CommentProductType = {
     avatar: any;
     login: string;
-} & commentCommonPropsType;
+} & CommentCommonPropsType;
 
 export type CommentUserType = {
     image: any;
     name: string;
-} & commentCommonPropsType;
+} & CommentCommonPropsType;
 
 export type CommentStateType = {
     product: Array<CommentProductType>;
