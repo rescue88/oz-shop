@@ -2,6 +2,7 @@ import { DefaultResponse, FavoritesResponse, UserDataResponse } from './../../ty
 import { userAPI } from '../../api/user-api';
 import { UserFavoritesType, UserStateType } from './../../types/stateTypes';
 import { setSnackbar } from './snackbarReducer';
+import { clearCart } from './cartReducer';
 
 /* ACTIONS */
 const SET_USER_DATA: string = 'userReducer/SET-USER-DATA';
@@ -108,6 +109,19 @@ export const addOrder = (userId: string, products: Array<string>, price: number,
     });
 
     if(data && data.success) {
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
+export const addOrderGuest = (products: Array<string>, name: string, email: string, phone: string, price: number, deliveryAddress: string) => async (dispatch: Function) => {
+    const data: DefaultResponse = await userAPI.addOrderGuest(products, name, email, phone, price, deliveryAddress).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(clearCart());
         dispatch(setSnackbar(true, 'success', data.message));
     }
 }

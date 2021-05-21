@@ -26,5 +26,10 @@ export const userAPI = {
         });
 
         return response.data;
+    },
+    async addOrderGuest(products: Array<string>, name: string, email: string, phone: string, price: number, deliveryAddress: string) {
+        const response = await axiosInstance.post<any>('order/create', {products, name, email, phone, price, deliveryAddress});
+
+        return response.data;
     }
 }
