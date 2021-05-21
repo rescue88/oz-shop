@@ -15,7 +15,7 @@ const ProductTabPrice: FC<ProductTabPriceType> = ({price}) => {
                 discount ? (
                     <>
                         <span className="oldPrice">₴ {price}</span>
-                        <span className="currentPrice">₴ {price * (1 - (discount / 100))}</span>
+                        <span className="currentPrice">₴ {Math.round(price * (1 - (discount / 100)))}</span>
                     </>
                 ) : (
                     <span className="currentPrice">₴ {price}</span>
