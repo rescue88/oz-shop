@@ -86,7 +86,6 @@ export const getLatestProducts = () => async (dispatch: Function) => {
     });
 
     if(data && data.success) {
-        console.log(data);
         dispatch(setLatestProducts(data.products));
     }
 }

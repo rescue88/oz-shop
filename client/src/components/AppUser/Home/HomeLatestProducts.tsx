@@ -32,7 +32,7 @@ const HomeLatestProducts: FC<HomeLatestProductsType> = ({products, isFetching}) 
                 <Slider {...sliderSettings}>
                     {
                         products.map(item => (
-                            <NavLink to={`/app/products/${item._id}`} className="homePage__latest_item slider-item">
+                            <NavLink key={item._id} to={`/app/products/${item._id}`} className="homePage__latest_item slider-item">
                                 <div className="slider-item__image">
                                     <img src={item.image.data ? convertBuffer(item.image.data.data) : defaultProductImg} alt="latest product" />
                                 </div>

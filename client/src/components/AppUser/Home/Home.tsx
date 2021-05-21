@@ -22,7 +22,7 @@ const Home: FC = () => {
         await dispatch(getLatestProducts());
 
         setIsFetching(false);
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         getLatestProductsHandler();
@@ -30,7 +30,7 @@ const Home: FC = () => {
         return () => {
             dispatch(clearLatestProducts());
         }
-    }, [getLatestProductsHandler]);
+    }, [getLatestProductsHandler, dispatch]);
 
     return (
         <div className="homePage">
