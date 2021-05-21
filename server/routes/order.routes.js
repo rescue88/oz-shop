@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 const Order = require('./../models/Order.model');
+const User = require('./../models/User.model');
 
 const router = Router();
 
@@ -44,9 +45,21 @@ router.post(
     '/create',
     async (req, res) => {
         try {
-            const newOrder = new Order({...req.body});
+            if(req.body.user) {
+                const user = await User.findById(req.body.user);
 
-            await newOrder.save();
+                req.body.name = user._doc.name;
+                req.body.email = user._doc.email;
+                req.body.phone = user._doc.phone;
+
+                const newOrder = new Order({...req.body});
+
+                await newOrder.save();
+            } else {
+                const newOrder = new Order({...req.body});
+
+                await newOrder.save();
+            }
 
             return res.status(200).json({
                 message: 'Замовлення успішно оформлено',
