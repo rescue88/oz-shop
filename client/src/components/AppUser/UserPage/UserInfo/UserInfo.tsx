@@ -22,7 +22,7 @@ const UserInfo: FC<UserInfoType> = ({userData}) => {
     return (
         <section className="userInfo">
             <MyDialogWindow 
-                dialogWidth={'sm'}
+                dialogWidth='sm'
                 open={openForm} 
                 onClose={toggleOpenForm} 
                 Content={<UserInfoForm userData={userData} closeForm={toggleOpenForm} />} 
