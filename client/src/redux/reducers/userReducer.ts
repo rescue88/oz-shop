@@ -100,6 +100,17 @@ export const deleteFromFavorites = (userId: string, productId: string) => async 
     }
 }
 
+export const addOrder = (userId: string, products: Array<string>, price: number, deliveryAddress: string) => async (dispatch: Function) => {
+    const data: DefaultResponse = await userAPI.addOrder(userId, products, price, deliveryAddress).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
 /* REDUCER */
 export const userReducer = (state: UserStateType = userState, action: any) => {
     switch(action.type) {

@@ -1,6 +1,6 @@
 import { getStorageItem } from './../../assets/helpers/helpers';
-import { DefaultResponse, GetUsersResponse } from './../../types/reduxTypes';
-import { AdminStateType, ChangeUsersPageType } from '../../types/stateTypes';
+import { DefaultResponse, GetUsersResponse, OrderGetResponseType } from './../../types/reduxTypes';
+import { AdminStateType, ChangeUsersPageType, OrderItemType, OrderStatusType } from '../../types/stateTypes';
 import { adminAPI } from './../../api/admin-api';
 import { setSnackbar } from './snackbarReducer';
 import { getProducts } from './productReducer';
@@ -8,16 +8,25 @@ import { getDiscounts } from './discountReducer';
 
 /* ACTIONS */
 const SET_USERS: string = 'adminReducer/changeUsers/SET_USERS';
+const SET_ORDERS: string = 'adminReducer/changeOrders/SET_ORDERS';
 
 /* INITIAL STATE */
 const adminState: AdminStateType = {
     changeUsers: [],
+    changeOrders: [],
 }
 
 /* ACTION CREATORS */
 export const setUsers = (payload: Array<ChangeUsersPageType>) => {
     return {
         type: SET_USERS,
+        payload
+    }
+}
+
+export const setOrders = (payload: Array<OrderItemType>) => {
+    return {
+        type: SET_ORDERS,
         payload
     }
 }
@@ -135,6 +144,19 @@ export const deleteDiscount = (discountId: string) => async (dispatch: Function)
     }
 }
 
+// orders logic
+export const getOrders = (status: OrderStatusType | null = null) => async (dispatch: Function) => {
+    const data: OrderGetResponseType = await adminAPI.getOrders(status).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(setOrders(data.orders));
+    }
+}
+
 /* REDUCER */
 export const adminReducer = (state: AdminStateType = adminState, action: any) => {
     switch(action.type) {
@@ -142,6 +164,11 @@ export const adminReducer = (state: AdminStateType = adminState, action: any) =>
             return {
                 ...state,
                 changeUsers: [...action.payload]
+            }
+        case SET_ORDERS:
+            return {
+                ...state,
+                changeOrders: [...action.payload]
             }
         default:
             return state;

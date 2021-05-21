@@ -26,7 +26,8 @@ export type ChangeUsersPageType = {
     phone: string
 }
 export type AdminStateType = {
-    changeUsers: Array<ChangeUsersPageType>
+    changeUsers: Array<ChangeUsersPageType>;
+    changeOrders: Array<OrderItemType>;
 }
 
 // user roles
@@ -150,4 +151,17 @@ export type CartProdutType = {
     name: string;
     price: number;
     amount: number;
+}
+
+// orders
+export type OrderStatusType = 'У дорозі' | 'Завершено' | 'Очікування' | 'Оформлення';
+
+export type OrderItemType = {
+    _id: string;
+    user: string;
+    products: Array<string>;
+    price: number;
+    deliveryAddress: string;
+    status: OrderStatusType;
+    created: string;
 }

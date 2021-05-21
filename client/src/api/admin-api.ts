@@ -1,3 +1,4 @@
+import { OrderStatusType } from '../types/stateTypes';
 import { axiosInstance } from './api';
 
 export const adminAPI = {
@@ -35,5 +36,14 @@ export const adminAPI = {
     async deleteDiscount(discountId: string) {
         const response = await axiosInstance.delete<any>(`discount/delete/${discountId}`);
         return response.data;
-    }
+    },
+    // orders
+    async getOrders(status: OrderStatusType | null = null) {
+        let queryStr: string = 'order';
+        if(status !== null) queryStr = `order?status=${status}`;
+
+        const response = await axiosInstance.get<any>(queryStr);
+
+        return response.data;
+    },
 }
