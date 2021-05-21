@@ -2,6 +2,7 @@ const { Router } = require('express');
 
 const Order = require('./../models/Order.model');
 const User = require('./../models/User.model');
+const { parseDateUkr } = require('./helpers/helpers');
 
 const router = Router();
 
@@ -39,6 +40,41 @@ router.get(
         }
     }
 );
+
+// get user's own orders
+router.get(
+    '/own',
+    async (req, res) => {
+        try {
+            const {id} = req.query;
+            
+            const orders = await Order.find({user: id}, {products: 1, price: 1, created: 1, status: 1});
+            if(!orders.length) {
+                return res.status(200).json({
+                    message: 'Ви ще здійснювали замовлень',
+                    success: true
+                });
+            }
+
+            for(let i = 0; i < orders.length; i++) {
+                orders[i]._doc.created = parseDateUkr(orders[i]._doc.created, 'PP');
+                orders[i]._doc.amount = orders[i]._doc.products.length;
+                delete orders[i].products;
+            }
+
+            return res.status(200).json({
+                message: 'Історію власних замовлень успішно отримано',
+                success: true,
+                orders
+            });
+        } catch(e) {
+            return res.status(400).json({
+                message: `Не вдалося отримати замовлення окремого юзера; ${e.message}`,
+                success: false
+            });
+        }
+    }
+)
 
 // create new order
 router.post(
