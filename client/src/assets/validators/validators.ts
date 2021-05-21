@@ -184,3 +184,15 @@ export const ValidateComment = (comment: string): string => {
 
     return error;
 }
+
+export const ValidateDeliveryAddress = (address: string): string => {
+    let error = '';
+
+    if(!address) {
+        error = 'Введіть адресу доставки';
+    } else if(address.length < 20 || address.length > 120) {
+        error = 'Довжина рядка від 20 до 120 символів';
+    }
+
+    return error;
+}
