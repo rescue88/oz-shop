@@ -9,6 +9,18 @@ const OrderSchema = new Schema({
         type: Types.ObjectId,
         ref: 'Product'
     }],
+    name: {
+        type: String,
+        required: "Введіть ім'я замовника"
+    },
+    phone: {
+        type: String,
+        required: 'Введіть мобільний телефон'
+    },
+    email: {
+        type: String,
+        required: 'Заповність пошту'
+    },
     price: {
         type: Number,
         required: "Загальна ціна замовлення - обов'язкова"
