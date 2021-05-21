@@ -1,17 +1,26 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const OrderSchema = new Schema({
     user: {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'User'
     },
     products: [{
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'Product'
     }],
     price: {
         type: Number,
-        required: 'Price is required'
+        required: "Загальна ціна замовлення - обов'язкова"
+    },
+    deliveryAddress: {
+        type: String,
+        required: "Адреса доставки - обов'язкова"
+    },
+    status: {
+        type: String,
+        enum: ['Оформлення', 'У дорозі', 'Очікування', 'Завершено'],
+        default: 'Оформлення'
     },
     created: {
         type: Date,
