@@ -3,7 +3,7 @@ const User = require('./../models/User.model');
 const formidable = require('formidable');
 const fs = require('fs');
 
-const { deleteUnnecessaryInfo, parseDateUkr, userById, retrieveFavorites } = require('./helpers/helpers');
+const { parseDateUkr, userById, retrieveFavorites } = require('./helpers/helpers');
 const router = Router();
 
 // get a list of all users
@@ -36,7 +36,7 @@ router.get(
             let user = req.profile;
 
             // prepare data for sending
-            user.created = parseDateUkr(user.created, 'PP');
+            user._doc.created = parseDateUkr(user._doc.created, 'PP');
             user.favorites = req.favorites;
 
             return res.status(200).json({

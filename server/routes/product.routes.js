@@ -73,6 +73,20 @@ router.get(
     }
 );
 
+router.get(
+    '/latest',
+    async (req, res) => {
+        try {
+
+        } catch(e) {
+            return res.status(400).json({
+                message: 'Не вдалося отримати найновіші товари',
+                success: false
+            });
+        }
+    }
+)
+
 // add new product
 router.post(
     '/create',
@@ -149,6 +163,9 @@ router.put(
             } else {
                 delete fields.image;
             }
+
+            // retrieve category id
+            fields.category = await categoryByLabel(fields.category);
 
             // combine newer fields with older
             product = Object.assign(product, fields); 
