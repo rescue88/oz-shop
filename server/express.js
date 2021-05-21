@@ -15,5 +15,6 @@ app.use('/api/product', require('./routes/product.routes'));
 app.use('/api/discount', require('./routes/discount.routes'));
 app.use('/api/rating', require('./routes/rating.routes'));
 app.use('/api/comment', require('./routes/comment.routes'));
+app.use('/api/order', require('./routes/order.routes'));
 
 module.exports = app;
