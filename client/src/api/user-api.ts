@@ -17,6 +17,10 @@ export const userAPI = {
         const response = await axiosInstance.delete<any>(`user/favorites/delete?id=${userId}&productId=${productId}`);
         return response.data;
     },
+    async getOwnOrders(userId: string) {
+        const response = await axiosInstance.get<any>(`order/own?id=${userId}`);
+        return response.data;
+    },
     async addOrder(userId: string, products: Array<string>, price: number, deliveryAddress: string) {
         const response = await axiosInstance.post<any>('order/create', {
             user: userId,
