@@ -1,5 +1,38 @@
 .homePage {
     &__latest {
-        
+        height: 100%;
+        margin: 3rem 0;
+
+        &_header {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+        }
+
+        &_slider {
+            height: 40rem;
+            background: $foreground-back;
+        }
+
+        .slider-item {
+            min-height: 40rem;
+            border-right: 3px solid $additional-color;
+            &__image {
+                height: 30rem;
+            }
+
+            &__name {
+                height: 4.5rem;
+                padding: .5rem;
+                font-size: 1.6rem;
+                text-align: center;
+            }
+
+            &__price {
+                padding: 1rem;
+                font-size: 2.6rem;
+                text-align: right;
+                color: $primary-color;
+            }
+        }
     }
 }
