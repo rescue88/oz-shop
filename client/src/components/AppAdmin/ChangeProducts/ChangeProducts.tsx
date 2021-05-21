@@ -119,7 +119,7 @@ const ChangeProducts: FC = () => {
                                 />
                             ))
                         ) : (
-                            <div style={{fontSize: '2rem'}}>Товари ще не додано</div>
+                            <div className="no-items">Товари ще не додано</div>
                         )
                     }
                 </div>
