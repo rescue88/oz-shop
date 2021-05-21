@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { NavLink } from 'react-router-dom';
 
 import { DiscountItemType } from '../../../types/stateTypes';
@@ -33,7 +31,7 @@ const sliderSettings = {
 
 const HomeDiscounsSlider: FC<HomeDiscounsSliderType> = ({discounts}) => {
     return (
-        <>
+        <div className="discountSlider">
             {
                 discounts.length ? (
                     <div className="slider">
@@ -63,7 +61,7 @@ const HomeDiscounsSlider: FC<HomeDiscounsSliderType> = ({discounts}) => {
                     </div>
                 )
             }
-        </>
+        </div>
     )
 }
 
