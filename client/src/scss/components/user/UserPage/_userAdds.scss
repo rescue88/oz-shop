@@ -75,4 +75,31 @@
             }
         }
     }
+
+    &__orders {
+        .orderItem {
+            font-size: 1.6rem;
+            border-bottom: 1px solid $additional-color;
+            & > div:not(:last-child) {
+                margin: 1.5rem 0;
+                span {
+                    font-weight: 300;
+                    color: $primary-color;
+                }
+            }
+            &__code {
+                text-align: center;
+            }
+
+            &__status {
+                text-align: right;
+                margin-bottom: 2rem;
+                span {
+                    padding: .5rem 1rem;
+                    background: $secondary-color;
+                    color: black;
+                }
+            }
+        }
+    }
 }
