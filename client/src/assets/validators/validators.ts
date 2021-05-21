@@ -66,7 +66,7 @@ export const ValidateName = (name: string): string => {
     let error: string = '';
     if(!name) {
         error = "Назва - обов'язкове поле";
-    } else if(!validator.isLength(name, {min: 7, max: 35})) {
+    } else if(!validator.isLength(name, {min: 7, max: 70})) {
         error = "Довжина назви від 7 до 35 символів";
     }
     return error;
