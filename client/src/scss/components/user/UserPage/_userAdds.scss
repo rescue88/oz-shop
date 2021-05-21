@@ -46,6 +46,9 @@
 
             &__image {
                 width: 30rem;
+                img {
+                    max-height: 33rem;
+                }
             }
 
             &__info {

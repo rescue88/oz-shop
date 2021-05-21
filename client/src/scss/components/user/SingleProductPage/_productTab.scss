@@ -1,4 +1,6 @@
 .singleProduct__content_product {
+    padding: 1.5rem 2rem;
+    background: $foreground-back;
     display: flex;
     .product {
         &__image {
@@ -44,7 +46,7 @@
             }
 
             &_description {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
                 text-overflow: clip;
             }
 
