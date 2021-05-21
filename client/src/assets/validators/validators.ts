@@ -80,8 +80,8 @@ export const ValidateDescription = (description: string): string => {
         error = "Опис обов'язкове - поле";
     } else if(!validator.isLength(description, {min: 100, max: 400})) {
         error = "Довжина опису від 100 до 400 символів";
-    } else if(Math.max(...wordsLen) > 15) {
-        error = 'Максимум символів для одного слова - 15';
+    } else if(Math.max(...wordsLen) > 20) {
+        error = 'Максимум символів для одного слова - 20';
     }
 
     return error;
