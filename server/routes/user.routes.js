@@ -20,7 +20,8 @@ router.get(
             });
         } catch(e) {
             return res.status(400).json({
-                message: 'Не вдалось отримати юзерів'
+                message: `Не вдалось отримати юзерів; ${e.message}`,
+                success: false
             });
         }
     }
@@ -85,7 +86,7 @@ router.put(
                 });
             } catch(e) {
                 return res.status(400).json({
-                    message: 'Не вдалося оновити профіль',
+                    message: `Не вдалося оновити профіль; ${e.message}`,
                     success: false
                 });
             }
@@ -109,7 +110,7 @@ router.delete(
             });
         } catch(e) {
             return res.status(400).json({
-                message: 'Не вдалося видалити юзера',
+                message: `Не вдалося видалити юзера; ${e.message}`,
                 success: false
             });
         }
