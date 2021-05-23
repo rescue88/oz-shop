@@ -196,3 +196,13 @@ export const ValidateDeliveryAddress = (address: string): string => {
 
     return error;
 }
+
+export const ValidateOrderStatus = (status: string): string => {
+    let error = '';
+
+    if(!status) {
+        error = 'Заповність статус замовлення';
+    }
+
+    return error;
+}
