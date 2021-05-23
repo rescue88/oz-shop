@@ -4,7 +4,7 @@ import { FC } from 'react';
 
 import { OrderStatusType } from '../../../../types/stateTypes';
 import { selectField } from '../../../common/useStyles';
-import { ValidateOrderStatus, ValidateProductCategory } from '../../../../assets/validators/validators';
+import { ValidateOrderStatus } from '../../../../assets/validators/validators';
 import MySelectField from '../../../common/MySelectField';
 import MySubmitButton from '../../../common/MySubmitButton';
 
