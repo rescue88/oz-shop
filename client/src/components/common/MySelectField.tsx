@@ -1,5 +1,5 @@
 import { FieldAttributes, useField } from 'formik';
-import { Select, MenuItem, FormControl, FormHelperText } from '@material-ui/core';
+import { Select, FormControl, FormHelperText } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import { FC } from 'react';
 
@@ -16,14 +16,14 @@ const MySelectField: FC<MySelectFieldType> = ({ label, children, ...props }) => 
   
     return (
         <FormControl error={!!errorText}>
-            <InputLabel className={classes.label} id="category">{label}</InputLabel>
+            <InputLabel className={classes.label} id={field.name}>{label}</InputLabel>
             <Select
                 MenuProps={{
                     classes: {
                         list: classes.list
                     }
                 }}
-                labelId="category"
+                labelId={field.name}
                 defaultValue=""
                 className={classes.select}
                 {...field} 
