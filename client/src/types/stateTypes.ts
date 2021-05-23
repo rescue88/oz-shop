@@ -161,6 +161,7 @@ export type OrderItemType = {
     _id: string;
     user: string;
     products: Array<string>;
+    amount: number;
     name: string;
     email: string;
     phone: string;
