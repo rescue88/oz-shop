@@ -37,7 +37,7 @@ const ChangeDiscounts: FC = () => {
     return (
         <div className="changeContainer">
             <MyDialogWindow 
-                dialogWidth={'sm'}
+                dialogWidth='sm'
                 open={openForm}
                 onClose={toggleOpenForm}
                 Content={

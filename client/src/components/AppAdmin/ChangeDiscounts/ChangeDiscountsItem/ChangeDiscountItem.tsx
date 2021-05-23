@@ -24,7 +24,7 @@ const ChangeDiscountsItem: FC<ChangeDiscountsItemType> = ({discount, isFetching,
     return (
         <div className="changeBlock__items_item">
             <MyDialogWindow
-                dialogWidth={'md'}
+                dialogWidth='md'
                 open={openForm}
                 onClose={toggleOpenForm}
                 Content={
