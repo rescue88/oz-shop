@@ -59,7 +59,7 @@ const ChangeProducts: FC = () => {
     return (
         <div className="changeContainer">
             <MyDialogWindow
-                dialogWidth={'md'}
+                dialogWidth='md'
                 open={openForm}
                 onClose={toggleOpenForm}
                 Content={
@@ -100,7 +100,7 @@ const ChangeProducts: FC = () => {
                         )
                     }
                     {
-                        products ? searchStr && products ? ( 
+                        products.length ? searchStr ? ( 
                             products.filter(item => item.name.toLowerCase().includes(searchStr)).map(item => (
                                 <ChangeProductsItem 
                                     key={item._id} 
