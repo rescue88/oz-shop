@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
+import { MenuItem } from '@material-ui/core';
 
 import { ProductItemType } from '../../../types/stateTypes';
 import { ValidateDescription, ValidateName, ValidateProductAmount, ValidateProductCategory, ValidateProductPrice, ValidateProductProducer, ValidateProductSize } from '../../../assets/validators/validators';
@@ -10,6 +11,7 @@ import MySimpleTextarea from '../Input/MySimpleTextarea';
 import MySelectField from '../MySelectField';
 import { createProduct, updateProduct } from '../../../redux/reducers/adminReducer';
 import { AddUpdateFormType } from '../../../types/common';
+import { selectField } from '../useStyles';
 
 type AddUpdateProductFormType = {
     product?: ProductItemType;
@@ -19,6 +21,7 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, cl
     const [fileName, setFileName] = useState<string>('Не обрано');
     const [choosenFile, setChoosenFile] = useState<File | string>('{}');
     const dispatch = useDispatch();
+    const classes = selectField();
 
     const initialFormState = !product ? ({
         name: '',
@@ -115,7 +118,13 @@ const AddUpdateProductForm: FC<AddUpdateProductFormType> = ({header, product, cl
                             <div className="formContainer_part2">
 
                                 <div className="form__input">
-                                    <Field name="category" validate={ValidateProductCategory} type="select" as={MySelectField} />
+                                    <Field name="category" label="Категорія" validate={ValidateProductCategory} type="select" as={MySelectField}>
+                                        <MenuItem className={classes.selectItems} value="Кухонні товари">Для кухні</MenuItem>
+                                        <MenuItem className={classes.selectItems} value="Товари для дому">Для дому</MenuItem>
+                                        <MenuItem className={classes.selectItems} value="Кліматичні товари">Кліматичні</MenuItem>
+                                        <MenuItem className={classes.selectItems} value="Аксесуари">Аксесуари</MenuItem>
+                                        <MenuItem className={classes.selectItems} value="Товари особистої гігієни">Для гігієни</MenuItem>
+                                    </Field>
                                 </div>
                                 <div className="form__input">
                                     <label htmlFor="price">Ціна товару</label>
