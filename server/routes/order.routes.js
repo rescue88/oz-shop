@@ -157,7 +157,6 @@ router.delete(
     async (req, res) => {
         try {
             const {id} = req.query;
-            console.log(req.query)
 
             const order = await Order.findById(id);
             if(!order) {
