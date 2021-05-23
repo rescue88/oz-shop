@@ -121,9 +121,9 @@ router.put(
     '/update',
     async (req, res) => {
         try {
-            const {id, status} = req.query;
+            const {orderId, status} = req.body;
             
-            let order = Order.findById(id);
+            let order = await Order.findById(orderId);
 
             if(!order) {
                 return res.status(400).json({
@@ -132,8 +132,8 @@ router.put(
                 });
             }
 
-            order.status = status;
 
+            order.status = status;
             await order.save();
 
             return res.status(200).json({
@@ -154,7 +154,8 @@ router.delete(
     '/delete',
     async (req, res) => {
         try {
-            const {id} = req.params;
+            const {id} = req.query;
+            console.log(req.query)
 
             const order = await Order.findById(id);
             if(!order) {
