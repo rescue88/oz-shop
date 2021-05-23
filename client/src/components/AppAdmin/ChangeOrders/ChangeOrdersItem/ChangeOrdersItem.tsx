@@ -1,18 +1,41 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { OrderItemType } from '../../../../types/stateTypes';
+import { OrderItemType, OrderStatusType } from '../../../../types/stateTypes';
 import DeleteIcon from '../../../common/Icons/DeleteIcon';
 import EditIcon from '../../../common/Icons/EditIcon';
+import MyDialogWindow from '../../../common/MyDialogWindow';
+import ChangeOrdersForm from '../ChangeOrdersForm/ChangeOrdersForm';
 
 type ChangeOrdersItemType = {
     order: OrderItemType;
     isFetching: boolean;
+    editOrder: (orderId: string, status: OrderStatusType) => void;
+    deleteOrder: (orderId: string) => void;
 }
 
-const ChangeOrdersItem: FC<ChangeOrdersItemType> = ({order, isFetching}) => {
+const ChangeOrdersItem: FC<ChangeOrdersItemType> = ({order, isFetching, editOrder, deleteOrder}) => {
+    const [openForm, setOpenForm] = useState<boolean>(false);
+
+    const toggleOpenFormHandler = () => {
+        setOpenForm(prev => !prev);
+    }
+
     return (
         <div className="changeOrders__item">
+            <MyDialogWindow 
+                dialogWidth='xs'
+                open={openForm}
+                onClose={toggleOpenFormHandler}
+                Content={(
+                    <ChangeOrdersForm 
+                        orderId={order._id}
+                        status={order.status}
+                        editOrder={editOrder}
+                        closeForm={toggleOpenFormHandler}
+                    />
+                )}
+            />
             <div className="changeOrders__item_code">Код замовлення: <span>{order._id}</span></div>
             <div className="changeOrders__item_content space-betw-row">
                 <div className="changeOrders__item_personal">
@@ -32,13 +55,13 @@ const ChangeOrdersItem: FC<ChangeOrdersItemType> = ({order, isFetching}) => {
                     Статус замовлення: <span className="borderRadius">{order.status}</span>
                 </div>
                 <div className="settings__buttons centered-row">
-                    <Tooltip title="Змінити товар" arrow>
-                        <button className="settings__buttons_edit">
+                    <Tooltip title="Змінити статус замовлення" arrow>
+                        <button className="settings__buttons_edit" onClick={toggleOpenFormHandler} disabled={isFetching}>
                             <EditIcon />
                         </button>
                     </Tooltip>
-                    <Tooltip title="Видалити товар" arrow>
-                        <button className="settings__buttons_delete" disabled={isFetching}>
+                    <Tooltip title="Видалити замовлення" arrow>
+                        <button className="settings__buttons_delete" onClick={() => deleteOrder(order._id)} disabled={isFetching}>
                             <DeleteIcon />
                         </button>
                     </Tooltip>
