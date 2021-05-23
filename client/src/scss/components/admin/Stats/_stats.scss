@@ -1,0 +1,45 @@
+.stats {
+    &__numbers {
+        flex-wrap: wrap;
+        &_item {
+            width: 30%;
+            height: 12rem;
+            margin: 1rem;
+            margin-top: 0;
+            background: $foreground-back;
+            font-size: 2.2rem;
+            text-align: center;
+            line-height: 1.5;
+            font-weight: bold;
+            span {
+                display: block;
+                &:first-child {
+                    border-bottom: 1px solid $additional-color;
+                }
+                &:last-child {
+                    margin-top: .7rem;
+                    color: $primary-color;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    &__line, &__pieRadar {
+        .chart-header {
+            text-align: center;
+            font-size: 2.4rem;
+            margin-top: 5rem;
+        }
+
+        .chartBlock * {
+            color: black;
+            font-size: 1.4rem;
+        }
+
+        &_item {
+            width: 100%;
+            height: 500px;
+        }
+    }
+}   
