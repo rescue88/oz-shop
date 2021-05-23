@@ -157,6 +157,32 @@ export const getOrders = (status: OrderStatusType | null = null) => async (dispa
     }
 }
 
+export const updateOrder = (orderId: string, status: OrderStatusType) => async(dispatch: Function) => {
+    const data: DefaultResponse = await adminAPI.updateOrder(orderId, status).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(getOrders());
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
+export const deleteOrder = (orderId: string) => async (dispatch: Function) => {
+    const data: DefaultResponse = await adminAPI.deleteOrder(orderId).catch(error => {
+        const {message} = error.response.data;
+        // show a tip or an error
+        dispatch(setSnackbar(true, 'error', message));
+    });
+
+    if(data && data.success) {
+        dispatch(getOrders());
+        dispatch(setSnackbar(true, 'success', data.message));
+    }
+}
+
 /* REDUCER */
 export const adminReducer = (state: AdminStateType = adminState, action: any) => {
     switch(action.type) {

@@ -46,4 +46,12 @@ export const adminAPI = {
 
         return response.data;
     },
+    async updateOrder(orderId: string, status: OrderStatusType) {
+        const response = await axiosInstance.put<any>('order/update', {orderId, status});
+        return response.data;
+    },
+    async deleteOrder(orderId: string) {
+        const response = await axiosInstance.delete<any>(`order/delete?id=${orderId}`);
+        return response.data;
+    }
 }
