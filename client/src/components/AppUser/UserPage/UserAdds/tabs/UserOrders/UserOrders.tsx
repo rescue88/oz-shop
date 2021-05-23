@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getStorageItem } from '../../../../../../assets/helpers/helpers';
 import { clearOrders, getOwnOrders } from '../../../../../../redux/reducers/userReducer';
 import { StateType } from '../../../../../../types/stateTypes';
+import UserTabOrdersLoader from '../../../../../common/Loader/UserTabOrdersLoader';
 import UserOrdersItem from './UserOrdersItem';
 
 const UserOrders: FC = () => {
@@ -33,7 +34,7 @@ const UserOrders: FC = () => {
             <div className="userAdds__orders_items">
                 {
                     isFetching ? (
-                        <div>Loading...</div>
+                        Array(3).fill(0).map((item, idx) => <UserTabOrdersLoader key={idx} />)
                     ) : orders.length ? (
                         orders.map(item => (
                             <UserOrdersItem key={item._id} order={item} />

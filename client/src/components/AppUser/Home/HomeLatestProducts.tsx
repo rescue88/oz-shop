@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { ProductLatestItemType } from '../../../types/stateTypes';
 import defaultProductImg from './../../../assets/images/defaultProduct.png';
 import { convertBuffer } from '../../../assets/helpers/helpers';
+import HomeLatestLoader from '../../common/Loader/HomeLatestLoader';
 
 const sliderSettings = {
     arrows: false,
@@ -31,15 +32,21 @@ const HomeLatestProducts: FC<HomeLatestProductsType> = ({products, isFetching}) 
             <div className="homePage__latest_slider">
                 <Slider {...sliderSettings}>
                     {
-                        products.map(item => (
-                            <NavLink key={item._id} to={`/app/products/${item._id}`} className="homePage__latest_item slider-item">
-                                <div className="slider-item__image">
-                                    <img src={item.image.data ? convertBuffer(item.image.data.data) : defaultProductImg} alt="latest product" />
-                                </div>
-                                <div className="slider-item__name">{item.name}</div>
-                                <div className="slider-item__price">₴ {item.price}</div>
-                            </NavLink>
-                        ))
+                        isFetching ? (
+                            Array(6).fill(0).map((item, idx) => <HomeLatestLoader key={idx} />)
+                        ) : products.length ? (
+                            products.map(item => (
+                                <NavLink key={item._id} to={`/app/products/${item._id}`} className="homePage__latest_item slider-item">
+                                    <div className="slider-item__image">
+                                        <img src={item.image.data ? convertBuffer(item.image.data.data) : defaultProductImg} alt="latest product" />
+                                    </div>
+                                    <div className="slider-item__name">{item.name}</div>
+                                    <div className="slider-item__price">₴ {item.price}</div>
+                                </NavLink>
+                            ))
+                        ) : (
+                            <div className="no-items">Немає нових товарів</div>
+                        )
                     }
                 </Slider>
             </div>
