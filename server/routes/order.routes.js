@@ -27,6 +27,12 @@ router.get(
                 });
             }
 
+            for(let i = 0; i < orders.length; i++) {
+                orders[i]._doc.created = parseDateUkr(orders[i]._doc.created, 'PP');
+                orders[i]._doc.amount = orders[i]._doc.products.length;
+                delete orders[i].products;
+            }
+
             return res.status(200).json({
                 message: 'Список замовлень успішно отримано',
                 success: true,
