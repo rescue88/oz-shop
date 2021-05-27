@@ -12,6 +12,7 @@ import { StateType } from '../../../types/stateTypes';
 import { signOut } from '../../../redux/reducers/authReducer';
 import { clearUserData } from '../../../redux/reducers/userReducer';
 import { setSnackbar } from '../../../redux/reducers/snackbarReducer';
+import { clearRating } from '../../../redux/reducers/ratingReducer';
 
 const HeaderNav: FC = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const HeaderNav: FC = () => {
     const logoutHandler = () => {
         dispatch(signOut());
         dispatch(clearUserData());
+        dispatch(clearRating());
         dispatch(setSnackbar(true, 'info', 'Сподіваємось, що ви повернетесь.'));
     }
 
