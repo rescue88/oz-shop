@@ -32,7 +32,7 @@ const AppUser: FC<AppType> = ({isAuth}) => {
                         <Switch>
                             <Route exact path="/app" render={() => <Home />} />
                             <Route exact path="/app/products" render={() => <ProductsPage />} />
-                            <Route exact path="/app/products/:productId" render={() => <SingleProductPage />} />
+                            <Route path="/app/products/:productId" render={() => <SingleProductPage />} />
                             <Route exact path="/app/cart" render={() => <CartPage />} />
                             <Route exact path="/app/discounts" render={() => <DiscountPage />} />
                             <Route exact path="/app/login" render={() => <Login />} />
