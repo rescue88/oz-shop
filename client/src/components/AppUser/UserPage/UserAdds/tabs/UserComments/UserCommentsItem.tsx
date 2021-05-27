@@ -24,13 +24,16 @@ const UserCommentsItem: FC<UserCommentsItemType> = ({isFetching, comment, delete
                 <div className="commentItem__content_date">{comment.created}</div>
                 <div className="commentItem__content_text">{comment.text}</div>
             </div>
-            <div className="commentItem__settings">
-                <div className="deleteComment">
-                    <Tooltip title="Видалити коментар" arrow>
-                        <button type="button" onClick={() => deleteComment(comment.product)}><DeleteIcon /></button>
-                    </Tooltip>
-                </div>
-            </div>
+            <Tooltip title="Видалити коментар" arrow>
+                <button 
+                    className="deleteBtn"
+                    type="button" 
+                    onClick={() => deleteComment(comment.product)}
+                    disabled={isFetching}
+                >
+                    <DeleteIcon />
+                </button>
+            </Tooltip>
         </div>
     );
 }

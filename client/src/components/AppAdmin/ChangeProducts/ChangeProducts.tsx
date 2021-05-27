@@ -79,11 +79,13 @@ const ChangeProducts: FC = () => {
                     </div>
                     
                     <Tooltip title="Додати товар" arrow>
-                        <div className="changeBlock__panel_addItem" onClick={toggleOpenForm}>
-                            <button>
-                                <AddIcon />
-                            </button>
-                        </div>
+                        <button
+                            className="addBtn"
+                            onClick={toggleOpenForm}
+                            disabled={isFetching}
+                        >
+                            <AddIcon />
+                        </button>
                     </Tooltip>
                 </div>
                 <div className="changeBlock__header changeProducts">

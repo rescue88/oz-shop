@@ -27,7 +27,8 @@ const UserFavoritesItem: FC<UserFavoritesItemType> = ({_id, image, name, price, 
             </NavLink>
             <Tooltip title="Видалити товар із заміток" arrow>
                 <button 
-                    className="item__delete" 
+                    className="deleteBtn"
+                    type="button" 
                     onClick={() => deleteHandler(_id)}
                     disabled={isLoading}
                 >

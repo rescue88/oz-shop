@@ -55,16 +55,17 @@ const ChangeDiscounts: FC = () => {
                         <label htmlFor="search">Пошук знижок за назвою</label>
                         <MySimpleTextInput name="search" changeHandler={changeSearchStrHandler} inputValue={searchStr} />
                     </div>
-                    
                     <Tooltip title="Додати знижку" arrow>
-                        <div className="changeBlock__panel_addItem" onClick={toggleOpenForm}>
-                            <button>
-                                <AddIcon />
-                            </button>
-                        </div>
+                        <button 
+                            className="addBtn"
+                            onClick={toggleOpenForm}
+                            disabled={isFetching}
+                        >
+                            <AddIcon />
+                        </button>
                     </Tooltip>
                 </div>
-                <div className="changeBlock__items changeDiscounts centered-col">
+                <div className="discounts__items">
                     {
                         discounts.length ? searchStr ? (
                             discounts.filter(item => item.name.toLowerCase().includes(searchStr)).map(item => (

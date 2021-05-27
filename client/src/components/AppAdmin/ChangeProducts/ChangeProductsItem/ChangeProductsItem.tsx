@@ -21,7 +21,7 @@ const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteHandler, isFetchi
     }
 
     return (
-        <div className="changeBlock__items_item">
+        <div className="changeBlock__items_item borderRadius">
             <MyDialogWindow
                 dialogWidth='md'
                 open={openForm}
@@ -44,24 +44,22 @@ const ChangeProductsItem: FC<ChangeProductsItemType> = ({deleteHandler, isFetchi
             <div className="item__name centered-row">{product.name}</div>
             <div className="item__price centered-row">₴{product.price}</div>
             <div className="item__amount centered-row">{product.amount}</div>
-            <div className="item__change centered-row">
-                <button 
-                    type="button" 
-                    onClick={toggleOpenForm} 
-                    disabled={isFetching}
-                >
-                    <EditIcon />
-                </button>
-            </div>
-            <div className="item__delete centered-row">
-                <button 
-                    type="button" 
-                    onClick={() => deleteHandler(product._id)} 
-                    disabled={isFetching}
-                >
-                    <DeleteIcon />
-                </button>
-            </div>
+            <button 
+                className="editBtn centered-row"
+                type="button" 
+                onClick={toggleOpenForm} 
+                disabled={isFetching}
+            >
+                <EditIcon />
+            </button>
+            <button 
+                className="deleteBtn centered-row"
+                type="button" 
+                onClick={() => deleteHandler(product._id)} 
+                disabled={isFetching}
+            >
+                <DeleteIcon />
+            </button>
         </div>
     );
 }

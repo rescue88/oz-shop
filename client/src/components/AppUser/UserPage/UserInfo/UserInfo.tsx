@@ -57,13 +57,15 @@ const UserInfo: FC<UserInfoType> = ({userData}) => {
                         </div>
                     </div>
                 </div>
-                <div className="userInfo__data_settings">
-                    <Tooltip title="Змінити дані профіля" arrow>
-                        <div onClick={toggleOpenForm}>
-                            <SettingsIcon />
-                        </div>
-                    </Tooltip>
-                </div>
+                <Tooltip title="Змінити дані профіля" arrow>
+                    <button 
+                        className="editBtn"
+                        type="button"
+                        onClick={toggleOpenForm}
+                    >
+                        <SettingsIcon />
+                    </button>
+                </Tooltip>
             </div>
         </section>
     )
