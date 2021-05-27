@@ -15,6 +15,7 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
     const [isFetching, setIsFetching] = useState<boolean>(false);
     const dispatch = useDispatch();
     const comments = useSelector((state: StateType) => state.comment.product);
+    const {isAuth} = useSelector((state: StateType) => state.auth);
 
     const getCommentsHandler = useCallback(async () => {
         setIsFetching(true);
@@ -59,10 +60,14 @@ const CommentsTab: FC<CommentsTabType> = ({productId}) => {
 
     return (
         <div className="singleProduct__content_comments">
-            <CommentsTabForm 
-                addOrUpdateComment={addCommentHandler}  
-                productId={productId} 
-            />
+            {
+                isAuth && (
+                    <CommentsTabForm 
+                        addOrUpdateComment={addCommentHandler}  
+                        productId={productId} 
+                    />
+                )
+            }
             <div className="commentsItems">
                 {
                     isFetching ? (

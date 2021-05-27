@@ -1,8 +1,8 @@
 import { FC, useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, useParams } from 'react-router-dom';
-import { getStorageItem } from '../../../assets/helpers/helpers';
 
+import { getStorageItem } from '../../../assets/helpers/helpers';
 import { clearSingleProduct, getSingleProduct } from '../../../redux/reducers/productReducer';
 import { clearRating, getOwnRating } from '../../../redux/reducers/ratingReducer';
 import { StateType } from '../../../types/stateTypes';
@@ -12,7 +12,7 @@ import ProductTabLoader from '../../common/Loader/ProductTabLoader';
 import MyDialogWindow from '../../common/MyDialogWindow';
 import Rating from '../../common/Rating/Rating';
 import CommentsTab from './Comments/CommentsTab';
-import Product from './Product/ProductTab';
+import ProductTab from './Product/ProductTab';
 import SingleProductPageNav from './SingleProductPageNav';
 
 type ProductPageParamType = {
@@ -25,14 +25,18 @@ const SingleProductPage: FC = () => {
     const dispatch = useDispatch();
     const {singleProduct} = useSelector((state: StateType) => state.product);
     const {rating} = useSelector((state: StateType) => state.rating);
+    const {isAuth} = useSelector((state: StateType) => state.auth);
 
     const toggleOpenFormHandler = () => {
         setOpenForm(prev => !prev);
     }
 
     const getProductHandler = useCallback(async () => {
-        const userId: string = getStorageItem()!.userId;
-        await dispatch(getOwnRating(userId, productId));
+        const userId: string | undefined = getStorageItem()?.userId;
+
+        if(userId) {
+            await dispatch(getOwnRating(userId, productId));
+        }
 
         await dispatch(getSingleProduct(productId));
     }, [dispatch, productId]);
@@ -68,7 +72,7 @@ const SingleProductPage: FC = () => {
                         <div className="singleProduct__header">{singleProduct.name}</div>
                         <div className="singleProduct__rateDate space-betw-row">
                             <div className="singleProduct__rateDate_rate centered-row">
-                                <div onClick={toggleOpenFormHandler}><Rating rating={singleProduct.rating} /></div>
+                                <div className={isAuth ? '' : 'disable-click'} onClick={toggleOpenFormHandler}><Rating rating={singleProduct.rating} /></div>
                                 <div className="ownRating centered-row">
                                     <StarSolidIcon />
                                     {rating ? rating: 'Вашу оцінку ще не додано'}
@@ -80,7 +84,7 @@ const SingleProductPage: FC = () => {
                         </div>
                         <SingleProductPageNav productId={productId} />
                         <div className="singleProduct__content">
-                            <Route exact path={`/app/products/${productId}`} render={() => <Product product={singleProduct} />} />
+                            <Route exact path={`/app/products/${productId}`} render={() => <ProductTab product={singleProduct} />} />
                             <Route exact path={`/app/products/${productId}/comments/`} render={() => <CommentsTab productId={productId} />} />
                         </div>
                     </>

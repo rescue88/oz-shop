@@ -20,7 +20,7 @@ type CommentsTabItemType = {
 const CommentsTabItem: FC<CommentsTabItemType> = ({comment, deleteHandler, updateHandler}) => {
     const [editMode, setEditMode] = useState<boolean>(false);
     // const [editModeState, setEditModeState] = 
-    const {userId} = getStorageItem()!;
+    const userId: string | undefined = getStorageItem()?.userId;
     const {permissions} = useSelector((state: StateType) => state.user);
     
     const toggleEditModeHandler = () => {
@@ -30,13 +30,13 @@ const CommentsTabItem: FC<CommentsTabItemType> = ({comment, deleteHandler, updat
     return (
         <div className={`commentItem ${comment.positive ? 'positive': 'negative'}`}>
             {
-                userId === comment.user ? (
+                userId && userId === comment.user ? (
                     <NavLink to='/app/profile' className="commentItem__image">
-                        <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="" />
+                        <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="user avatar" />
                     </NavLink>
                 ) : (
                     <div className="commentItem__image">
-                        <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="" />
+                        <img src={comment.avatar.data ? convertBuffer(comment.avatar.data.data) : defaultAva} alt="user avatar" />
                     </div>
                 )
             }
@@ -58,7 +58,7 @@ const CommentsTabItem: FC<CommentsTabItemType> = ({comment, deleteHandler, updat
             </div>
                 <div className="commentItem__settings centered-col">
                     {
-                        userId === comment.user ? (
+                        userId && userId === comment.user ? (
                             <div className="editComment">
                                 <Tooltip title="Змінити коментар" arrow>
                                     <button type="button" onClick={toggleEditModeHandler}><EditIcon /></button>
@@ -67,7 +67,7 @@ const CommentsTabItem: FC<CommentsTabItemType> = ({comment, deleteHandler, updat
                         ) : null
                     }
                     {
-                        userId === comment.user || permissions === 'admin' ? (
+                        (userId && userId === comment.user) || permissions === 'admin' ? (
                             <div className="deleteComment">
                                 <Tooltip title="Видалити коментар" arrow>
                                     <button type="button" onClick={() => deleteHandler(comment.user, comment.product)}><DeleteIcon /></button>
