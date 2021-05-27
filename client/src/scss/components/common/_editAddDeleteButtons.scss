@@ -1,0 +1,33 @@
+.addBtn,
+.editBtn,
+.deleteBtn {
+    svg {
+        width: 3rem;
+        height: 3rem;
+        &:active {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.addBtn:hover,
+.editBtn:hover {
+    svg {
+        fill: $secondary-color;
+    }
+}
+
+.deleteBtn:hover {
+    svg {
+        fill: $danger-color;
+    }
+}
+
+.addBtn:disabled,
+.editBtn:disabled,
+.deleteBtn:disabled {
+    opacity: 0.5;
+    svg {
+        fill: $additional-color;
+    }
+}
