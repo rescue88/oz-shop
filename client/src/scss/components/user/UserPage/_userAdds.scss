@@ -41,11 +41,11 @@
 
         .item {
             padding: 1rem 0;
-            height: 33rem;
+            height: 25rem;
             font-size: 1.6rem;
 
             &__image {
-                width: 30rem;
+                width: 25rem;
                 img {
                     max-height: 33rem;
                 }
@@ -55,22 +55,6 @@
                 margin-left: 5rem;
                 & > div:not(:last-child) {
                     margin-bottom: 2rem;
-                }
-            }
-
-            &__delete {
-                background: none;
-                cursor: pointer;
-                svg {
-                    width: 3rem;
-                    height: 3rem;
-                    transition: all .3s;
-                    &:hover {
-                        fill: $danger-color;
-                    }
-                    &:active {
-                        transform: scale(1.1);
-                    }
                 }
             }
         }
@@ -95,7 +79,7 @@
                 text-align: right;
                 margin-bottom: 2rem;
                 span {
-                    padding: .5rem 1rem;
+                    padding: 0.5rem 1rem;
                     background: $secondary-color;
                     color: black;
                 }

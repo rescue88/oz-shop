@@ -28,24 +28,9 @@
         &_content {
             flex-basis: 75%;
             padding: 0 2.5rem;
-
             .part1,
             .part2 {
                 font-size: 1.6rem;
-            }
-        }
-
-        &_settings {
-            div {
-                cursor: pointer;
-                svg {
-                    width: 3rem;
-                    height: 3rem;
-                    &:hover {
-                        fill: $secondary-color;
-                        transform: scale(1.1);
-                    }
-                }
             }
         }
     }

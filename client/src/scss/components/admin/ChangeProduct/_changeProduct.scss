@@ -1,6 +1,6 @@
 .changeProducts {
     .changeBlock__header_item,
-    .changeBlock__items_item > div {
+    .changeBlock__items_item > * {
         &:nth-child(1) {
             flex-basis: 17%;
             img {
