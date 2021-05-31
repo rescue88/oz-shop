@@ -29,7 +29,7 @@ const ChangeDiscountsItem: FC<ChangeDiscountsItemType> = ({discount, isFetching,
                 onClose={toggleOpenForm}
                 Content={
                     <AddUpdateDiscountForm 
-                        header="Оновити товар" 
+                        header="Оновити знижку" 
                         discount={discount} 
                         closeForm={toggleOpenForm} 
                     />

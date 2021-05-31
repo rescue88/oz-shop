@@ -10,7 +10,7 @@ const StatsNumbers: FC = () => {
             <div className="stats__numbers_item centered-col"><span>Діючі знижки</span><span>2</span> </div>
             <div className="stats__numbers_item centered-col"><span>Найбільша знижка</span><span>50%</span></div>
             <div className="stats__numbers_item centered-col"><span>Сума покупок</span><span>₴ 27000</span></div>
-            <div className="stats__numbers_item centered-col"><span>Профіт</span><span>₴ 5400</span></div>
+            <div className="stats__numbers_item centered-col"><span>Торгова націнка</span><span>₴ 5400</span></div>
         </div>
     );
 }

@@ -42,7 +42,7 @@ const ChangeDiscounts: FC = () => {
                 onClose={toggleOpenForm}
                 Content={
                     <AddUpdateDiscountForm 
-                        header="Оновити товар" 
+                        header="Додати знижку" 
                         closeForm={toggleOpenForm} 
                     />
                 }

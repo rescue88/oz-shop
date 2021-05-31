@@ -50,7 +50,7 @@ const AddUpdateRatingForm: React.FC<AddUpdateRatingFormType> = ({productId, rati
 
     return (
         <div className="ratingForm">
-            <div className="form__header">{rating ? 'Оновити товар' : header}</div>
+            <div className="form__header">{rating ? 'Змінити рейтинг товару' : header}</div>
             <hr />
             {
                 Object.keys(ratings).reverse().map(item => (
