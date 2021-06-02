@@ -25,7 +25,6 @@ const Navbar: FC = () => {
                 <div className="main-nav__section_menu">
                     <NavbarItem NavIcon={NavIcon} pageLink="delivery" pageName="Доставка та оплата" />
                     <NavbarItem NavIcon={NavIcon} pageLink="guarantee" pageName="Гарантія" />
-                    <NavbarItem NavIcon={NavIcon} pageLink="covid" pageName="Відповідь COVID-19" />
                 </div>
             </div>
         </nav>
