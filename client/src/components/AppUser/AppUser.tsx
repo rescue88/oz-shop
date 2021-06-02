@@ -12,6 +12,7 @@ import CartPage from './CartPage/CartPage';
 import DiscountPage from './DiscountPage/DiscountPage';
 import SingleProductPage from './SingleProductPage/SingleProductPage';
 import GuaranteePage from './GuaranteePage/GuaranteePage';
+import DeliveryPage from './DeliveryPage/DeliveryPage';
 
 const AppUser: FC<AppType> = ({isAuth}) => {
     return (
@@ -28,6 +29,7 @@ const AppUser: FC<AppType> = ({isAuth}) => {
                             <Route exact path="/app/discounts" render={() => <DiscountPage />} />
                             <Route path="/app/profile" render={() => <UserPage />} />
                             <Route path="/app/guarantee" render={() => <GuaranteePage />} />
+                            <Route path="/app/delivery" render={() => <DeliveryPage />} />
                             <Redirect exact to="/app" />
                         </Switch>
                     ) : (
@@ -38,6 +40,7 @@ const AppUser: FC<AppType> = ({isAuth}) => {
                             <Route exact path="/app/cart" render={() => <CartPage />} />
                             <Route exact path="/app/discounts" render={() => <DiscountPage />} />
                             <Route path="/app/guarantee" render={() => <GuaranteePage />} />
+                            <Route path="/app/delivery" render={() => <DeliveryPage />} />
                             <Route exact path="/app/login" render={() => <Login />} />
                             <Route exact path="/app/register" render={() => <Register />} />
                             <Redirect exact to="/app" />
