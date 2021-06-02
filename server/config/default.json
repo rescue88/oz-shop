@@ -1,6 +1,0 @@
-{
-    "port": 5000,
-    "mongoUri": "mongodb+srv://zgon:qwerty123@cluster0.i4d79.mongodb.net/OZshop?retryWrites=true&w=majority",
-    "jwtSecret": "OZshop",
-    "baseUrl": "http://localhost:5000"
-}
